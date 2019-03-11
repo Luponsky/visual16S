@@ -1,0 +1,54 @@
+#' Stacked bar plot of phylogenetic composition -------------------------------------------------------
+#' This is a function for stacked bar plot.
+#'
+#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
+#'                 phylogenetic tree.
+#' @param feature The feature that shows in x-axis text with different colors.
+#' @param level Which taxonomy level to plot.
+#' @export
+#' @examples
+#' stacked_bar_plot(Shaoyifu_phyloseq, feature = "diagnosis", level = "Order")
+
+stacked_bar_plot <- function(phyloseq, feature, level) {
+  ## Step 1: First construct otu then convert to percentage
+  otu_percent <- construct_otu_table(phyloseq, level) %>%
+    convert_to_percentage(row_sum = TRUE) %>%
+    as.data.frame()
+  ## Step 2: Construct table for stacked bar plot
+  plot_tab <- otu_percent %>%
+    # First re-order taxonomy by total counts
+    .[,order(colSums(.), decreasing = TRUE)] %>%
+    # Then re-order sample by the most abundance taxonomy
+    .[order(.[,1], decreasing = TRUE),] %>%
+    # Turn subject_id to a column
+    rownames_to_column(var = "subject_id")
+  # Prepare levels for subject_id
+  levels_subject_id <- plot_tab$subject_id
+  # Prepare levels for taxonomy levels
+  levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
+  ## Step 3: Join metadata
+  sample_feature <- extract_metadata_from_phyloseq(phyloseq, feature)
+  plot_tab <- left_join(plot_tab, sample_feature)
+  # Prepare levels for feature
+  levels_feature <- plot_tab[,ncol(plot_tab)]
+  # Add levels to subject_id
+  plot_tab$subject_id <- factor(plot_tab$subject_id, levels = levels_subject_id)
+  ## Step 4: Turn plot_table to a long table for plotting
+  plot_tab <- gather(plot_tab,
+                     colnames(plot_tab)[2:(ncol(plot_tab)-1)],
+                     key = level,
+                     value = "abundance")
+  # Add levels to taxonomy levels
+  plot_tab$level <- factor(plot_tab$level, levels = levels_level)
+  ## Step 5: Bar plot
+  if (length(levels_level) >= 74) {
+    stop("Taxonomy values are more than 74, not enough distinctive colors to plot. Please choose another level.")
+  } else {
+    ggplot(plot_tab, aes(x = subject_id, y = abundance)) +
+      theme(axis.text.x = element_text(angle = 90, size = 8, color = levels_feature)) +
+      scale_fill_manual(values = distinctive_colors) +
+      geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
+      # move legend position to the top
+      theme(legend.position = "top")
+  }
+}

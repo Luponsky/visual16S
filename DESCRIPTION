@@ -1,0 +1,42 @@
+Package: Xbiome16SVisualization
+Title: Visualization functions for Xbiome 16S pipeline
+Version: 1.0
+Authors@R: person("Guanhua", "Ye", email = "yeguanhua@xbiome.cn", role = c("aut", "cre"))
+Description: 
+    This is a package for Xbiome 16S visualization. Including dada2 reads track, stacked bar plot, 
+    alpha diversity, beta diversity and log2 fold change.
+Depends: 
+    R (>= 3.5.0), 
+    readxl,
+    dada2,
+    phyloseq,
+    RColorBrewer,
+    seqinr,
+    ggpubr,
+    DESeq2,
+    EnhancedVolcano,
+    tidyr,
+    ggplot2,
+    readr,
+    dplyr,
+    tibble,
+    stringr
+Imports: 
+    readxl,
+    dada2,
+    phyloseq,
+    RColorBrewer,
+    seqinr,
+    ggpubr,
+    DESeq2,
+    EnhancedVolcano,
+    tidyr,
+    ggplot2,
+    readr,
+    dplyr,
+    tibble,
+    stringr
+License: Xbiome Biotech Co., Ltd.
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

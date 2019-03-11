@@ -1,0 +1,59 @@
+#' Alpha diversity ------------------------------------------------------------------------------------
+#' This is a function for plotting alpha diversity.
+#'
+#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
+#'                 phylogenetic tree.
+#' @param feature The column name of the feature you want to select from metadata, e.g. "Phenotype".
+#' @param measures The measures to calculate alpha diversity, measures should be one of "Observed",
+#'                 "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".
+#' @param p_test The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".
+#' @export
+#' @examples
+#' alpha_diversity_plot(Shaoyifu_phyloseq, feature = "diagnosis",
+#'                      measures = "Chao1", p_test = "kruskal")
+
+alpha_diversity_plot <- function(phyloseq, feature, measures, p_test = "wilcox"){
+  ## Step 1: Use plot_richness function to calculate alpha diversity
+  if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")) {
+    stop('measures should be one of "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".')
+  } else {
+    alpha_diversity <- plot_richness(phyloseq, x = feature, measures = measures)
+  }
+  ## Step 2: Calculate p-value
+  if (p_test == "wilcox") {
+    # Prepare feature table for calculating Mann-Whitney U test(for 2 groups only)
+    feature_tab_4_MWtest <- extract_metadata_from_phyloseq(phyloseq, feature)
+    # Extract feature levels
+    feature1 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[1]
+    feature2 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[2]
+    replace_feature <- c(as.character(feature1), as.character(feature2))
+    # Revalue feature levels as 0 and 1
+    feature_tab_4_MWtest[[feature]] <- plyr::mapvalues(feature_tab_4_MWtest[[feature]],
+                                                       from = replace_feature,
+                                                       to = c(0, 1))
+    p_value <- wilcox.test(alpha_diversity$data$value ~
+                             feature_tab_4_MWtest[[feature]])$p.value
+  } else if (p_test == "kruskal") {
+    # Kruskal test(for 2 or more groups)
+    p_value <- kruskal.test(alpha_diversity$data$value,
+                            factor(alpha_diversity$data[,feature]))$p.value
+  } else {
+    stop("The input p_test is not supported")
+  }
+  ## Step 3: Plot alpha diversity
+  require(ggpubr)
+  ggboxplot(alpha_diversity$data,
+            x = feature,
+            y = "value",
+            add = "jitter",
+            add.params = list(size = 3),
+            color = feature,
+            outlier.shape = NA,
+            palette = c("#00AFBB", "#FC4E07", "#7FC97F", "#BEAED4")) +
+    ylab(paste0(measures, " Diversity")) +
+    annotate("text",
+             x = ((alpha_diversity$data[[feature]] %>% unique() %>% length() + 1)/2),
+             y = (max(alpha_diversity$data$value) * 1.1),
+             label = paste0(p_test, " p-value = ", round(p_value, 4)),
+             size = 3)
+}
