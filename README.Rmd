@@ -8,10 +8,14 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width=10, fig.height=6)
 ```
 
-# Install 16S-analysis-visualization and load package
+# Install and load package
+
 Note: 
-You need to run install from the parent working directory that contains the Xbiome16SVisualization folder.
-If you are having trouble installing Xbiome16SVisualization package, try to open 16S-analysis-visualization.Rproj first, then use RStudio → Build → Install and Restart.
+
+You need to run install from the parent working directory that contains the 16S-analysis-visualization folder.
+
+If you are can't install visualization416S package in R Console, try this: open 16S-analysis-visualization.Rproj first, then use RStudio → Build → Install and Restart.
+
 ```{r install, eval=FALSE}
 devtools::install('16S-analysis-visualization')
 ```
