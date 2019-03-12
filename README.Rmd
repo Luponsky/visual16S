@@ -9,9 +9,10 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width=1
 ```
 
 # Install 16S-analysis-visualization and load package
+Note: You need to run install from the parent working directory that contains the 16S-analysis-visualization folder.
 ```{r install}
 rm(list = ls())
-devtools::install_github("yeguanhuav/16S-analysis-visualization")
+devtools::install("16S-analysis-visualization")
 library(Visualization416S)
 demoPhyloseq <- Visualization416S::Shaoyifu_phyloseq #This is a sample phyloseq object.
 demoDADA2res <- Visualization416S::Shaoyifu_dada2_result #This is a sample dada2 result.
