@@ -1,5 +1,5 @@
 ---
-title: "16S-analysis-visualization demo"
+title: "visualization416S package demo"
 author: "yeguanhua"
 output: github_document
 ---
@@ -9,57 +9,62 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width=1
 ```
 
 # Install 16S-analysis-visualization and load package
-Note: You need to run install from the parent working directory that contains the 16S-analysis-visualization folder.
-```{r install}
+Note: 
+You need to run install from the parent working directory that contains the Xbiome16SVisualization folder.
+If you are having trouble installing Xbiome16SVisualization package, try to open 16S-analysis-visualization.Rproj first, then use RStudio → Build → Install and Restart.
+```{r install, eval=FALSE}
+devtools::install('16S-analysis-visualization')
+```
+```{r load}
 rm(list = ls())
-devtools::install("16S-analysis-visualization")
-library(Visualization416S)
-demoPhyloseq <- Visualization416S::Shaoyifu_phyloseq #This is a sample phyloseq object.
-demoDADA2res <- Visualization416S::Shaoyifu_dada2_result #This is a sample dada2 result.
+library(visualization416S)
+demoPhyloseq <- visualization416S::demo_phyloseq_object
+demoDADA2res <- visualization416S::demo_dada2_result
 ```
 
 # Data status
 1. Primer: 
 CCTAYGGGRBGCASCAG ; GGACTACNNGGGTATCTAAT
 
-2. Filter parameters: 
+2. DADA2 filter parameters: 
 dada2::filterAndTrim(truncLen=c(0,0), maxEE=c(2,2))
 
-3. Taxonomy database: 
+3. DADA2 taxonomy database: 
 silva_nr_v132
 
 4. Metadata: 
 ```{r matadata, echo=FALSE}
-metadata <- extract_metadata_from_phyloseq(demoPhyloseq)
+metadata <- visualization416S::extract_metadata_from_phyloseq(demoPhyloseq)
 knitr::kable(metadata, format="markdown")
 ```
 
-# Track reads through dada2 workflow
-First use the reads track function to make sure there is no over-large drop associated with any single step in dada2.
+# Track reads through DADA2 workflow
+First use the reads track function to make sure there is no over-large drop associated with any single step in DADA2.
 ```{r reads track, fig.height=10, fig.width=10}
-Visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
+visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
 ```
 
 # Stacked bar plot of phylogenetic composition
 ### Order level
 ```{r Stacked bar plot, fig.height=10, fig.width=10}
-stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
+visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
 ```
 
 # Alpha diversity
 ### Chao1
 ```{r Chao1}
-alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
-                     measures = "Chao1", p_test = "kruskal")
+visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
+                                        measures = "Chao1", p_test = "kruskal")
 ```
 
 # Beta diversity
 ### Bray-Curtis
 ```{r Bray-Curtis}
-beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", method = "bray")
+visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
+                                       method = "bray")
 ```
 
 # Log2 fold change
 ```{r log2fc}
-log2fc(phyloseq = demoPhyloseq, feature = "diagnosis")
+visualization416S::log2fc(phyloseq = demoPhyloseq, feature = "diagnosis")
 ```

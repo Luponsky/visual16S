@@ -1,4 +1,4 @@
-Package: Visualization416S
+Package: visualization416S
 Title: Visualization functions for 16S analysis
 Version: 1.0
 Authors@R: person("Guanhua", "Ye", email = "yeguanhuav@foxmail.com", role = c("aut", "cre"))
@@ -6,7 +6,7 @@ Description:
     This is a package for 16S visualization. Including dada2 reads track, stacked bar plot, 
     alpha diversity, beta diversity and log2 fold change.
 Depends: 
-    R, 
+    R (>= 3.5.0), 
     readxl,
     dada2,
     phyloseq,
@@ -21,7 +21,7 @@ Depends:
     dplyr,
     tibble,
     stringr
-Imports: 
+Import: 
     readxl,
     dada2,
     phyloseq,
