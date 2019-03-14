@@ -1,4 +1,5 @@
-#' Stacked bar plot of phylogenetic composition -------------------------------------------------------
+#' stacked_bar_plot
+#'
 #' This is a function for stacked bar plot.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and

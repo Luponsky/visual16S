@@ -1,4 +1,5 @@
-#' Convert to percentage ------------------------------------------------------------------------------
+#' convert_to_percentage
+#'
 #' convert_to_percentage can convert a data frame to percentage.
 #'
 #' @param df a input data frame.

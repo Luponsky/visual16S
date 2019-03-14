@@ -1,4 +1,5 @@
-#' Alpha diversity ------------------------------------------------------------------------------------
+#' alpha_diversity_plot
+#'
 #' This is a function for plotting alpha diversity.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and

@@ -2,8 +2,7 @@
 % Please edit documentation in R/construct_otu_table.R
 \name{construct_otu_table}
 \alias{construct_otu_table}
-\title{Construct OTU table from phyloseq object -----------------------------------------------------------
-construct_otu_table can construct a OTU table with a phyloseq object.}
+\title{construct_otu_table}
 \usage{
 construct_otu_table(phyloseq, level = "all")
 }
@@ -17,7 +16,6 @@ drop everything else. Level name should be one of "all", "Kingdom", "Phylum", "C
 "Order", "Family", "Genus", "Species".}
 }
 \description{
-Construct OTU table from phyloseq object -----------------------------------------------------------
 construct_otu_table can construct a OTU table with a phyloseq object.
 }
 \examples{

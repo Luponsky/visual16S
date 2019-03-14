@@ -2,8 +2,7 @@
 % Please edit documentation in R/stacked_bar_plot.R
 \name{stacked_bar_plot}
 \alias{stacked_bar_plot}
-\title{Stacked bar plot of phylogenetic composition -------------------------------------------------------
-This is a function for stacked bar plot.}
+\title{stacked_bar_plot}
 \usage{
 stacked_bar_plot(phyloseq, feature, level)
 }
@@ -16,7 +15,6 @@ phylogenetic tree.}
 \item{level}{Which taxonomy level to plot.}
 }
 \description{
-Stacked bar plot of phylogenetic composition -------------------------------------------------------
 This is a function for stacked bar plot.
 }
 \examples{

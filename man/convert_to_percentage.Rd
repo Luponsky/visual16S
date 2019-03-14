@@ -2,8 +2,7 @@
 % Please edit documentation in R/convert_to_percentage.R
 \name{convert_to_percentage}
 \alias{convert_to_percentage}
-\title{Convert to percentage ------------------------------------------------------------------------------
-convert_to_percentage can convert a data frame to percentage.}
+\title{convert_to_percentage}
 \usage{
 convert_to_percentage(df, row_sum = TRUE)
 }
@@ -16,7 +15,6 @@ will take every value of a column and divide by the summary of this column, and 
 this to every column.}
 }
 \description{
-Convert to percentage ------------------------------------------------------------------------------
 convert_to_percentage can convert a data frame to percentage.
 }
 \examples{

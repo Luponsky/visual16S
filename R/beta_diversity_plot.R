@@ -1,4 +1,5 @@
-#' Beta diversity -------------------------------------------------------------------------------------
+#' beta_diversity_plot
+#'
 #' This is a function for plotting beta diversity.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and

@@ -55,7 +55,7 @@ Data status
 Track reads through DADA2 workflow
 ==================================
 
-First use the reads track function to make sure there is no over-large drop associated with any single step in DADA2.
+First use the dada2_reads_track function to check reads drop associated with every step in DADA2.
 
 ``` r
 visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
@@ -65,6 +65,8 @@ visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALS
 
 Stacked bar plot of phylogenetic composition
 ============================================
+
+Use stacked_bar_plot function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
 ### Order level
 
@@ -76,6 +78,8 @@ visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", f
 
 Alpha diversity
 ===============
+
+Use alpha_diversity_plot to plot alpha diversity. Change 'measures' argument to use different measurement.
 
 ### Chao1
 
@@ -89,6 +93,8 @@ visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diag
 Beta diversity
 ==============
 
+Use beta_diversity_plot to plot beta diversity. Change method to draw different beta diversity plot.
+
 ### Bray-Curtis
 
 ``` r
@@ -100,6 +106,8 @@ visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagn
 
 Log2 fold change
 ================
+
+Use log2fc function to show differential analysis result. 
 
 ``` r
 visualization416S::log2fc(phyloseq = demoPhyloseq, feature = "diagnosis")

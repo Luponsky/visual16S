@@ -3,11 +3,7 @@
 \name{dada2_reads_track}
 \alias{dada2_reads_track}
 \title{Track reads through pipeline -----------------------------------------------------------------------
-dada2_reads_track can track the reads count in a dada2 workflow result which created by Xbiome 16S
-pipeline. Xbiome 16S pipeline dada2 workflow will generate a list that contain sequence table,
-taxonomy table and reads track data frame. Input the reads track data frame and read type, this
-function can draw a line plot of reads track of every sample. X-axis will be every stage in dada2
-workflow, Y-axis will be the reads counts.}
+dada2_reads_track}
 \usage{
 dada2_reads_track(track, single_end = FALSE)
 }
@@ -20,7 +16,6 @@ single_end == FALSE, means the sequence files are paired end, the x-axis will
 contain 'input', 'filtered', 'denoisedF', 'denoisedR', 'merged', 'nonchim'.}
 }
 \description{
-Track reads through pipeline -----------------------------------------------------------------------
 dada2_reads_track can track the reads count in a dada2 workflow result which created by Xbiome 16S
 pipeline. Xbiome 16S pipeline dada2 workflow will generate a list that contain sequence table,
 taxonomy table and reads track data frame. Input the reads track data frame and read type, this

@@ -2,10 +2,7 @@
 % Please edit documentation in R/construct_lefse_table.R
 \name{construct_lefse_table}
 \alias{construct_lefse_table}
-\title{Construct LEfSe OTU table --------------------------------------------------------------------------
-construct_lefse_table can construct a LEfSe-format OTU table.
-See http://huttenhower.sph.harvard.edu/galaxy/ -> LEfSe -> Format Data for LEfSe
-for more details.}
+\title{construct_lefse_table}
 \usage{
 construct_lefse_table(phyloseq, feature, level = "all")
 }
@@ -22,7 +19,6 @@ everything else. Level name should be one of "all", "Kingdom", "Phylum", "Class"
 "Order", "Family", "Genus", "Species". Taxonomy will be seperated by "|".}
 }
 \description{
-Construct LEfSe OTU table --------------------------------------------------------------------------
 construct_lefse_table can construct a LEfSe-format OTU table.
 See http://huttenhower.sph.harvard.edu/galaxy/ -> LEfSe -> Format Data for LEfSe
 for more details.

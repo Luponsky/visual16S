@@ -2,8 +2,7 @@
 % Please edit documentation in R/alpha_diversity_plot.R
 \name{alpha_diversity_plot}
 \alias{alpha_diversity_plot}
-\title{Alpha diversity ------------------------------------------------------------------------------------
-This is a function for plotting alpha diversity.}
+\title{alpha_diversity_plot}
 \usage{
 alpha_diversity_plot(phyloseq, feature, measures, p_test = "wilcox")
 }
@@ -19,7 +18,6 @@ phylogenetic tree.}
 \item{p_test}{The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".}
 }
 \description{
-Alpha diversity ------------------------------------------------------------------------------------
 This is a function for plotting alpha diversity.
 }
 \examples{

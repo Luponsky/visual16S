@@ -1,4 +1,6 @@
 #' Track reads through pipeline -----------------------------------------------------------------------
+#' dada2_reads_track
+#'
 #' dada2_reads_track can track the reads count in a dada2 workflow result which created by Xbiome 16S
 #' pipeline. Xbiome 16S pipeline dada2 workflow will generate a list that contain sequence table,
 #' taxonomy table and reads track data frame. Input the reads track data frame and read type, this

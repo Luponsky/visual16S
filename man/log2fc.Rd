@@ -2,8 +2,7 @@
 % Please edit documentation in R/log2fc.R
 \name{log2fc}
 \alias{log2fc}
-\title{Log2 Fold Change -----------------------------------------------------------------------------------
-This is a function for plotting log2 fold change.}
+\title{log2fc}
 \usage{
 log2fc(phyloseq, feature, level = NA, p_value = 0.01, size = 2,
   save_res = FALSE)
@@ -26,7 +25,6 @@ fold change.}
 directory.}
 }
 \description{
-Log2 Fold Change -----------------------------------------------------------------------------------
 This is a function for plotting log2 fold change.
 }
 \examples{

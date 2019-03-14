@@ -1,4 +1,5 @@
-#' Extract phyloseq sample data -----------------------------------------------------------------------
+#' extract_metadata_from_phyloseq
+#'
 #' extract_metadata_from_phyloseq can extract metadata from a phyloseq object. First, the function
 #' will extract metadata from phyloseq object using phyloseq::sample_data, and turn it into a tibble
 #' which will turn rownames into a column name 'subject_id'. If feature parameter is given, then will

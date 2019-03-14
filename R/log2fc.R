@@ -1,4 +1,5 @@
-#' Log2 Fold Change -----------------------------------------------------------------------------------
+#' log2fc
+#'
 #' This is a function for plotting log2 fold change.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and

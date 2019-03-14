@@ -1,4 +1,5 @@
-#' Construct OTU table from phyloseq object -----------------------------------------------------------
+#' construct_otu_table
+#'
 #' construct_otu_table can construct a OTU table with a phyloseq object.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and

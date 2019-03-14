@@ -2,11 +2,7 @@
 % Please edit documentation in R/extract_metadata_from_phyloseq.R
 \name{extract_metadata_from_phyloseq}
 \alias{extract_metadata_from_phyloseq}
-\title{Extract phyloseq sample data -----------------------------------------------------------------------
-extract_metadata_from_phyloseq can extract metadata from a phyloseq object. First, the function
-will extract metadata from phyloseq object using phyloseq::sample_data, and turn it into a tibble
-which will turn rownames into a column name 'subject_id'. If feature parameter is given, then will
-select subject_id and feature column, and add levels to the selected feature column.}
+\title{extract_metadata_from_phyloseq}
 \usage{
 extract_metadata_from_phyloseq(phyloseq, feature = NA)
 }
@@ -18,7 +14,6 @@ phylogenetic tree.}
 the complete metadata, else will return subject id and feature column that's given.}
 }
 \description{
-Extract phyloseq sample data -----------------------------------------------------------------------
 extract_metadata_from_phyloseq can extract metadata from a phyloseq object. First, the function
 will extract metadata from phyloseq object using phyloseq::sample_data, and turn it into a tibble
 which will turn rownames into a column name 'subject_id'. If feature parameter is given, then will

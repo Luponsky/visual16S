@@ -1,4 +1,5 @@
-#' Construct LEfSe OTU table --------------------------------------------------------------------------
+#' construct_lefse_table
+#'
 #' construct_lefse_table can construct a LEfSe-format OTU table.
 #' See http://huttenhower.sph.harvard.edu/galaxy/ -> LEfSe -> Format Data for LEfSe
 #' for more details.

@@ -2,8 +2,7 @@
 % Please edit documentation in R/beta_diversity_plot.R
 \name{beta_diversity_plot}
 \alias{beta_diversity_plot}
-\title{Beta diversity -------------------------------------------------------------------------------------
-This is a function for plotting beta diversity.}
+\title{beta_diversity_plot}
 \usage{
 beta_diversity_plot(phyloseq, feature, feature2 = NA, method, size = 3)
 }
@@ -22,7 +21,6 @@ Default is NA.}
 \item{size}{The size of the plot. Default is 3.}
 }
 \description{
-Beta diversity -------------------------------------------------------------------------------------
 This is a function for plotting beta diversity.
 }
 \examples{
