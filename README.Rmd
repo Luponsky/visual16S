@@ -30,16 +30,21 @@ demoDADA2res <- visualization416S::demo_dada2_result
 ```
 
 # Data status
+
 1. Primer: 
+
 CCTAYGGGRBGCASCAG ; GGACTACNNGGGTATCTAAT
 
 2. DADA2 filter parameters: 
+
 dada2::filterAndTrim(truncLen=c(0,0), maxEE=c(2,2))
 
 3. DADA2 taxonomy database: 
+
 silva_nr_v132
 
 4. Metadata: 
+
 ```{r matadata, echo=FALSE}
 metadata <- visualization416S::extract_metadata_from_phyloseq(demoPhyloseq) %>% 
   arrange(diagnosis)
@@ -47,36 +52,49 @@ knitr::kable(metadata, format="markdown")
 ```
 
 # Track reads through DADA2 workflow
+
 First use the dada2_reads_track function to check reads drop associated with every step in DADA2.
+
 ```{r reads track, fig.height=10, fig.width=10}
 visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
 ```
 
 # Stacked bar plot of phylogenetic composition
+
 Use stacked_bar_plot function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
+
 ### Order level
+
 ```{r Stacked bar plot, fig.height=10, fig.width=10}
 visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
 ```
 
 # Alpha diversity
+
 Use alpha_diversity_plot to plot alpha diversity. Change 'measures' argument to use different measurement.
+
 ### Chao1
+
 ```{r Chao1}
 visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
                                         measures = "Chao1", p_test = "kruskal")
 ```
 
 # Beta diversity
+
 Use beta_diversity_plot to plot beta diversity. Change method to draw different beta diversity plot.
+
 ### Bray-Curtis
+
 ```{r Bray-Curtis}
 visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
                                        method = "bray")
 ```
 
 # Log2 fold change
+
 Use log2fc function to show differential analysis result.
+
 ```{r log2fc}
 visualization416S::log2fc(phyloseq = demoPhyloseq, feature = "diagnosis")
 ```

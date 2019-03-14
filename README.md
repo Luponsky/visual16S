@@ -27,13 +27,19 @@ demoDADA2res <- visualization416S::demo_dada2_result
 Data status
 ===========
 
-1.  Primer: CCTAYGGGRBGCASCAG ; GGACTACNNGGGTATCTAAT
+1.  Primer:
 
-2.  DADA2 filter parameters: dada2::filterAndTrim(truncLen=c(0,0), maxEE=c(2,2))
+CCTAYGGGRBGCASCAG ; GGACTACNNGGGTATCTAAT
 
-3.  DADA2 taxonomy database: silva\_nr\_v132
+1.  DADA2 filter parameters:
 
-4.  Metadata:
+dada2::filterAndTrim(truncLen=c(0,0), maxEE=c(2,2))
+
+1.  DADA2 taxonomy database:
+
+silva\_nr\_v132
+
+1.  Metadata:
 
 | subject\_id | diagnosis         |
 |:------------|:------------------|
@@ -68,7 +74,9 @@ visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALS
 Stacked bar plot of phylogenetic composition
 ============================================
 
-Use stacked\_bar\_plot function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis. \#\#\# Order level
+Use stacked\_bar\_plot function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
+
+### Order level
 
 ``` r
 visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
@@ -79,7 +87,9 @@ visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", f
 Alpha diversity
 ===============
 
-Use alpha\_diversity\_plot to plot alpha diversity. Change 'measures' argument to use different measurement. \#\#\# Chao1
+Use alpha\_diversity\_plot to plot alpha diversity. Change 'measures' argument to use different measurement.
+
+### Chao1
 
 ``` r
 visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
@@ -91,7 +101,9 @@ visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diag
 Beta diversity
 ==============
 
-Use beta\_diversity\_plot to plot beta diversity. Change method to draw different beta diversity plot. \#\#\# Bray-Curtis
+Use beta\_diversity\_plot to plot beta diversity. Change method to draw different beta diversity plot.
+
+### Bray-Curtis
 
 ``` r
 visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
