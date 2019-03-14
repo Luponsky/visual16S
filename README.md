@@ -7,9 +7,9 @@ Install and load package
 
 Note:
 
-You need to run install from the parent working directory that contains the 16S-analysis-visualization folder.
+You need to run install from the parent working directory that contains the visualization416S folder.
 
-If you are can't install package in R Console, try this: open 16S-analysis-visualization.Rproj first, then use RStudio → Build → Install and Restart.
+If you are can't install package in R Console, try this: open visualization416S.Rproj first, then use RStudio → Build → Install and Restart.
 
 ``` r
 devtools::install('visualization416S')
