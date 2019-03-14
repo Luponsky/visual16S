@@ -27,19 +27,19 @@ demoDADA2res <- visualization416S::demo_dada2_result
 Data status
 ===========
 
-1.  Primer:
+Primer:
 
 CCTAYGGGRBGCASCAG ; GGACTACNNGGGTATCTAAT
 
-1.  DADA2 filter parameters:
+DADA2 filter parameters:
 
 dada2::filterAndTrim(truncLen=c(0,0), maxEE=c(2,2))
 
-1.  DADA2 taxonomy database:
+DADA2 taxonomy database:
 
 silva\_nr\_v132
 
-1.  Metadata:
+Metadata:
 
 | subject\_id | diagnosis         |
 |:------------|:------------------|
