@@ -61,7 +61,7 @@ First use the reads track function to make sure there is no over-large drop asso
 visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
 ```
 
-![](README_files/figure-markdown_github/reads%20track-1.png)
+![](README_files/figure-markdown_github/reads_track-1.png)
 
 Stacked bar plot of phylogenetic composition
 ============================================
@@ -72,7 +72,7 @@ Stacked bar plot of phylogenetic composition
 visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
 ```
 
-![](README_files/figure-markdown_github/Stacked%20bar%20plot-1.png)
+![](README_files/figure-markdown_github/Stacked_bar_plot-1.png)
 
 Alpha diversity
 ===============

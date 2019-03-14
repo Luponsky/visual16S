@@ -30,6 +30,7 @@ construct_otu_table <- function(phyloseq, level = "all") {
   ## Step 2: Construct OTU table
   if (level == "all") {
     # If level == "all", collapse all taxonomy levels and separate by "|"
+    level <- "Taxonomy"
     taxa <- taxa %>% unite(Taxonomy, 2:ncol(taxa), sep = ";")
   } else {
     # If level != "all", select the given taxonomy level
