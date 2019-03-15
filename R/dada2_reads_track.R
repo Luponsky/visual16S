@@ -32,6 +32,13 @@ dada2_reads_track <- function(track, single_end = FALSE) {
     scale_color_manual(values = distinctive_colors) +
     geom_point() +
     geom_line(aes(group = subject_id)) +
-    # move legend position to the top
-    theme(legend.position = "top")
+    theme_bw() + 
+    theme(panel.grid = element_blank(),
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14),
+          axis.text.x = element_text(size = 12),
+          strip.text.x = element_text(size = 14), 
+          # move legend position to the top
+          legend.position = "top"
+          )
 }

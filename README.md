@@ -27,19 +27,19 @@ demoDADA2res <- visualization416S::demo_dada2_result
 Data status
 ===========
 
-Primer:
+1.  Primer:
 
 CCTAYGGGRBGCASCAG ; GGACTACNNGGGTATCTAAT
 
-DADA2 filter parameters:
+1.  DADA2 filter parameters:
 
 dada2::filterAndTrim(truncLen=c(0,0), maxEE=c(2,2))
 
-DADA2 taxonomy database:
+1.  DADA2 taxonomy database:
 
 silva\_nr\_v132
 
-Metadata:
+1.  Metadata:
 
 | subject\_id | diagnosis         |
 |:------------|:------------------|
@@ -92,8 +92,8 @@ Use alpha\_diversity\_plot to plot alpha diversity. Change 'measures' argument t
 ### Chao1
 
 ``` r
-visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
-                                        measures = "Chao1", p_test = "kruskal")
+visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", measures = "Chao1", 
+                           p_test = "kruskal")
 ```
 
 ![](README_files/figure-markdown_github/Chao1-1.png)
@@ -106,8 +106,7 @@ Use beta\_diversity\_plot to plot beta diversity. Change method to draw differen
 ### Bray-Curtis
 
 ``` r
-visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
-                                       method = "bray")
+visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", method = "bray")
 ```
 
 ![](README_files/figure-markdown_github/Bray-Curtis-1.png)

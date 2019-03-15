@@ -13,7 +13,7 @@
 #' alpha_diversity_plot(Shaoyifu_phyloseq, feature = "diagnosis",
 #'                      measures = "Chao1", p_test = "kruskal")
 
-alpha_diversity_plot <- function(phyloseq, feature, measures, p_test = "wilcox"){
+alpha_diversity_plot <- function (phyloseq, feature, measures, p_test = "wilcox") {
   ## Step 1: Use plot_richness function to calculate alpha diversity
   if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")) {
     stop('measures should be one of "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".')
@@ -42,19 +42,22 @@ alpha_diversity_plot <- function(phyloseq, feature, measures, p_test = "wilcox")
     stop("The input p_test is not supported")
   }
   ## Step 3: Plot alpha diversity
-  require(ggpubr)
-  ggboxplot(alpha_diversity$data,
-            x = feature,
-            y = "value",
-            add = "jitter",
-            add.params = list(size = 3),
-            color = feature,
-            outlier.shape = NA,
-            palette = c("#00AFBB", "#FC4E07", "#7FC97F", "#BEAED4")) +
+  y <- "value"
+  p <- ggplot(alpha_diversity$data, aes_string(x = feature, y = y, color = feature)) + 
+    geom_boxplot() + 
+    geom_jitter(size = 3) +
     ylab(paste0(measures, " Diversity")) +
     annotate("text",
              x = ((alpha_diversity$data[[feature]] %>% unique() %>% length() + 1)/2),
              y = (max(alpha_diversity$data$value) * 1.1),
              label = paste0(p_test, " p-value = ", round(p_value, 4)),
-             size = 3)
+             size = 3) + 
+    theme_bw() + 
+    theme(panel.grid = element_blank(),
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14),
+          axis.text.x = element_text(size = 12),
+          legend.text = element_text(size = 12),
+          strip.text.x = element_text(size = 14))
+  p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
 }
