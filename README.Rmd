@@ -76,8 +76,8 @@ Use alpha_diversity_plot to plot alpha diversity. Change 'measures' argument to 
 ### Chao1
 
 ```{r Chao1}
-visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", measures = "Chao1", 
-                           p_test = "kruskal")
+visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", 
+                                        measures = "Chao1", p_test = "kruskal")
 ```
 
 # Beta diversity
