@@ -1,4 +1,3 @@
-#' Track reads through pipeline -----------------------------------------------------------------------
 #' dada2_reads_track
 #'
 #' dada2_reads_track can track the reads count in a dada2 workflow result which created by Xbiome 16S
@@ -8,7 +7,7 @@
 #' workflow, Y-axis will be the reads counts.
 #'
 #' @param track The reads track data frame from Xbiome 16S pipeline dada2 workflow result.
-#' @param single_end Default is FALSE If single_end == TRUE, means the sequence files are single end,
+#' @param single_end Default is FALSE. If single_end == TRUE, means the sequence files are single end,
 #'                   the x-axis will contain 'input', 'filtered', 'dereplicated', 'nonchim'. If
 #'                   single_end == FALSE, means the sequence files are paired end, the x-axis will
 #'                   contain 'input', 'filtered', 'denoisedF', 'denoisedR', 'merged', 'nonchim'.

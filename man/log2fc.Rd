@@ -19,10 +19,8 @@ fold change.}
 
 \item{p_value}{The cut off P value for the fold change. Default is 0.01.}
 
-\item{size}{The size of the plot. Default is 2.}
-
-\item{save_res}{Default is FALSE. If TRUE, will save original DESeq result to current working
-directory.}
+\item{save_res}{Default is FALSE. If TRUE, will save original result DESeq2_result.rds to current 
+working directory.}
 }
 \description{
 This is a function for plotting log2 fold change.

@@ -10,9 +10,8 @@
 #'              fold change.
 #'
 #' @param p_value The cut off P value for the fold change. Default is 0.01.
-#' @param size The size of the plot. Default is 2.
-#' @param save_res Default is FALSE. If TRUE, will save original DESeq result to current working
-#'                 directory.
+#' @param save_res Default is FALSE. If TRUE, will save original result DESeq2_result.rds to current 
+#'                 working directory.
 #' @export
 #' @examples
 #' log2fc(Shaoyifu_phyloseq, feature = "diagnosis", level = "Genus")
@@ -38,8 +37,8 @@ log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, size = 2, save
   res <- res[order(res$padj),]
   if (save_res) {
     # save res object to current working directory
-    saveRDS(res, paste0('DESeq2_res_', Sys.Date(), ".rds"))
-    print('The DESeq result has been saved to current working directory.')
+    saveRDS(res, "DESeq2_result.rds")
+    print('DESeq2_result.rds has been saved to current working directory.')
   }
   ## Step 3: Plot fold change
   # Create table for plotting

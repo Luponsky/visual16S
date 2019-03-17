@@ -17,8 +17,6 @@ show in different shape, e.g. "Gender". Default is NA.}
 
 \item{method}{The method to calculate beta diversity. Method should be one of "bray", "jaccard",
 "unifrac", "wunifrac".}
-
-\item{size}{The size of the plot. Default is 3.}
 }
 \description{
 This is a function for plotting beta diversity.

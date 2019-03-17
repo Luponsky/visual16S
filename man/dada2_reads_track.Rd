@@ -2,15 +2,14 @@
 % Please edit documentation in R/dada2_reads_track.R
 \name{dada2_reads_track}
 \alias{dada2_reads_track}
-\title{Track reads through pipeline -----------------------------------------------------------------------
-dada2_reads_track}
+\title{dada2_reads_track}
 \usage{
 dada2_reads_track(track, single_end = FALSE)
 }
 \arguments{
 \item{track}{The reads track data frame from Xbiome 16S pipeline dada2 workflow result.}
 
-\item{single_end}{Default is FALSE If single_end == TRUE, means the sequence files are single end,
+\item{single_end}{Default is FALSE. If single_end == TRUE, means the sequence files are single end,
 the x-axis will contain 'input', 'filtered', 'dereplicated', 'nonchim'. If
 single_end == FALSE, means the sequence files are paired end, the x-axis will
 contain 'input', 'filtered', 'denoisedF', 'denoisedR', 'merged', 'nonchim'.}

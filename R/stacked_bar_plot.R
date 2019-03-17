@@ -45,18 +45,17 @@ stacked_bar_plot <- function(phyloseq, feature, level) {
   if (length(levels_level) >= 74) {
     stop("Taxonomy values are more than 74, not enough distinctive colors to plot. Please choose another level.")
   } else {
-    p <- ggplot(plot_tab, aes(x = subject_id, y = abundance)) + 
+    ggplot(plot_tab, aes(x = subject_id, y = abundance)) + 
       scale_fill_manual(values = distinctive_colors) +
       geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
       theme_bw() + 
       theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 12, color = levels_feature),
+            axis.text.y = element_text(size = 12),
             axis.title = element_text(size = 14),
-            axis.text.x = element_text(size = 12), 
+            axis.text.x = element_text(size = 12, angle = 90, color = levels_feature), 
             strip.text.x = element_text(size = 14), 
             # move legend position to the top
             legend.position = "top"
       )
-    p + coord_flip()
   }
 }

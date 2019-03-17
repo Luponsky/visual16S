@@ -9,7 +9,6 @@
 #'                 show in different shape, e.g. "Gender". Default is NA.
 #' @param method The method to calculate beta diversity. Method should be one of "bray", "jaccard",
 #'               "unifrac", "wunifrac".
-#' @param size The size of the plot. Default is 3.
 #' @export
 #' @examples
 #' beta_diversity_plot(Shaoyifu_phyloseq, feature = "diagnosis", method = "bray")
