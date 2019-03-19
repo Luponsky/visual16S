@@ -1,4 +1,4 @@
-xviz package demo
+visualization416S package demo
 ================
 yeguanhua
 
@@ -7,21 +7,21 @@ Install and load package
 
 Note:
 
-You need to run install from the parent working directory that contains the xviz folder.
+You need to run install from the parent working directory that contains the visualization416S folder.
 
-If you are can't install package in R Console, try this: open xviz.Rproj first, then use RStudio → Build → Install and Restart.
+If you are can't install package in R Console, try this: open visualization416S.Rproj first, then use RStudio → Build → Install and Restart.
 
 ``` r
-devtools::install('xviz')
+devtools::install('visualization416S')
 ```
 
 Load package and demo data.
 
 ``` r
 rm(list = ls())
-library(xviz)
-demoPhyloseq <- xviz::demo_phyloseq_object
-demoDADA2res <- xviz::demo_dada2_result
+library(visualization416S)
+demoPhyloseq <- visualization416S::demo_phyloseq_object
+demoDADA2res <- visualization416S::demo_dada2_result
 ```
 
 Data status
@@ -66,7 +66,7 @@ Track reads through DADA2 workflow
 First use the dada2\_reads\_track function to check reads drop associated with every step in DADA2.
 
 ``` r
-xviz::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
+visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
 ```
 
 ![](README_files/figure-markdown_github/reads%20track-1.png)
@@ -79,7 +79,7 @@ Use stacked\_bar\_plot function to plot the Order level abundance in every sampl
 ### Family level
 
 ``` r
-xviz::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
+visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
 ```
 
 ![](README_files/figure-markdown_github/Stacked%20bar%20plot-1.png)
@@ -92,7 +92,7 @@ Use alpha\_diversity\_plot to plot alpha diversity. Change 'measures' argument t
 ### Chao1
 
 ``` r
-xviz::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", measures = "Chao1", 
+visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", measures = "Chao1", 
                            p_test = "kruskal")
 ```
 
@@ -106,7 +106,7 @@ Use beta\_diversity\_plot to plot beta diversity. Change method to draw differen
 ### Bray-Curtis
 
 ``` r
-xviz::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", method = "bray")
+visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", method = "bray")
 ```
 
 ![](README_files/figure-markdown_github/Bray-Curtis-1.png)
@@ -117,7 +117,7 @@ Log2 fold change
 Use log2fc function to show differential analysis result.
 
 ``` r
-xviz::log2fc(phyloseq = demoPhyloseq, feature = "diagnosis", level = NA, p_value = 0.05)
+visualization416S::log2fc(phyloseq = demoPhyloseq, feature = "diagnosis", level = NA, p_value = 0.05)
 ```
 
     ## [1] "log2 fold change (MLE): diagnosis lung.cancer vs healthy"
