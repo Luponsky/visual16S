@@ -4,8 +4,7 @@
 \alias{log2fc}
 \title{log2fc}
 \usage{
-log2fc(phyloseq, feature, level = NA, p_value = 0.01, size = 2,
-  save_res = FALSE)
+log2fc(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE)
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and

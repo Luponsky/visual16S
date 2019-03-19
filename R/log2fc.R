@@ -16,7 +16,7 @@
 #' @examples
 #' log2fc(Shaoyifu_phyloseq, feature = "diagnosis", level = "Genus")
 
-log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, size = 2, save_res = FALSE) {
+log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE) {
   ## Step 1: Construt table for DESeq2
   # Create a string to parse feature argument to DESeq
   feature_formula <- paste0("~ ", feature)
@@ -53,12 +53,12 @@ log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, size = 2, save
     .[.$padj < p_value,] %>%
     select(!!var, log2FoldChange, padj) %>%
     .[order(.[,2], decreasing = TRUE),]
-  print(log2fc_print)
   # EnhancedVolcano plot
-  require(EnhancedVolcano)
+  print(res@elementMetadata$description[2])
+  print(log2fc_print)
   EnhancedVolcano(log2fc, lab = log2fc[[var]], x = "log2FoldChange", y = "padj",
                   FCcutoff = 1, pCutoff = p_value,
-                  transcriptPointSize = size,
+                  transcriptPointSize = 3,
                   col = c("darkgrey", "#00AFBB", "#FC4E07", "red2"),
                   legend = c("Not Significant", paste0("p > ", p_value, ", log2 fold change > 1"),
                              paste0("p < ", p_value, ", log2 fold change < 1"),
