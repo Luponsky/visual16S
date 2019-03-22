@@ -5,8 +5,8 @@
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
 #'                 phylogenetic tree.
 #' @param feature The column name of the feature you want to select from metadata, e.g. "Phenotype".
-#' @param feature2 The column name of another feature you want to select from metadata, which will 
-#'                 show in different shape, e.g. "Gender". Default is NA.
+#' @param feature2 The column name of another feature you want to select from metadata, e.g. "Gender", 
+#'                 which will make the plots draw in different shapes. Default is NA.
 #' @param measures The measures to calculate alpha diversity, measures should be one of "Observed",
 #'                 "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".
 #' @param p_test The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".
@@ -68,9 +68,9 @@ alpha_diversity_plot <- function (phyloseq, feature, feature2 = NA, measures, p_
   } else {
     p <- ggplot(data = alpha_diversity$data, 
                 # Use aes_string() to pass variables to ggplot
-                aes_string(x = feature, y = y, color = feature, shape = feature2)) + 
+                aes_string(x = feature, y = y, color = feature)) + 
       geom_boxplot() + 
-      geom_jitter(size = 3) +
+      geom_jitter(size = 3, aes_string(shape = feature2)) +
       ylab(paste0(measures, " Diversity")) +
       annotate("text",
                x = ((alpha_diversity$data[[feature]] %>% unique() %>% length() + 1)/2),

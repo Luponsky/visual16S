@@ -13,8 +13,8 @@ phylogenetic tree.}
 
 \item{feature}{The column name of the feature you want to select from metadata, e.g. "Phenotype".}
 
-\item{feature2}{The column name of another feature you want to select from metadata, which will 
-show in different shape, e.g. "Gender". Default is NA.}
+\item{feature2}{The column name of another feature you want to select from metadata, e.g. "Gender", 
+which will make the plots draw in different shapes. Default is NA.}
 
 \item{measures}{The measures to calculate alpha diversity, measures should be one of "Observed",
 "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".}
