@@ -16,11 +16,14 @@ phylogenetic tree.}
 "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".}
 
 \item{p_test}{The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".}
+
+\item{feature2}{The column name of another feature you want to select from metadata, which will 
+show in different shape, e.g. "Gender". Default is NA.}
 }
 \description{
 This is a function for plotting alpha diversity.
 }
 \examples{
-alpha_diversity_plot(Shaoyifu_phyloseq, feature = "diagnosis",
+alpha_diversity_plot(Shaoyifu_phyloseq, feature = "diagnosis", feature2 = NA
                      measures = "Chao1", p_test = "kruskal")
 }

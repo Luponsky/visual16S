@@ -38,9 +38,10 @@ beta_diversity_plot <- function(phyloseq, feature, feature2 = NA, method){
   # Make factor for color, prevent "Error: Continuous value supplied to discrete scale"
   beta_diversity_tab[[feature]] <- beta_diversity_tab[[feature]] %>% as.factor()
   # Plot beta diversity
-  # aes_string() can pass variables to ggplot, aes() can't
   if (is.na(feature2)) {
-    p <- ggplot(data = beta_diversity_tab, aes_string(x = x_name, y = y_name, color = feature)) +
+    p <- ggplot(data = beta_diversity_tab, 
+                # aes_string() can pass variables to ggplot, aes() can't
+                aes_string(x = x_name, y = y_name, color = feature)) + 
       geom_point(size = 3) +
       xlab(paste("PC1:",
                  round(100*as.numeric(beta_diversity$eig[1]/sum(beta_diversity$eig)), 2),
@@ -61,6 +62,7 @@ beta_diversity_plot <- function(phyloseq, feature, feature2 = NA, method){
     p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
   } else {
     p <- ggplot(data = beta_diversity_tab, 
+                # Use aes_string() to pass variables to ggplot
                 aes_string(x = x_name, y = y_name, color = feature, shape = feature2)) +
       geom_point(size = 3) +
       xlab(paste("PC1:",
