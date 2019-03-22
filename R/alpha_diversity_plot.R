@@ -15,7 +15,7 @@
 #' alpha_diversity_plot(Shaoyifu_phyloseq, feature = "diagnosis", feature2 = NA
 #'                      measures = "Chao1", p_test = "kruskal")
 
-alpha_diversity_plot <- function (phyloseq, feature, measures, p_test = "wilcox") {
+alpha_diversity_plot <- function (phyloseq, feature, feature2 = NA, measures, p_test = "wilcox") {
   ## Step 1: Use plot_richness function to calculate alpha diversity
   if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")) {
     stop('measures should be one of "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".')
@@ -27,9 +27,9 @@ alpha_diversity_plot <- function (phyloseq, feature, measures, p_test = "wilcox"
     # Prepare feature table for calculating Mann-Whitney U test(for 2 groups only)
     feature_tab_4_MWtest <- extract_metadata_from_phyloseq(phyloseq, feature)
     # Extract feature levels
-    feature1 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[1]
-    feature2 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[2]
-    replace_feature <- c(as.character(feature1), as.character(feature2))
+    feature_0 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[1]
+    feature_1 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[2]
+    replace_feature <- c(as.character(feature_0), as.character(feature_1))
     # Revalue feature levels as 0 and 1
     feature_tab_4_MWtest[[feature]] <- plyr::mapvalues(feature_tab_4_MWtest[[feature]],
                                                        from = replace_feature,
