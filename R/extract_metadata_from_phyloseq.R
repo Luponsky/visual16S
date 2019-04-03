@@ -2,8 +2,8 @@
 #'
 #' extract_metadata_from_phyloseq can extract metadata from a phyloseq object. First, the function
 #' will extract metadata from phyloseq object using phyloseq::sample_data, and turn it into a tibble
-#' which will turn rownames into a column name 'subject_id'. If feature parameter is given, then will
-#' select subject_id and feature column, and add levels to the selected feature column.
+#' which will turn rownames into a column name 'SampleID'. If feature parameter is given, then will
+#' select SampleID and feature column, and add levels to the selected feature column.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
 #'                 phylogenetic tree.
@@ -19,18 +19,18 @@ extract_metadata_from_phyloseq <- function(phyloseq, feature = NA) {
     sample_data() %>%
     as.matrix() %>%
     as.data.frame()
-  if ("subject_id" %in% colnames(metadata)) {
-    select(metadata, -subject_id) %>%
-      rownames_to_column(var = "subject_id")
-    warning("replace 'subject_id' column with rownames")
+  if ("SampleID" %in% colnames(metadata)) {
+    select(metadata, -SampleID) %>%
+      rownames_to_column(var = "SampleID")
+    warning("Replacing 'SampleID' column with rownames")
   } else {
-    metadata <- rownames_to_column(metadata, var = "subject_id")
+    metadata <- rownames_to_column(metadata, var = "SampleID")
   }
   if (is.na(feature)) {
     return(metadata)
   } else {
     # Select column by feature name
-    metadata <- dplyr::select(metadata, subject_id, !!feature)
+    metadata <- dplyr::select(metadata, SampleID, !!feature)
     # Add levels to column
     metadata[[feature]] <- metadata[[feature]] %>% as.character() %>% factor()
     return(metadata)

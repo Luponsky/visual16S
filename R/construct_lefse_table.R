@@ -23,31 +23,31 @@ construct_lefse_table <- function(phyloseq, feature, level = "all") {
   # Read in phyloseq object
   # Convert OTU to relative abundance
   otu <- otu_table(phyloseq) %>% as.data.frame() %>% convert_to_percentage() %>%
-    t() %>% as.data.frame() %>% rownames_to_column(var = "Feature_ID")
+    t() %>% as.data.frame() %>% rownames_to_column(var = "OTU_ID")
   taxa <- tax_table(phyloseq) %>% as.data.frame() %>%
-    rownames_to_column(var = "Feature_ID")
+    rownames_to_column(var = "OTU_ID")
   # Select taxa by given level
   if (level == "all") {
     levels <- colnames(taxa)[2:ncol(taxa)]
   } else {
-    taxa <- taxa %>% select(Feature_ID:!!level)
+    taxa <- taxa %>% select(OTU_ID:!!level)
     levels <- colnames(taxa)[2:ncol(taxa)]
   }
   # Extract levels name
   levels <- colnames(taxa)[2:ncol(taxa)]
   # Remove rows in taxa that is all NA
-  all_NA_taxa <- taxa %>% filter_at(vars(levels), all_vars(is.na(.)))
-  taxa <- taxa %>% filter(!Feature_ID %in% all_NA_taxa$Feature_ID)
+  all_NA_taxa <- taxa %>% filter_all(all_vars(is.na(.)))
+  taxa <- taxa %>% filter(!OTU_ID %in% all_NA_taxa$OTU_ID)
   # Convert metadata and create lefse table
   metadata <- extract_metadata_from_phyloseq(phyloseq = phyloseq, feature = feature)
   lefse <- metadata %>% t() %>% as.data.frame()
-  colnames(lefse) <- lefse %>% .[rownames(.) == "subject_id",]
+  colnames(lefse) <- lefse %>% .[rownames(.) == "SampleID",]
   # Combine otu to lefse table
   for(i in levels) {
     taxa_tmp <- taxa %>% as.data.frame() %>% select(1:which(colnames(taxa) == i)) %>%
-      filter_at(vars(i), all_vars(!is.na(.)))
+      filter_all(all_vars(!is.na(.)))
     taxa_tmp <- taxa_tmp %>% unite(Taxonomy, 2:ncol(taxa_tmp), sep = "|")
-    otu_tmp <- otu %>% filter(Feature_ID %in% taxa_tmp$Feature_ID) %>% left_join(taxa_tmp)
+    otu_tmp <- otu %>% filter(OTU_ID %in% taxa_tmp$OTU_ID) %>% left_join(taxa_tmp)
     otu_tmp <- otu_tmp %>%
       group_by(Taxonomy) %>% #group_by_() can pass variable to goup_by() function
       summarise_if(is.numeric, sum, na.rm=TRUE) %>%

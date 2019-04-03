@@ -17,6 +17,7 @@
 #' log2fc(Shaoyifu_phyloseq, feature = "diagnosis", level = "Genus")
 
 log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE) {
+  set.seed(99)
   ## Step 1: Construt table for DESeq2
   # Create a string to parse feature argument to DESeq
   feature_formula <- paste0("~ ", feature)

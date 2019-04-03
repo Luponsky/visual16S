@@ -6,38 +6,57 @@
 #' function can draw a line plot of reads track of every sample. X-axis will be every stage in dada2
 #' workflow, Y-axis will be the reads counts.
 #'
-#' @param track The reads track data frame from Xbiome 16S pipeline dada2 workflow result.
+#' @param reads_track The reads track data frame from Xbiome 16S pipeline dada2 workflow result.
 #' @param single_end Default is FALSE. If single_end == TRUE, means the sequence files are single end,
 #'                   the x-axis will contain 'input', 'filtered', 'dereplicated', 'nonchim'. If
 #'                   single_end == FALSE, means the sequence files are paired end, the x-axis will
 #'                   contain 'input', 'filtered', 'denoisedF', 'denoisedR', 'merged', 'nonchim'.
+#' @param relative_abundance Default is FALSE. If TRUE, will turn values to relative abundance.
+#' @param legend_position Legend position. Default is top. One of "none", "left", "right", "bottom",
+#'                        "top".
 #' @export
 #' @examples
 #' dada2_reads_track(Shaoyifu_dada2_result$reads_track, single_end = FALSE)
 
-dada2_reads_track <- function(track, single_end = FALSE) {
-  track <- rownames_to_column(as.data.frame(track), var = "subject_id")
-  track$subject_id <- factor(track$subject_id)
-  track <- gather(track, 2:ncol(track), key = "stages", value = "reads")
+dada2_reads_track <- function(reads_track, single_end = FALSE,
+                              relative_abundance = FALSE, legend_position = "top") {
+  if (relative_abundance) {
+    reads_track <- reads_track %>% apply(1, function(x) x/x[1]) %>% t()
+  }
+  reads_track <- rownames_to_column(as.data.frame(reads_track), var = "SampleID")
+  reads_track$SampleID <- factor(reads_track$SampleID)
+  reads_track <- gather(reads_track, 2:ncol(reads_track), key = "stages", value = "reads")
   if (single_end) {
-    track$stages <- factor(track$stages, levels = c("input", "filtered",
+    reads_track$stages <- factor(reads_track$stages, levels = c("input", "filtered",
                                                     "dereplicated", "nonchim"))
   } else {
-    track$stages <- factor(track$stages, levels = c("input", "filtered",
+    reads_track$stages <- factor(reads_track$stages, levels = c("input", "filtered",
                                                     "denoisedF", "denoisedR",
                                                     "merged", "nonchim"))
   }
-  ggplot(track, aes(x = stages, y = reads, color = subject_id)) +
-    scale_color_manual(values = distinctive_colors) +
-    geom_point() +
-    geom_line(aes(group = subject_id)) +
-    theme_bw() + 
-    theme(panel.grid = element_blank(),
-          axis.text.y = element_text(size = 12),
-          axis.title = element_text(size = 14),
-          axis.text.x = element_text(size = 12),
-          strip.text.x = element_text(size = 14), 
-          # move legend position to the top
-          legend.position = "top"
-          )
+  if (length(reads_track$SampleID) > 74) {
+    ggplot(reads_track, aes(x = stages, y = reads, color = SampleID)) +
+      scale_color_manual(values = all_distinctive_colors) +
+      geom_point() +
+      geom_line(aes(group = SampleID)) +
+      theme_bw() +
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 12),
+            axis.title = element_text(size = 14),
+            axis.text.x = element_text(size = 12),
+            strip.text.x = element_text(size = 14),
+            legend.position = legend_position)
+  } else {
+    ggplot(reads_track, aes(x = stages, y = reads, color = SampleID)) +
+      scale_color_manual(values = distinctive_colors) +
+      geom_point() +
+      geom_line(aes(group = SampleID)) +
+      theme_bw() +
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 12),
+            axis.title = element_text(size = 14),
+            axis.text.x = element_text(size = 12),
+            strip.text.x = element_text(size = 14),
+            legend.position = legend_position)
+  }
 }

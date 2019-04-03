@@ -6,11 +6,16 @@
 #'                 phylogenetic tree.
 #' @param feature The feature that shows in x-axis text with different colors.
 #' @param level Which taxonomy level to plot.
+#' @param x_size The front size of x-axis text. Default is 8.
+#' @param legend_position Legend position. Default is "top". legend_position should be one of "none",
+#'                        "left", "right", "bottom", "top".
+#' @param legend_size Lengend size. Default is 10.
 #' @export
 #' @examples
 #' stacked_bar_plot(Shaoyifu_phyloseq, feature = "diagnosis", level = "Order")
 
-stacked_bar_plot <- function(phyloseq, feature, level) {
+stacked_bar_plot <- function(phyloseq, feature, level, x_size = 8,
+                             legend_position = "top", legend_size = 10) {
   ## Step 1: First construct otu then convert to percentage
   otu_percent <- construct_otu_table(phyloseq, level) %>%
     convert_to_percentage(row_sum = TRUE) %>%
@@ -21,10 +26,10 @@ stacked_bar_plot <- function(phyloseq, feature, level) {
     .[,order(colSums(.), decreasing = TRUE)] %>%
     # Then re-order sample by the most abundance taxonomy
     .[order(.[,1], decreasing = TRUE),] %>%
-    # Turn subject_id to a column
-    rownames_to_column(var = "subject_id")
-  # Prepare levels for subject_id
-  levels_subject_id <- plot_tab$subject_id
+    # Turn SampleID to a column
+    rownames_to_column(var = "SampleID")
+  # Prepare levels for SampleID
+  levels_SampleID <- plot_tab$SampleID
   # Prepare levels for taxonomy levels
   levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
   ## Step 3: Join metadata
@@ -32,8 +37,8 @@ stacked_bar_plot <- function(phyloseq, feature, level) {
   plot_tab <- left_join(plot_tab, sample_feature)
   # Prepare levels for feature
   levels_feature <- plot_tab[,ncol(plot_tab)]
-  # Add levels to subject_id
-  plot_tab$subject_id <- factor(plot_tab$subject_id, levels = levels_subject_id)
+  # Add levels to SampleID
+  plot_tab$SampleID <- factor(plot_tab$SampleID, levels = levels_SampleID)
   ## Step 4: Turn plot_table to a long table for plotting
   plot_tab <- gather(plot_tab,
                      colnames(plot_tab)[2:(ncol(plot_tab)-1)],
@@ -42,20 +47,29 @@ stacked_bar_plot <- function(phyloseq, feature, level) {
   # Add levels to taxonomy levels
   plot_tab$level <- factor(plot_tab$level, levels = levels_level)
   ## Step 5: Bar plot
-  if (length(levels_level) >= 74) {
-    stop("Taxonomy values are more than 74, not enough distinctive colors to plot. Please choose another level.")
-  } else {
-    ggplot(plot_tab, aes(x = subject_id, y = abundance)) + 
-      scale_fill_manual(values = distinctive_colors) +
+  if (length(levels_level) > 74) {
+    ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
+      scale_fill_manual(values = all_distinctive_colors) +
       geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
-      theme_bw() + 
+      theme_bw() +
       theme(panel.grid = element_blank(),
             axis.text.y = element_text(size = 12),
             axis.title = element_text(size = 14),
-            axis.text.x = element_text(size = 12, angle = 90, color = levels_feature), 
-            strip.text.x = element_text(size = 14), 
-            # move legend position to the top
-            legend.position = "top"
-      )
+            strip.text.x = element_text(size = 14),
+            axis.text.x = element_text(size = x_size, angle = 90, color = levels_feature),
+            legend.text = element_text(size = legend_size),
+            legend.position = legend_position)
+  } else {
+    ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
+      scale_fill_manual(values = distinctive_colors) +
+      geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
+      theme_bw() +
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 12),
+            axis.title = element_text(size = 14),
+            strip.text.x = element_text(size = 14),
+            axis.text.x = element_text(size = x_size, angle = 90, color = levels_feature),
+            legend.text = element_text(size = legend_size),
+            legend.position = legend_position)
   }
 }

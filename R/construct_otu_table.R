@@ -20,14 +20,13 @@ construct_otu_table <- function(phyloseq, level = "all") {
     stop('level should be one of "all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species".')}
   # Read in sequence table and taxonomy table from phyloseq
   otu <- otu_table(phyloseq) %>% as.data.frame() %>% t() %>% as.data.frame() %>%
-    rownames_to_column(var = "Feature_ID")
+    rownames_to_column(var = "OTU_ID")
   taxa <- tax_table(phyloseq) %>% as.data.frame() %>%
-    rownames_to_column(var = "Feature_ID")
-  levels <- colnames(taxa)[2:ncol(taxa)]
+    rownames_to_column(var = "OTU_ID")
   ## Step 1: Clean sequence table and taxonomy table
   # If a sequence's taxonomy is all NA, remove it
-  all_NA_taxa <- taxa %>% filter_at(vars(levels), all_vars(is.na(.)))
-  taxa <- taxa %>% filter(!Feature_ID %in% all_NA_taxa$Feature_ID)
+  all_NA_taxa <- taxa %>% filter_all(all_vars(is.na(.)))
+  taxa <- taxa %>% filter(!OTU_ID %in% all_NA_taxa$OTU_ID)
   ## Step 2: Construct OTU table
   if (level == "all") {
     # If level == "all", collapse all taxonomy levels and separate by "|"
@@ -35,8 +34,8 @@ construct_otu_table <- function(phyloseq, level = "all") {
     taxa <- taxa %>% unite(Taxonomy, 2:ncol(taxa), sep = ";")
   } else {
     # If level != "all", select the given taxonomy level
-    taxa <- taxa %>% select(Feature_ID, level) %>% filter(., !is.na(.[[level]]))
-    otu <- otu %>% filter(Feature_ID %in% taxa$Feature_ID)
+    taxa <- taxa %>% select(OTU_ID, level) %>% filter(., !is.na(.[[level]]))
+    otu <- otu %>% filter(OTU_ID %in% taxa$OTU_ID)
   }
   ## Step 3: Merge sequence table and taxonomy table
   otu <- left_join(otu, taxa)

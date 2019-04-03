@@ -16,6 +16,7 @@
 #'                      measures = "Chao1", p_test = "kruskal")
 
 alpha_diversity_plot <- function (phyloseq, feature, feature2 = NA, measures, p_test = "wilcox") {
+  set.seed(99)
   ## Step 1: Use plot_richness function to calculate alpha diversity
   if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")) {
     stop('measures should be one of "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".')
