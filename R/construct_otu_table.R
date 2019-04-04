@@ -5,7 +5,7 @@
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
 #'                 phylogenetic tree.
 #' @param level The coloumn name of the level wanted to select. Default is "all". If "all" then retain
-#'              all taxonomy level and seperate by ";", else ONLY retain the given taxonomy level,
+#'              all taxonomy level and seperate by "; ", else ONLY retain the given taxonomy level,
 #'              drop everything else. Level name should be one of "all", "Kingdom", "Phylum", "Class",
 #'              "Order", "Family", "Genus", "Species".
 #' @export
@@ -29,9 +29,9 @@ construct_otu_table <- function(phyloseq, level = "all") {
   taxa <- taxa %>% filter(!OTU_ID %in% all_NA_taxa$OTU_ID)
   ## Step 2: Construct OTU table
   if (level == "all") {
-    # If level == "all", collapse all taxonomy levels and separate by "|"
+    # If level == "all", collapse all taxonomy levels and separate by "; "
     level <- "Taxonomy"
-    taxa <- taxa %>% unite(Taxonomy, 2:ncol(taxa), sep = ";")
+    taxa <- taxa %>% unite(Taxonomy, 2:ncol(taxa), sep = "; ")
   } else {
     # If level != "all", select the given taxonomy level
     taxa <- taxa %>% select(OTU_ID, level) %>% filter(., !is.na(.[[level]]))

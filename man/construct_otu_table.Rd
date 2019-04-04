@@ -11,7 +11,7 @@ construct_otu_table(phyloseq, level = "all")
 phylogenetic tree.}
 
 \item{level}{The coloumn name of the level wanted to select. Default is "all". If "all" then retain
-all taxonomy level and seperate by ";", else ONLY retain the given taxonomy level,
+all taxonomy level and seperate by "; ", else ONLY retain the given taxonomy level,
 drop everything else. Level name should be one of "all", "Kingdom", "Phylum", "Class",
 "Order", "Family", "Genus", "Species".}
 }
