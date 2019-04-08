@@ -43,6 +43,7 @@ construct_otu_table <- function(phyloseq, level = "all") {
   otu <- otu %>%
     group_by_(level) %>% #group_by_() can pass variable to goup_by() function
     summarise_if(is.numeric, sum, na.rm=TRUE) %>%
+    filter_if(is.numeric, any_vars(. != 0)) %>%
     column_to_rownames(var = level) %>%
     t() %>%
     as.data.frame()
