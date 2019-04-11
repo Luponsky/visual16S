@@ -34,19 +34,6 @@ dada2_reads_track <- function(reads_track, single_end = FALSE,
                                                     "denoisedF", "denoisedR",
                                                     "merged", "nonchim"))
   }
-  if (length(reads_track$SampleID) > 74) {
-    ggplot(reads_track, aes(x = stages, y = reads, color = SampleID)) +
-      scale_color_manual(values = all_distinctive_colors) +
-      geom_point() +
-      geom_line(aes(group = SampleID)) +
-      theme_bw() +
-      theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 12),
-            axis.title = element_text(size = 14),
-            axis.text.x = element_text(size = 12),
-            strip.text.x = element_text(size = 14),
-            legend.position = legend_position)
-  } else {
     ggplot(reads_track, aes(x = stages, y = reads, color = SampleID)) +
       scale_color_manual(values = distinctive_colors) +
       geom_point() +
@@ -58,5 +45,4 @@ dada2_reads_track <- function(reads_track, single_end = FALSE,
             axis.text.x = element_text(size = 12),
             strip.text.x = element_text(size = 14),
             legend.position = legend_position)
-  }
 }

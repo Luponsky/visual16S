@@ -47,19 +47,6 @@ stacked_bar_plot <- function(phyloseq, feature, level, x_size = 8,
   # Add levels to taxonomy levels
   plot_tab$level <- factor(plot_tab$level, levels = levels_level)
   ## Step 5: Bar plot
-  if (length(levels_level) > 74) {
-    ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
-      scale_fill_manual(values = all_distinctive_colors) +
-      geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
-      theme_bw() +
-      theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 12),
-            axis.title = element_text(size = 14),
-            strip.text.x = element_text(size = 14),
-            axis.text.x = element_text(size = x_size, angle = 90, color = levels_feature),
-            legend.text = element_text(size = legend_size),
-            legend.position = legend_position)
-  } else {
     ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
       scale_fill_manual(values = distinctive_colors) +
       geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
@@ -71,5 +58,4 @@ stacked_bar_plot <- function(phyloseq, feature, level, x_size = 8,
             axis.text.x = element_text(size = x_size, angle = 90, color = levels_feature),
             legend.text = element_text(size = legend_size),
             legend.position = legend_position)
-  }
 }
