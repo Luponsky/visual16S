@@ -131,4 +131,32 @@ Total 4 (delta 3), reused 0 (delta 0)
 remote: Resolving deltas:   0% (0/3)   [Kremote: Resolving deltas:  33% (1/3)   [Kremote: Resolving deltas:  66% (2/3)   [Kremote: Resolving deltas: 100% (3/3)   [Kremote: Resolving deltas: 100% (3/3), completed with 3 local objects.[K
 To https://github.com/yeguanhuav/16S-analysis-visualization.git
    156a199..b57acf0  master -> master
-]0;/home/yeguanhua/R/16S-analysis-visualization(base) ]0;yeguanhua@XBIOME-SERVER-CPU: ~/R/16S-analysis-visualization[01;32myeguanhua@XBIOME-SERVER-CPU[00m:[01;34m~/R/16S-analysis-visualization[00m$ 
+[K]0;yeguanhua@XBIOME-SERVER-CPU: ~/Repositary/visualization416S[01;32myeguanhua@XBIOME-SERVER-CPU[00m:[01;34m~/Repositary/visualization416S[00m$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/E4C83D23/console06/66486EF4[m
+	[31mmodified:   .Rproj.user/E4C83D23/console06/INDEX001[m
+	[31mdeleted:    .Rproj.user/E4C83D23/sources/per/t/9D3BE401[m
+	[31mdeleted:    .Rproj.user/E4C83D23/sources/per/t/9D3BE401-contents[m
+	[31mmodified:   .Rproj.user/E4C83D23/sources/prop/INDEX[m
+	[31mdeleted:    .Rproj.user/shared/notebooks/EB41CEE7-README/1/E4C83D233c60354f/chunks.json[m
+	[31mdeleted:    .Rproj.user/shared/notebooks/EB41CEE7-README/1/s/cb1yovvdxe128/000002.csv[m
+	[31mdeleted:    .Rproj.user/shared/notebooks/EB41CEE7-README/1/s/chunks.json[m
+	[31mdeleted:    .Rproj.user/shared/notebooks/EB41CEE7-README/1/s/csetup_chunk/000002.csv[m
+	[31mmodified:   .Rproj.user/shared/notebooks/paths[m
+	[31mmodified:   data/all_distinctive_colors.rda[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rbuildignore[m
+	[31m.gitignore[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;/home/yeguanhua/Repositary/visualization416S]0;yeguanhua@XBIOME-SERVER-CPU: ~/Repositary/visualization416S[01;32myeguanhua@XBIOME-SERVER-CPU[00m:[01;34m~/Repositary/visualization416S[00m$ ls
+[0m[01;34mdata[0m  DESCRIPTION  [01;34mman[0m  NAMESPACE  [01;34mR[0m  [01;34mREADME_files[0m  README.md  README.Rmd  visualization416S.Rproj
+]0;/home/yeguanhua/Repositary/visualization416S]0;yeguanhua@XBIOME-SERVER-CPU: ~/Repositary/visualization416S[01;32myeguanhua@XBIOME-SERVER-CPU[00m:[01;34m~/Repositary/visualization416S[00m$ git add .
