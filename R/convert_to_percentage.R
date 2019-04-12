@@ -9,7 +9,7 @@
 #'                this to every column.
 #' @export
 #' @examples
-#' convert_to_percentage(Shaoyifu_dada2_result$seq_tab[,1:5], row_sum = TRUE)
+#' convert_to_percentage(demo_dada2_result$seq_tab, row_sum = TRUE) %>% .[,1:5]
 
 convert_to_percentage <- function (df, row_sum = TRUE) {
   # df must be data frame only contain numeric

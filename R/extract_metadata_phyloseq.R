@@ -1,6 +1,6 @@
-#' extract_metadata_from_phyloseq
+#' extract_metadata_phyloseq
 #'
-#' extract_metadata_from_phyloseq can extract metadata from a phyloseq object. First, the function
+#' extract_metadata_phyloseq can extract metadata from a phyloseq object. First, the function
 #' will extract metadata from phyloseq object using phyloseq::sample_data, and turn it into a tibble
 #' which will turn rownames into a column name 'SampleID'. If feature parameter is given, then will
 #' select SampleID and feature column, and add levels to the selected feature column.
@@ -11,9 +11,9 @@
 #'                the complete metadata, else will return subject id and feature column that's given.
 #' @export
 #' @examples
-#' extract_metadata_from_phyloseq(Shaoyifu_phyloseq, feature = "diagnosis")
+#' extract_metadata_phyloseq(demo_phyloseq_object)
 
-extract_metadata_from_phyloseq <- function(phyloseq, feature = NA) {
+extract_metadata_phyloseq <- function(phyloseq, feature = NA) {
   ## Step 1: Extract metadata from phyloseq and turn into tibble
   metadata <- phyloseq %>%
     sample_data() %>%

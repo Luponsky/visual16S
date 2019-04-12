@@ -18,5 +18,5 @@ this to every column.}
 convert_to_percentage can convert a data frame to percentage.
 }
 \examples{
-convert_to_percentage(Shaoyifu_dada2_result$seq_tab[,1:5], row_sum = TRUE)
+convert_to_percentage(demo_dada2_result$seq_tab, row_sum = TRUE) \%>\% .[,1:5]
 }

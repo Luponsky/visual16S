@@ -1,6 +1,6 @@
-#' dada2_reads_track
+#' track_reads_dada2
 #'
-#' dada2_reads_track can track the reads count in a dada2 workflow result which created by Xbiome 16S
+#' track_reads_dada2 can track the reads count in a dada2 workflow result which created by Xbiome 16S
 #' pipeline. Xbiome 16S pipeline dada2 workflow will generate a list that contain sequence table,
 #' taxonomy table and reads track data frame. Input the reads track data frame and read type, this
 #' function can draw a line plot of reads track of every sample. X-axis will be every stage in dada2
@@ -16,9 +16,9 @@
 #'                        "top".
 #' @export
 #' @examples
-#' dada2_reads_track(Shaoyifu_dada2_result$reads_track, single_end = FALSE)
+#' track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE)
 
-dada2_reads_track <- function(reads_track, single_end = FALSE,
+track_reads_dada2 <- function(reads_track, single_end = FALSE,
                               relative_abundance = FALSE, legend_position = "top") {
   if (relative_abundance) {
     reads_track <- reads_track %>% apply(1, function(x) x/x[1]) %>% t()

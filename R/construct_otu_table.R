@@ -10,7 +10,7 @@
 #'              "Order", "Family", "Genus", "Species".
 #' @export
 #' @examples
-#' construct_otu_table(Shaoyifu_phyloseq, level = "Order") %>% .[,1:5]
+#' construct_otu_table(demo_phyloseq_object, level = "Genus") %>% .[,1:5]
 
 construct_otu_table <- function(phyloseq, level = "all") {
   # Set options, prevent R turnning numeric value to factor

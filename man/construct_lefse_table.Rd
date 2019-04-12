@@ -24,6 +24,5 @@ See http://huttenhower.sph.harvard.edu/galaxy/ -> LEfSe -> Format Data for LEfSe
 for more details.
 }
 \examples{
-lefse_input <- construct_lefse_table(Shaoyifu_phyloseq, feature = "diagnosis", level = "all")
-lefse_input[1:20,1:5]
+construct_lefse_table(demo_phyloseq_object, feature = "diagnosis", level = "all") \%>\% .[1:20,1:5]
 }

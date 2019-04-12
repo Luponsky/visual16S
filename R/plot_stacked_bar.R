@@ -1,4 +1,4 @@
-#' stacked_bar_plot
+#' plot_stacked_bar
 #'
 #' This is a function for stacked bar plot.
 #'
@@ -12,9 +12,9 @@
 #' @param legend_size Lengend size. Default is 10.
 #' @export
 #' @examples
-#' stacked_bar_plot(Shaoyifu_phyloseq, feature = "diagnosis", level = "Order")
+#' plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis", level = "Order")
 
-stacked_bar_plot <- function(phyloseq, feature, level, x_size = 8,
+plot_stacked_bar <- function(phyloseq, feature, level, x_size = 8,
                              legend_position = "top", legend_size = 10) {
   ## Step 1: First construct otu then convert to percentage
   otu_percent <- construct_otu_table(phyloseq, level) %>%
@@ -33,7 +33,7 @@ stacked_bar_plot <- function(phyloseq, feature, level, x_size = 8,
   # Prepare levels for taxonomy levels
   levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
   ## Step 3: Join metadata
-  sample_feature <- extract_metadata_from_phyloseq(phyloseq, feature)
+  sample_feature <- extract_metadata_phyloseq(phyloseq, feature)
   plot_tab <- left_join(plot_tab, sample_feature)
   # Prepare levels for feature
   levels_feature <- plot_tab[,ncol(plot_tab)]

@@ -1,7 +1,7 @@
-Package: visualization416S
-Title: Visualization functions for 16S analysis
+Package: visual16S
+Title: Visualization functions for 16S pipeline
 Version: 1.0
-Authors@R: person("Guanhua", "Ye", email = "yeguanhuav@foxmail.com", role = c("aut", "cre"))
+Authors@R: person("Guanhua", "Ye", email = "yeguanhua@gmail.com", role = c("aut", "cre"))
 Description: 
     This is a package for 16S visualization. Including dada2 reads track, stacked bar plot, 
     alpha diversity, beta diversity and log2 fold change.

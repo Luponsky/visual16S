@@ -14,8 +14,7 @@
 #'              "Order", "Family", "Genus", "Species". Taxonomy will be seperated by "|".
 #' @export
 #' @examples
-#' lefse_input <- construct_lefse_table(Shaoyifu_phyloseq, feature = "diagnosis", level = "all")
-#' lefse_input[1:20,1:5]
+#' construct_lefse_table(demo_phyloseq_object, feature = "diagnosis", level = "all") %>% .[1:20,1:5]
 
 construct_lefse_table <- function(phyloseq, feature, level = "all") {
   # Set options, prevent R turnning numeric value to factor
@@ -39,7 +38,7 @@ construct_lefse_table <- function(phyloseq, feature, level = "all") {
   all_NA_taxa <- taxa %>% filter_all(all_vars(is.na(.)))
   taxa <- taxa %>% filter(!OTU_ID %in% all_NA_taxa$OTU_ID)
   # Convert metadata and create lefse table
-  metadata <- extract_metadata_from_phyloseq(phyloseq = phyloseq, feature = feature)
+  metadata <- extract_metadata_phyloseq(phyloseq = phyloseq, feature = feature)
   lefse <- metadata %>% t() %>% as.data.frame()
   colnames(lefse) <- lefse %>% .[rownames(.) == "SampleID",]
   # Combine otu to lefse table

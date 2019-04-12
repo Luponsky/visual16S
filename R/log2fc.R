@@ -10,11 +10,11 @@
 #'              fold change.
 #'
 #' @param p_value The cut off P value for the fold change. Default is 0.01.
-#' @param save_res Default is FALSE. If TRUE, will save original result DESeq2_result.rds to current 
+#' @param save_res Default is FALSE. If TRUE, will save original result DESeq2_result.rds to current
 #'                 working directory.
 #' @export
 #' @examples
-#' log2fc(Shaoyifu_phyloseq, feature = "diagnosis", level = "Genus")
+#' log2fc(demo_phyloseq_object, feature = "diagnosis", level = "Genus")
 
 log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE) {
   set.seed(99)
@@ -29,7 +29,7 @@ log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FAL
     dds <- estimateSizeFactors(dds, geoMeans = geoMeans)
   } else {
     countData <- construct_otu_table(phyloseq, level) %>% t()
-    colData <- extract_metadata_from_phyloseq(phyloseq = phyloseq, feature = feature)
+    colData <- extract_metadata_phyloseq(phyloseq = phyloseq, feature = feature)
     dds <- DESeqDataSetFromMatrix(countData = countData, colData = colData, design = as.formula(feature_formula))
   }
   dds <- DESeq(dds)

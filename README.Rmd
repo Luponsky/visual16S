@@ -1,5 +1,5 @@
 ---
-title: "visualization416S package demo"
+title: "visual16S package demo"
 author: "yeguanhua"
 output: github_document
 ---
@@ -12,21 +12,21 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width=1
 
 Note: 
 
-You need to run install from the parent working directory that contains the visualization416S folder.
-
-If you are can't install package in R Console, try this: open visualization416S.Rproj first, then use RStudio → Build → Install and Restart.
+You need to run install from the parent working directory that contains the visual16S folder.
 
 ```{r install, eval=FALSE}
-devtools::install('visualization416S')
+devtools::install('visual16S')
 ```
 
-Load package and demo data.
+#### If you are can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
+
+# Load package and demo data.
 
 ```{r load}
 rm(list = ls())
-library(visualization416S)
-demoPhyloseq <- visualization416S::demo_phyloseq_object
-demoDADA2res <- visualization416S::demo_dada2_result
+library(visual16S)
+demo_phyloseq_object <- visual16S::demo_phyloseq_object
+demo_dada2_result <- visual16S::demo_dada2_result
 ```
 
 # Data status
@@ -46,47 +46,60 @@ silva_nr_v132
 Metadata: 
 
 ```{r matadata, echo=FALSE}
-metadata <- visualization416S::extract_metadata_from_phyloseq(demoPhyloseq) %>% arrange(diagnosis)
+metadata <- extract_metadata_phyloseq(demo_phyloseq_object) %>% arrange(diagnosis)
 knitr::kable(metadata, format="markdown")
 ```
 
-# Track reads through DADA2 workflow
+# DADA2 workflow reads track
 
-First use the dada2_reads_track function to check reads drop associated with every step in DADA2.
+First use the track_reads_dada2 function to check reads drop associated with every step in DADA2.
+
+Note:
+
+You can plot reads track in either absolute abundance or relative abundance.
+
+If the sample size is too large to show on legend, set legend_position to "none".
 
 ```{r reads track, fig.height=8, fig.width=10}
-visualization416S::dada2_reads_track(demoDADA2res$reads_track, single_end = FALSE)
+track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE, relative_abundance = TRUE, 
+                  legend_position = "top")
 ```
 
 # Stacked bar plot of phylogenetic composition
 
-Use stacked_bar_plot function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
+Use plot_stacked_bar function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
-### Family level
+Note: 
 
-```{r Stacked bar plot, fig.height=12, fig.width=10}
-visualization416S::stacked_bar_plot(phyloseq = demoPhyloseq, level = "Family", feature = "diagnosis")
+If the legend is too much to show, set legend_position to "none".
+
+### Order level
+
+```{r Stacked bar plot, fig.height=10}
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Order", feature = "diagnosis", 
+                 x_size = 8, legend_position = "top", legend_size = 10)
 ```
 
 # Alpha diversity
 
-Use alpha_diversity_plot to plot alpha diversity. Change 'measures' argument to use different measurement.
+Use plot_alpha_diversity to plot alpha diversity. Change 'measures' argument to use different measurement.
 
 ### Chao1
 
 ```{r Chao1}
-visualization416S::alpha_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", measures = "Chao1", 
-                           p_test = "kruskal")
+plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", feature2 = NA, 
+                     measures = "Chao1", p_test = "kruskal")
 ```
 
 # Beta diversity
 
-Use beta_diversity_plot to plot beta diversity. Change method to draw different beta diversity plot.
+Use plot_beta_diversity to plot beta diversity. Change 'method' to draw different beta diversity plot.
 
 ### Bray-Curtis
 
 ```{r Bray-Curtis}
-visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagnosis", method = "bray")
+plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", feature2 = NA, 
+                    method = "bray")
 ```
 
 # Log2 fold change
@@ -94,5 +107,5 @@ visualization416S::beta_diversity_plot(phyloseq = demoPhyloseq, feature = "diagn
 Use log2fc function to show differential analysis result.
 
 ```{r log2fc}
-visualization416S::log2fc(phyloseq = demoPhyloseq, feature = "diagnosis", level = NA, p_value = 0.05)
+log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_value = 0.05)
 ```

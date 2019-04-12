@@ -19,5 +19,5 @@ drop everything else. Level name should be one of "all", "Kingdom", "Phylum", "C
 construct_otu_table can construct a OTU table with a phyloseq object.
 }
 \examples{
-construct_otu_table(Shaoyifu_phyloseq, level = "Order") \%>\% .[,1:5]
+construct_otu_table(demo_phyloseq_object, level = "Genus") \%>\% .[,1:5]
 }
