@@ -18,7 +18,7 @@ You need to run install from the parent working directory that contains the visu
 devtools::install('visual16S')
 ```
 
-#### If you are can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
+#### If you can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
 
 # Load package and demo data.
 
