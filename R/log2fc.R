@@ -12,11 +12,14 @@
 #' @param p_value The cut off P value for the fold change. Default is 0.01.
 #' @param save_res Default is FALSE. If TRUE, will save original result DESeq2_result.rds to current
 #'                 working directory.
+#' @param reference The control group. Default is NA.
+#' @param treatment The treatment group. Default is NA.
 #' @export
 #' @examples
 #' log2fc(demo_phyloseq_object, feature = "diagnosis", level = "Genus")
 
-log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE) {
+log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE,
+                   reference = NA, treatment = NA) {
   set.seed(99)
   ## Step 1: Construt table for DESeq2
   # Create a string to parse feature argument to DESeq
@@ -34,7 +37,11 @@ log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01, save_res = FAL
   }
   dds <- DESeq(dds)
   ## Step 2: Calculate log2 fold change
-  res <- results(dds, addMLE = FALSE)
+  if (!is.na(reference)) {
+    res <- results(dds, contrast = c(feature, treatment, reference))
+  } else {
+    res <- results(dds)
+  }
   res <- res[order(res$padj),]
   if (save_res) {
     # save res object to current working directory

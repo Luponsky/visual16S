@@ -4,7 +4,8 @@
 \alias{log2fc}
 \title{log2fc}
 \usage{
-log2fc(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE)
+log2fc(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE,
+  reference = NA, treatment = NA)
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and
@@ -20,6 +21,10 @@ fold change.}
 
 \item{save_res}{Default is FALSE. If TRUE, will save original result DESeq2_result.rds to current
 working directory.}
+
+\item{reference}{The control group. Default is NA.}
+
+\item{treatment}{The treatment group. Default is NA.}
 }
 \description{
 This is a function for plotting log2 fold change.
