@@ -106,6 +106,13 @@ plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", feat
 
 Use log2fc function to show differential analysis result.
 
-```{r log2fc}
+```{r log2fc 1}
 log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_value = 0.05)
+```
+
+Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.
+
+```{r log2fc 2}
+log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_value = 0.05, 
+       reference = 'healthy', treatment = 'liver cancer')
 ```

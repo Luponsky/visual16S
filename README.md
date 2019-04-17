@@ -145,4 +145,27 @@ log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_val
     ## 3 OTU109      -22.19975 1.731358e-06
     ## 2 OTU152      -25.34458 1.312528e-08
 
-![](README_files/figure-markdown_github/log2fc-1.png)
+![](README_files/figure-markdown_github/log2fc%201-1.png)
+
+Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.
+
+``` r
+log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_value = 0.05, 
+       reference = 'healthy', treatment = 'liver cancer')
+```
+
+    ## [1] "log2 fold change (MLE): diagnosis liver cancer vs healthy"
+    ##       OTU log2FoldChange         padj
+    ## 5  OTU228       22.02247 1.956392e-05
+    ## 6  OTU342       20.01652 1.949445e-04
+    ## 1  OTU154       19.98696 6.976726e-09
+    ## 7  OTU349       19.72481 2.352799e-04
+    ## 8  OTU312       19.59086 2.405934e-04
+    ## 9  OTU164       18.40405 8.190781e-04
+    ## 11 OTU138      -10.69069 1.397755e-02
+    ## 10  OTU32      -13.83664 4.581684e-03
+    ## 4  OTU355      -22.15072 1.691639e-05
+    ## 3  OTU131      -23.65191 3.727929e-06
+    ## 2   OTU36      -27.48653 1.053818e-08
+
+![](README_files/figure-markdown_github/log2fc%202-1.png)
