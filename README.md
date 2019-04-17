@@ -73,8 +73,8 @@ You can plot reads track in either absolute abundance or relative abundance.
 If the sample size is too large to show on legend, set legend\_position to "none".
 
 ``` r
-track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE, relative_abundance = TRUE, 
-                  legend_position = "top")
+track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE, 
+                  relative_abundance = TRUE, legend_position = "top")
 ```
 
 ![](README_files/figure-markdown_github/reads%20track-1.png)
@@ -91,8 +91,9 @@ If the legend is too much to show, set legend\_position to "none".
 ### Order level
 
 ``` r
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Order", feature = "diagnosis", 
-                 x_size = 8, legend_position = "top", legend_size = 10)
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Order", 
+                 feature = "diagnosis", x_size = 8, legend_position = "top", 
+                 legend_size = 10)
 ```
 
 ![](README_files/figure-markdown_github/Stacked%20bar%20plot-1.png)
@@ -105,8 +106,8 @@ Use plot\_alpha\_diversity to plot alpha diversity. Change 'measures' argument t
 ### Chao1
 
 ``` r
-plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", feature2 = NA, 
-                     measures = "Chao1", p_test = "kruskal")
+plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", 
+                     feature2 = NA, measures = "Chao1", p_test = "kruskal")
 ```
 
 ![](README_files/figure-markdown_github/Chao1-1.png)
@@ -119,8 +120,8 @@ Use plot\_beta\_diversity to plot beta diversity. Change 'method' to draw differ
 ### Bray-Curtis
 
 ``` r
-plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", feature2 = NA, 
-                    method = "bray")
+plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", 
+                    feature2 = NA, method = "bray")
 ```
 
 ![](README_files/figure-markdown_github/Bray-Curtis-1.png)
@@ -131,7 +132,8 @@ Log2 fold change
 Use log2fc function to show differential analysis result.
 
 ``` r
-log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_value = 0.05)
+log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, 
+       p_value = 0.05)
 ```
 
     ## [1] "log2 fold change (MLE): diagnosis lung.cancer vs healthy"
@@ -150,8 +152,8 @@ log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_val
 Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.
 
 ``` r
-log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, p_value = 0.05, 
-       reference = 'healthy', treatment = 'liver cancer')
+log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, 
+       p_value = 0.05, reference = 'healthy', treatment = 'liver cancer')
 ```
 
     ## [1] "log2 fold change (MLE): diagnosis liver cancer vs healthy"
