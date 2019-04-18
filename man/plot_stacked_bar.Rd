@@ -8,8 +8,8 @@ plot_stacked_bar(phyloseq, feature, level, x_size = 8,
   legend_position = "top", legend_size = 10)
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and
-phylogenetic tree.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
+metadata and phylogenetic tree.}
 
 \item{feature}{The feature that shows in x-axis text with different colors.}
 
@@ -17,8 +17,9 @@ phylogenetic tree.}
 
 \item{x_size}{The front size of x-axis text. Default is 8.}
 
-\item{legend_position}{Legend position. Default is "top". legend_position should be one of "none",
-"left", "right", "bottom", "top".}
+\item{legend_position}{Legend position. Default is "top". legend_position
+should be one of "none", "left", "right", "bottom",
+"top".}
 
 \item{legend_size}{Lengend size. Default is 10.}
 }
@@ -26,5 +27,6 @@ phylogenetic tree.}
 This is a function for stacked bar plot.
 }
 \examples{
-plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis", level = "Order")
+plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis",
+                 level = "Order")
 }

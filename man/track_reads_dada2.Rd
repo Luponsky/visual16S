@@ -8,24 +8,29 @@ track_reads_dada2(reads_track, single_end = FALSE,
   relative_abundance = FALSE, legend_position = "top")
 }
 \arguments{
-\item{reads_track}{The reads track data frame from Xbiome 16S pipeline dada2 workflow result.}
+\item{reads_track}{The reads track data frame from Xbiome 16S pipeline dada2
+workflow result.}
 
-\item{single_end}{Default is FALSE. If single_end == TRUE, means the sequence files are single end,
-the x-axis will contain 'input', 'filtered', 'dereplicated', 'nonchim'. If
-single_end == FALSE, means the sequence files are paired end, the x-axis will
-contain 'input', 'filtered', 'denoisedF', 'denoisedR', 'merged', 'nonchim'.}
+\item{single_end}{Default is FALSE. If single_end == TRUE, means the
+sequence files are single end, the x-axis will contain
+'input', 'filtered', 'dereplicated', 'nonchim'. If
+single_end == FALSE, means the sequence files are paired
+end, the x-axis will contain 'input', 'filtered',
+'denoisedF', 'denoisedR', 'merged', 'nonchim'.}
 
-\item{relative_abundance}{Default is FALSE. If TRUE, will turn values to relative abundance.}
+\item{relative_abundance}{Default is FALSE. If TRUE, will turn values to
+relative abundance.}
 
-\item{legend_position}{Legend position. Default is top. One of "none", "left", "right", "bottom",
-"top".}
+\item{legend_position}{Legend position. Default is top. One of "none",
+"left", "right", "bottom", "top".}
 }
 \description{
-track_reads_dada2 can track the reads count in a dada2 workflow result which created by Xbiome 16S
-pipeline. Xbiome 16S pipeline dada2 workflow will generate a list that contain sequence table,
-taxonomy table and reads track data frame. Input the reads track data frame and read type, this
-function can draw a line plot of reads track of every sample. X-axis will be every stage in dada2
-workflow, Y-axis will be the reads counts.
+track_reads_dada2 can track the reads count in a dada2 workflow result which
+created by Xbiome 16S pipeline. Xbiome 16S pipeline dada2 workflow will
+generate a list that contain sequence table, taxonomy table and reads track
+data frame. Input the reads track data frame and read type, this function
+can draw a line plot of reads track of every sample. X-axis will be every
+stage in dada2 workflow, Y-axis will be the reads counts.
 }
 \examples{
 track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE)

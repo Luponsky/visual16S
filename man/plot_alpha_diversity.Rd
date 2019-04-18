@@ -8,23 +8,27 @@ plot_alpha_diversity(phyloseq, feature, feature2 = NA, measures,
   p_test = "wilcox")
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and
-phylogenetic tree.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
+metadata and phylogenetic tree.}
 
-\item{feature}{The column name of the feature you want to select from metadata, e.g. "Phenotype".}
+\item{feature}{The column name of the feature you want to select from
+metadata, e.g. "Phenotype".}
 
-\item{feature2}{The column name of another feature you want to select from metadata, e.g. "Gender",
-which will make the plots draw in different shapes. Default is NA.}
+\item{feature2}{The column name of another feature you want to select from
+metadata, e.g. "Gender", which will make the plots draw in
+different shapes. Default is NA.}
 
-\item{measures}{The measures to calculate alpha diversity, measures should be one of "Observed",
-"Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".}
+\item{measures}{The measures to calculate alpha diversity, measures should
+be one of "Observed", "Chao1", "ACE", "Shannon", "Simpson",
+"InvSimpson", "Fisher".}
 
-\item{p_test}{The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".}
+\item{p_test}{The p-value to test alpha diversity. p_test should be either
+"wilcox" or "kruskal".}
 }
 \description{
 This is a function for plotting alpha diversity.
 }
 \examples{
-plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis", feature2 = NA,
-                     measures = "Chao1", p_test = "kruskal")
+plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis",
+                     feature2 = NA, measures = "Chao1", p_test = "kruskal")
 }

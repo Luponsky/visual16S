@@ -2,17 +2,19 @@
 #'
 #' This is a function for stacked bar plot.
 #'
-#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
-#'                 phylogenetic tree.
+#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
+#'                 metadata and phylogenetic tree.
 #' @param feature The feature that shows in x-axis text with different colors.
 #' @param level Which taxonomy level to plot.
 #' @param x_size The front size of x-axis text. Default is 8.
-#' @param legend_position Legend position. Default is "top". legend_position should be one of "none",
-#'                        "left", "right", "bottom", "top".
+#' @param legend_position Legend position. Default is "top". legend_position
+#'                        should be one of "none", "left", "right", "bottom",
+#'                        "top".
 #' @param legend_size Lengend size. Default is 10.
 #' @export
 #' @examples
-#' plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis", level = "Order")
+#' plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis",
+#'                  level = "Order")
 
 plot_stacked_bar <- function(phyloseq, feature, level, x_size = 8,
                              legend_position = "top", legend_size = 10) {
@@ -49,13 +51,15 @@ plot_stacked_bar <- function(phyloseq, feature, level, x_size = 8,
   ## Step 5: Bar plot
     ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
       scale_fill_manual(values = distinctive_colors) +
-      geom_bar(mapping = aes(fill = level), position = "fill", stat = "identity") +
+      geom_bar(mapping = aes(fill = level), position = "fill",
+               stat = "identity") +
       theme_bw() +
       theme(panel.grid = element_blank(),
             axis.text.y = element_text(size = 12),
             axis.title = element_text(size = 14),
             strip.text.x = element_text(size = 14),
-            axis.text.x = element_text(size = x_size, angle = 90, color = levels_feature),
+            axis.text.x = element_text(size = x_size, angle = 90,
+                                       color = levels_feature),
             legend.text = element_text(size = legend_size),
             legend.position = legend_position)
 }

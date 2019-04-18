@@ -2,12 +2,13 @@
 #'
 #' construct_otu_table can construct a OTU table with a phyloseq object.
 #'
-#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and
-#'                 phylogenetic tree.
-#' @param level The coloumn name of the level wanted to select. Default is "all". If "all" then retain
-#'              all taxonomy level and seperate by "; ", else ONLY retain the given taxonomy level,
-#'              drop everything else. Level name should be one of "all", "Kingdom", "Phylum", "Class",
-#'              "Order", "Family", "Genus", "Species".
+#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
+#'                 metadata and phylogenetic tree.
+#' @param level The coloumn name of the level wanted to select. Default is
+#'              "all". If "all" then retain all taxonomy level and seperate by
+#'              "; ", else ONLY retain the given taxonomy level, drop
+#'              everything else. Level name should be one of "all", "Kingdom",
+#'              "Phylum", "Class", "Order", "Family", "Genus", "Species".
 #' @export
 #' @examples
 #' construct_otu_table(demo_phyloseq_object, level = "Genus") %>% .[,1:5]
@@ -16,11 +17,13 @@ construct_otu_table <- function(phyloseq, level = "all") {
   # Set options, prevent R turnning numeric value to factor
   options(stringsAsFactors = FALSE)
   # Check if input 'level' is correct
-  if (!level %in% c("all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")) {
-    stop('level should be one of "all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species".')}
+  if (!level %in% c("all", "Kingdom", "Phylum", "Class", "Order", "Family",
+                    "Genus", "Species")) {
+    stop('level should be one of "all", "Kingdom", "Phylum", "Class", "Order",
+         "Family", "Genus", "Species".')}
   # Read in sequence table and taxonomy table from phyloseq
-  otu <- otu_table(phyloseq) %>% as.data.frame() %>% t() %>% as.data.frame() %>%
-    rownames_to_column(var = "OTU_ID")
+  otu <- otu_table(phyloseq) %>% as.data.frame() %>% t() %>%
+    as.data.frame() %>% rownames_to_column(var = "OTU_ID")
   taxa <- tax_table(phyloseq) %>% as.data.frame() %>%
     rownames_to_column(var = "OTU_ID")
   ## Step 1: Clean sequence table and taxonomy table
@@ -39,7 +42,8 @@ construct_otu_table <- function(phyloseq, level = "all") {
   }
   ## Step 3: Merge sequence table and taxonomy table
   otu <- left_join(otu, taxa)
-  ## Step 4: Add abundance of those have the same taxonomy names and convert it to data frame
+  ## Step 4: Add abundance of those have the same taxonomy names and convert it
+  ##         to data frame
   otu <- otu %>%
     group_by_(level) %>% #group_by_() can pass variable to goup_by() function
     summarise_if(is.numeric, sum, na.rm=TRUE) %>%

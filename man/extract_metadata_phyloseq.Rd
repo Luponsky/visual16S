@@ -7,17 +7,20 @@
 extract_metadata_phyloseq(phyloseq, feature = NA)
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and
-phylogenetic tree.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
+metadata and phylogenetic tree.}
 
-\item{feature}{The column name of the feature you want to select. Default is NA. If NA, will return
-the complete metadata, else will return subject id and feature column that's given.}
+\item{feature}{The column name of the feature you want to select. Default is
+NA. If NA, will return the complete metadata, else will
+return subject id and feature column that's given.}
 }
 \description{
-extract_metadata_phyloseq can extract metadata from a phyloseq object. First, the function
-will extract metadata from phyloseq object using phyloseq::sample_data, and turn it into a tibble
-which will turn rownames into a column name 'SampleID'. If feature parameter is given, then will
-select SampleID and feature column, and add levels to the selected feature column.
+extract_metadata_phyloseq can extract metadata from a phyloseq object.
+First, the function will extract metadata from phyloseq object using
+phyloseq::sample_data, and turn it into a tibble which will turn rownames
+into a column name 'SampleID'. If feature parameter is given, then will
+select SampleID and feature column, and add levels to the selected feature
+column.
 }
 \examples{
 extract_metadata_phyloseq(demo_phyloseq_object)
