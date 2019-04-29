@@ -4,7 +4,7 @@
 \alias{plot_stacked_bar}
 \title{plot_stacked_bar}
 \usage{
-plot_stacked_bar(phyloseq, feature, level, x_size = 8,
+plot_stacked_bar(phyloseq, feature, level, order = NA, x_size = 8,
   legend_position = "top", legend_size = 10)
 }
 \arguments{
@@ -14,6 +14,10 @@ metadata and phylogenetic tree.}
 \item{feature}{The feature that shows in x-axis text with different colors.}
 
 \item{level}{Which taxonomy level to plot.}
+
+\item{order}{A vector of arranged SampleID in wanted order. Default is NA.
+If NA, plot_stacked_bar will automatically arrange samples by
+the most abundance taxonomy in decreasing order.}
 
 \item{x_size}{The front size of x-axis text. Default is 8.}
 

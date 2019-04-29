@@ -11,13 +11,17 @@
 #'                        should be one of "none", "left", "right", "bottom",
 #'                        "top".
 #' @param legend_size Lengend size. Default is 10.
+#' @param order A vector of arranged SampleID in wanted order. Default is NA.
+#'              If NA, plot_stacked_bar will automatically arrange samples by
+#'              the most abundance taxonomy in decreasing order.
 #' @export
 #' @examples
 #' plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis",
 #'                  level = "Order")
 
-plot_stacked_bar <- function(phyloseq, feature, level, x_size = 8,
-                             legend_position = "top", legend_size = 10) {
+plot_stacked_bar <- function(phyloseq, feature, level, order = NA,
+                             x_size = 8, legend_position = "top",
+                             legend_size = 10) {
   ## Step 1: First construct otu then convert to percentage
   otu_percent <- construct_otu_table(phyloseq, level) %>%
     convert_to_percentage(row_sum = TRUE) %>%
@@ -30,8 +34,6 @@ plot_stacked_bar <- function(phyloseq, feature, level, x_size = 8,
     .[order(.[,1], decreasing = TRUE),] %>%
     # Turn SampleID to a column
     rownames_to_column(var = "SampleID")
-  # Prepare levels for SampleID
-  levels_SampleID <- plot_tab$SampleID
   # Prepare levels for taxonomy levels
   levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
   ## Step 3: Join metadata
@@ -39,6 +41,15 @@ plot_stacked_bar <- function(phyloseq, feature, level, x_size = 8,
   plot_tab <- left_join(plot_tab, sample_feature)
   # Prepare levels for feature
   levels_feature <- plot_tab[,ncol(plot_tab)]
+  # Prepare levels for SampleID
+  if (all(is.na(order))) {
+    levels_SampleID <- plot_tab$SampleID
+  } else if (all(order %in% plot_tab$SampleID) &
+             all(plot_tab$SampleID %in% order)) {
+    levels_SampleID <- order
+  } else {
+    stop("Given 'order' must contain all Sample IDs.")
+  }
   # Add levels to SampleID
   plot_tab$SampleID <- factor(plot_tab$SampleID, levels = levels_SampleID)
   ## Step 4: Turn plot_table to a long table for plotting
