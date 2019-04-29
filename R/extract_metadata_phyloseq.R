@@ -34,8 +34,6 @@ extract_metadata_phyloseq <- function(phyloseq, feature = NA) {
   } else {
     # Select column by feature name
     metadata <- dplyr::select(metadata, SampleID, !!feature)
-    # Add levels to column
-    metadata[[feature]] <- metadata[[feature]] %>% as.character() %>% factor()
     return(metadata)
   }
 }

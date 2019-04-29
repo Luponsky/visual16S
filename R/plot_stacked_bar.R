@@ -22,11 +22,11 @@
 plot_stacked_bar <- function(phyloseq, feature, level, order = NA,
                              x_size = 8, legend_position = "top",
                              legend_size = 10) {
-  ## Step 1: First construct otu then convert to percentage
+  # First construct otu then convert to percentage
   otu_percent <- construct_otu_table(phyloseq, level) %>%
     convert_to_percentage(row_sum = TRUE) %>%
     as.data.frame()
-  ## Step 2: Construct table for stacked bar plot
+  # Construct table for stacked bar plot
   plot_tab <- otu_percent %>%
     # First re-order taxonomy by total counts
     .[,order(colSums(.), decreasing = TRUE)] %>%
@@ -36,11 +36,8 @@ plot_stacked_bar <- function(phyloseq, feature, level, order = NA,
     rownames_to_column(var = "SampleID")
   # Prepare levels for taxonomy levels
   levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
-  ## Step 3: Join metadata
+  # Extract metadata
   sample_feature <- extract_metadata_phyloseq(phyloseq, feature)
-  plot_tab <- left_join(plot_tab, sample_feature)
-  # Prepare levels for feature
-  levels_feature <- plot_tab[,ncol(plot_tab)]
   # Prepare levels for SampleID
   if (all(is.na(order))) {
     levels_SampleID <- plot_tab$SampleID
@@ -50,16 +47,29 @@ plot_stacked_bar <- function(phyloseq, feature, level, order = NA,
   } else {
     stop("Given 'order' must contain all Sample IDs.")
   }
+  # Join metadata
+  plot_tab <- left_join(plot_tab, sample_feature)
   # Add levels to SampleID
   plot_tab$SampleID <- factor(plot_tab$SampleID, levels = levels_SampleID)
-  ## Step 4: Turn plot_table to a long table for plotting
+  # Prepare levels for feature (colors in x-axis)
+  if (all(is.na(order))) {
+    levels_feature <- plot_tab[,ncol(plot_tab)] %>% as.factor()
+  } else {
+    levels_feature <- as_tibble(order) %>%
+      # Arrange feature order by 'order' variable
+      left_join(plot_tab[,c(1, ncol(plot_tab))],
+                by = c("value" = "SampleID")) %>%
+      # Drop levels
+      .[[2]] %>% as.character() %>% as.factor()
+  }
+  # Turn plot_table to a long table for plotting
   plot_tab <- gather(plot_tab,
                      colnames(plot_tab)[2:(ncol(plot_tab)-1)],
                      key = level,
                      value = "abundance")
   # Add levels to taxonomy levels
   plot_tab$level <- factor(plot_tab$level, levels = levels_level)
-  ## Step 5: Bar plot
+  # Bar plot
     ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
       scale_fill_manual(values = distinctive_colors) +
       geom_bar(mapping = aes(fill = level), position = "fill",
@@ -70,6 +80,7 @@ plot_stacked_bar <- function(phyloseq, feature, level, order = NA,
             axis.title = element_text(size = 14),
             strip.text.x = element_text(size = 14),
             axis.text.x = element_text(size = x_size, angle = 90,
+                                       # 'color' can only work with factor
                                        color = levels_feature),
             legend.text = element_text(size = legend_size),
             legend.position = legend_position)
