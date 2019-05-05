@@ -32,20 +32,24 @@ plot_stacked_bar <- function(phyloseq = NA, level = NA, feature = NA,
   if (is.na(phyloseq)) {
     if (is.na(otu_table)) {
       # If no phyloseq, require otu_table
-      stop("Argument 'phyloseq' and 'otu_table' are both missing, please input a phyloseq object or an OTU table and metadata.")
+      stop("Argument 'phyloseq' and 'otu_table' are both missing,
+           please input a phyloseq object or an OTU table and metadata.")
     } else {
       if (is.na(metadata)) {
         # If have otu_table, require metadata
-        stop("Argument 'metadata' is missing, please input a metadata for the OTU table.")
+        stop("Argument 'metadata' is missing, please input a metadata for the
+             OTU table.")
       }
     }
   } else {
     if (!is.na(otu_table)) {
       # If have phyloseq, require no otu_table
-      stop("Argument 'phyloseq' and 'otu_table' are both detected, please input one of them, not both.")
+      stop("Argument 'phyloseq' and 'otu_table' are both detected, please input
+           one of them, not both.")
     } else if (is.na(level)) {
       # If have phyloseq, require level
-      stop("Argument 'level' is missing. Plaese choose a taxonomy level to plot stacked bar.")
+      stop("Argument 'level' is missing. Plaese choose a taxonomy level to plot
+           stacked bar.")
     }
   }
   # First construct otu then convert to percentage
