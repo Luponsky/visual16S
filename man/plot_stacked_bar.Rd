@@ -4,22 +4,23 @@
 \alias{plot_stacked_bar}
 \title{plot_stacked_bar}
 \usage{
-plot_stacked_bar(phyloseq = NA, level = NA, feature = NA, order = NA,
-  x_size = 8, legend_position = "top", legend_size = 10, otu_table = NA,
-  metadata = NA)
+plot_stacked_bar(phyloseq = NULL, level = NA, feature = NA,
+  order = NULL, x_size = 8, legend_position = "top", legend_size = 10,
+  otu_table = NULL, metadata = NULL)
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
-metadata and phylogenetic tree. If you don't have a phyloseq
-object, you can input OTU table and metadata to draw stacked
-barplot.}
+metadata and phylogenetic tree. Set it to NULL if using an
+OTU table and metadata to draw the stacked barplot.}
 
-\item{level}{A taxonomy level to plot stacked bar.}
+\item{level}{A taxonomy level to plot stacked bar. Default is NA. Required
+when using phyloseq object.}
 
-\item{feature}{The feature that shows in x-axis text with different colors.}
+\item{feature}{The feature that shows in x-axis text with different colors.
+Default is NA, x-axis will show in black.}
 
-\item{order}{A vector of arranged SampleID in wanted order. Default is NA.
-If NA, plot_stacked_bar will automatically arrange samples by
+\item{order}{A vector of arranged SampleID in wanted order. Default is NULL.
+If NULL, plot_stacked_bar will automatically arrange samples by
 the most abundance taxonomy in decreasing order.}
 
 \item{x_size}{The front size of x-axis text. Default is 8.}
@@ -31,10 +32,10 @@ should be one of "none", "left", "right", "bottom",
 \item{legend_size}{Lengend size. Default is 10.}
 
 \item{otu_table}{An OTU table. Taxa are colnames, SampleID are rownames
-(just like phyloseq).}
+(just like phyloseq). Set it to NULL if using phyloseq.}
 
 \item{metadata}{A metadata for the OTU table. SampleID are rownames (just
-like phyloseq).}
+like phyloseq). Set it to NULL if using phyloseq.}
 }
 \description{
 This is a function for stacked bar plot.
