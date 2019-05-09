@@ -35,6 +35,8 @@ plot_beta_diversity <- function(phyloseq, feature, feature2 = NA, method){
   PC <- as.data.frame(beta$points)
   colnames(PC) <- c("PC1", "PC2")
   PC <- rownames_to_column(PC, var = "SampleID")
+  # Print beta-diversity table
+  print(PC)
   # Extract metadata
   metadata <- extract_metadata_phyloseq(phyloseq)
   # Join two tables
