@@ -21,4 +21,5 @@ convert_to_percentage <- function (df, row_sum = TRUE) {
     # 将df中每一列求和，然后用每一列中的每一个数字除以列和
     sweep(df, 2, colSums(df), '/')
   }
+  return(as.data.frame(df))
 }
