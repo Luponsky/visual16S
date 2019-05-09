@@ -35,12 +35,12 @@ plot_beta_diversity <- function(phyloseq, feature, feature2 = NA, method){
   PC <- as.data.frame(beta$points)
   colnames(PC) <- c("PC1", "PC2")
   PC <- rownames_to_column(PC, var = "SampleID")
-  # Print beta-diversity table
-  print(PC)
   # Extract metadata
   metadata <- extract_metadata_phyloseq(phyloseq)
   # Join two tables
   beta_plot <- left_join(PC, metadata)
+  # Print beta-diversity table
+  select(beta_plot, SampleID, !!feature, PC1, PC2) %>% print()
   ## Step 3: Plot beta diversity
   # Make x-axis and y-axis names for aes_string
   x_name <- "PC1"
