@@ -16,10 +16,10 @@ convert_to_percentage <- function (df, row_sum = TRUE) {
   # df must be data frame only contain numeric
   if (row_sum) {
     # 将df中每一行求和，然后用每一行中的每一个数字除以行和
-    sweep(df, 1, rowSums(df), '/')
+    df <- sweep(df, 1, rowSums(df), '/')
   } else {
     # 将df中每一列求和，然后用每一列中的每一个数字除以列和
-    sweep(df, 2, colSums(df), '/')
+    df <- sweep(df, 2, colSums(df), '/')
   }
   return(as.data.frame(df))
 }
