@@ -1,6 +1,6 @@
 #' plot_stacked_bar
 #'
-#' This is a function for stacked bar plot.
+#' This is a function for stacked barplot.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
 #'                 metadata and phylogenetic tree. Set it to NULL if using an

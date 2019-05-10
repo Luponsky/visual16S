@@ -9,6 +9,17 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
                       fig.width=10, fig.height=6)
 ```
 
+# Dependencies
+
+Before install the package, there are some packages that you need to manually install, because some packages are from Bioconductor, install.packages() can only install packages from CRAN.
+
+```{r dependancy, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(c("phyloseq", "DESeq2", "EnhancedVolcano"))
+```
+
+
 # Install and load package
 
 Note: 
@@ -24,7 +35,6 @@ devtools::install('visual16S')
 # Load package and demo data.
 
 ```{r load}
-rm(list = ls())
 library(visual16S)
 demo_phyloseq_object <- visual16S::demo_phyloseq_object
 demo_dada2_result <- visual16S::demo_dada2_result
@@ -47,9 +57,9 @@ silva_nr_v132
 Metadata: 
 
 ```{r matadata, echo=FALSE}
-metadata <- extract_metadata_phyloseq(demo_phyloseq_object) %>% 
-  arrange(diagnosis)
-knitr::kable(metadata, format="markdown")
+extract_metadata_phyloseq(demo_phyloseq_object) %>% 
+  arrange(diagnosis) %>% 
+  knitr::kable()
 ```
 
 # DADA2 workflow reads track
@@ -62,7 +72,7 @@ You can plot reads track in either absolute abundance or relative abundance.
 
 If the sample size is too large to show on legend, set legend_position to "none".
 
-```{r reads track, fig.height=8, fig.width=10}
+```{r track reads, fig.height=8, fig.width=10}
 track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE, 
                   relative_abundance = TRUE, legend_position = "top")
 ```
@@ -77,21 +87,31 @@ If the legend is too much to show, set legend_position to "none".
 
 ### Order level
 
-```{r Stacked bar plot, fig.height=10}
+```{r Stacked barplot, fig.height=10}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Order", 
-                 feature = "diagnosis", x_size = 8, legend_position = "top", 
-                 legend_size = 10)
+                 feature = "diagnosis", legend_position = "top")
 ```
 
 # Alpha diversity
 
-Use plot_alpha_diversity to plot alpha diversity. Change 'measures' argument to use different measurement.
+Use plot_alpha_diversity to plot alpha diversity. 
+
+### All alpha diversity
+
+```{r All alpha}
+plot_alpha_diversity(phyloseq = demo_phyloseq_object, 
+                     feature = "diagnosis") %>% 
+  # Show result in a table in markdown
+  knitr::kable()
+```
+
+Or you can change 'measures' argument to use different measurement.
 
 ### Chao1
 
 ```{r Chao1}
 plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", 
-                     feature2 = NA, measures = "Chao1", p_test = "kruskal")
+                     measures = "Chao1", p_test = "kruskal")
 ```
 
 # Beta diversity
@@ -102,7 +122,7 @@ Use plot_beta_diversity to plot beta diversity. Change 'method' to draw differen
 
 ```{r Bray-Curtis}
 plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", 
-                    feature2 = NA, method = "bray")
+                    method = "bray")
 ```
 
 # Log2 fold change
@@ -110,8 +130,7 @@ plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis",
 Use log2fc function to show differential analysis result.
 
 ```{r log2fc 1}
-log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, 
-       p_value = 0.05)
+log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", p_value = 0.05)
 ```
 
 Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.

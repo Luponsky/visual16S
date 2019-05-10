@@ -38,7 +38,7 @@ should be one of "none", "left", "right", "bottom",
 like phyloseq). Set it to NULL if using phyloseq.}
 }
 \description{
-This is a function for stacked bar plot.
+This is a function for stacked barplot.
 }
 \examples{
 plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis",
