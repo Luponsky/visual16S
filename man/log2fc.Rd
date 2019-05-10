@@ -4,7 +4,7 @@
 \alias{log2fc}
 \title{log2fc}
 \usage{
-log2fc(phyloseq, feature, level = NA, p_value = 0.01, save_res = FALSE,
+log2fc(phyloseq, feature, level = NA, p_value = 0.05, save_res = FALSE,
   reference = NA, treatment = NA)
 }
 \arguments{
@@ -18,7 +18,7 @@ e.g. "Phenotype".}
 level is given, will use construct_otu_table function to construct
 OTU table, and use DESeq to calculate fold change.}
 
-\item{p_value}{The cut off P value for the fold change. Default is 0.01.}
+\item{p_value}{The cut off P value for the fold change. Default is 0.05.}
 
 \item{save_res}{Default is FALSE. If TRUE, will save original result
 DESeq2_result.rds to current working directory.}

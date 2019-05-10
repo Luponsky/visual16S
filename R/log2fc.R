@@ -10,7 +10,7 @@
 #'              level is given, will use construct_otu_table function to construct
 #'              OTU table, and use DESeq to calculate fold change.
 #'
-#' @param p_value The cut off P value for the fold change. Default is 0.01.
+#' @param p_value The cut off P value for the fold change. Default is 0.05.
 #' @param save_res Default is FALSE. If TRUE, will save original result
 #'                 DESeq2_result.rds to current working directory.
 #' @param reference The control group. Default is NA.
@@ -19,7 +19,7 @@
 #' @examples
 #' log2fc(demo_phyloseq_object, feature = "diagnosis", level = "Genus")
 
-log2fc <- function(phyloseq, feature, level = NA, p_value = 0.01,
+log2fc <- function(phyloseq, feature, level = NA, p_value = 0.05,
                    save_res = FALSE, reference = NA, treatment = NA) {
   set.seed(99)
   ## Step 1: Construt table for DESeq2
