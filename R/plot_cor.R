@@ -7,8 +7,7 @@
 #' @param x Colname of cor_tab. x and y must have the same length.
 #' @param y Colname of cor_tab. x and y must have the same length.
 #' @param method A character string indicating which correlation coefficient is
-#' to be used. One of "pearson", "kendall", or "spearman", can be abbreviated.
-#' Default is "pearson".
+#' to be used. One of "pearson", "kendall", or "spearman", default is "pearson".
 #' @export
 
 plot_cor <- function(cor_tab, x, y, method = "pearson") {
@@ -16,6 +15,15 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
   if (any(str_detect(c(x, y), '\\W'))) {
     stop("Colnames of the input columns can only contain letters or numbers,
          or it can't be recognized when plotting.")
+  }
+  if (method == "pearson") {
+    unit <- "Pearson's r"
+  } else if (method == "spearman") {
+    unit <- "Spearman's Rho"
+  } else if (method == "kendall") {
+    unit <- "Kendall's Tau"
+  } else {
+    stop("Input method is not supported.")
   }
   # Calculate correlation
   cor_res <- cor.test(cor_tab[[x]], cor_tab[[y]], method = method)
@@ -26,7 +34,7 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.1,
-               label = paste0('rho = ', round(cor_res$estimate, 3))) +
+               label = paste0(unit, round(cor_res$estimate, 3))) +
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.05,
@@ -46,7 +54,7 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.1,
-               label = paste0('rho = ', round(cor_res$estimate, 3))) +
+               label = paste0(unit, round(cor_res$estimate, 3))) +
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.05,
