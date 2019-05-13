@@ -34,7 +34,7 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.1,
-               label = paste0(unit, round(cor_res$estimate, 3))) +
+               label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.05,
@@ -54,11 +54,11 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.1,
-               label = paste0(unit, round(cor_res$estimate, 3))) +
+               label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
       annotate(geom = 'text',
                x = mean(cor_tab[[x]]),
                y = max(cor_tab[[y]]) * 1.05,
-               label = paste0('p-value = ', round(cor_res$p.value, 3))) +
+               label = paste0('p-value = ', round(cor_res$p.value, 2))) +
       labs(x = as.character(x), y = as.character(y)) +
       theme_bw() +
       theme(panel.grid = element_blank(),
