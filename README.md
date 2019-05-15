@@ -92,20 +92,55 @@ track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE,
 Stacked barplot of phylogenetic composition
 ===========================================
 
-Use plot\_stacked\_bar function to plot the Family level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
+Use plot\_stacked\_bar function to plot the taxonomy level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
-Note:
+### Minimum usage
 
-If the legend is too much to show, set legend\_position to "none".
+``` r
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family")
+```
 
-### Family level
+![](README_files/figure-markdown_github/Stacked%20barplot%201-1.png)
+
+### Plot in relative abundance
 
 ``` r
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
-                 feature = "diagnosis", legend_position = "top")
+                 relative_abundance = TRUE)
 ```
 
-![](README_files/figure-markdown_github/Stacked%20barplot-1.png)
+![](README_files/figure-markdown_github/Stacked%20barplot%202-1.png)
+
+### If legends are too many to show, set legend\_position to "none"
+
+``` r
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none")
+```
+
+![](README_files/figure-markdown_github/Stacked%20barplot%203-1.png)
+
+### If you want to show feature information in x-axis, set "feature" parameter
+
+``` r
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none", 
+                 feature = "diagnosis")
+```
+
+![](README_files/figure-markdown_github/Stacked%20barplot%204-1.png)
+
+### If you want the sample in specific order, pass ordered sample names to "order" parameter
+
+``` r
+sample_order <- sample_names(demo_phyloseq_object)
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none", 
+                 feature = "diagnosis", 
+                 order = sample_order)
+```
+
+![](README_files/figure-markdown_github/Stacked%20barplot%205-1.png)
 
 Alpha diversity
 ===============

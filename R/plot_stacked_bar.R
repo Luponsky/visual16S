@@ -100,8 +100,10 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
         # Join metadata
         left_join(sample_feature) %>%
         # Group by feature parameter
+        # group_by_() can pass variable to group_by()
         group_by_(feature) %>%
         # Arrange order by total abundance and by group
+        # Set .by_group = TRUE to arrange by group
         arrange(desc(total), .by_group = TRUE) %>%
         select(-total)
       levels_SampleID <- plot_tab$SampleID

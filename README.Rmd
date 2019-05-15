@@ -79,17 +79,44 @@ track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE,
 
 # Stacked barplot of phylogenetic composition
 
-Use plot_stacked_bar function to plot the Family level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
+Use plot_stacked_bar function to plot the taxonomy level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
-Note: 
+### Minimum usage
 
-If the legend is too much to show, set legend_position to "none".
+```{r Stacked barplot 1, fig.height=10}
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family")
+```
 
-### Family level
+### Plot in relative abundance
 
-```{r Stacked barplot, fig.height=10}
+```{r Stacked barplot 2, fig.height=10}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
-                 feature = "diagnosis", legend_position = "top")
+                 relative_abundance = TRUE)
+```
+
+### If legends are too many to show, set legend_position to "none"
+
+```{r Stacked barplot 3, fig.height=10}
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none")
+```
+
+### If you want to show feature information in x-axis, set "feature" parameter
+
+```{r Stacked barplot 4, fig.height=10}
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none", 
+                 feature = "diagnosis")
+```
+
+### If you want the sample in specific order, pass ordered sample names to "order" parameter
+
+```{r Stacked barplot 5, fig.height=10}
+sample_order <- sample_names(demo_phyloseq_object)
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none", 
+                 feature = "diagnosis", 
+                 order = sample_order)
 ```
 
 # Alpha diversity
