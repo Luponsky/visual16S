@@ -3,32 +3,33 @@
 #' This is a function for stacked barplot.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
-#'                 metadata and phylogenetic tree. Set it to NULL if using an
-#'                 OTU table and metadata to draw the stacked barplot.
+#' metadata and phylogenetic tree. Set it to NULL if using an OTU table and
+#' metadata to draw the stacked barplot.
 #' @param feature The feature that shows in x-axis text with different colors.
-#'                Default is NA, x-axis will show in black.
+#' Default is NA, x-axis will show in black.
 #' @param level  A taxonomy level to plot stacked bar. Default is NA. Required
-#'               when using phyloseq object.
+#' when using phyloseq object.
 #' @param x_size The front size of x-axis text. Default is 8.
 #' @param legend_position Legend position. Default is "top". legend_position
-#'                        should be one of "none", "left", "right", "bottom",
-#'                        "top".
+#' should be one of "none", "left", "right", "bottom", "top".
 #' @param legend_size Lengend size. Default is 10.
 #' @param order A vector of arranged SampleID in wanted order. Default is NULL.
-#'              If NULL, plot_stacked_bar will automatically arrange samples by
-#'              the most abundance taxonomy in decreasing order.
+#' If NULL, plot_stacked_bar will automatically arrange samples by the most
+#' abundance taxonomy in decreasing order.
 #' @param otu_table An OTU table. Taxa are colnames, SampleID are rownames
-#'                  (just like phyloseq). Set it to NULL if using phyloseq.
+#' (just like phyloseq). Set it to NULL if using phyloseq.
 #' @param metadata A metadata for the OTU table. SampleID are rownames (just
-#'                 like phyloseq). Set it to NULL if using phyloseq.
+#' like phyloseq). Set it to NULL if using phyloseq.
+#' @param relative_abundance Turn plot into relative abundance or not. Default
+#' is TRUE.
 #' @export
 #' @examples
-#' plot_stacked_bar(demo_phyloseq_object, feature = "diagnosis",
-#'                  level = "Order")
+#' plot_stacked_bar(demo_phyloseq_object, level = "Order")
 
-plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
-                             order = NULL, x_size = 8, legend_position = "top",
-                             legend_size = 10, otu_table = NULL, metadata = NULL) {
+plot_stacked_bar <- function(phyloseq = NULL, otu_table = NULL, metadata = NULL,
+                             level = NA, feature = NA, order = NULL,
+                             relative_abundance = TRUE, x_size = 8,
+                             legend_position = "top", legend_size = 10) {
   # Detact variables
   if (is.null(phyloseq)) {
     if (is.null(otu_table)) {
@@ -59,9 +60,11 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   } else {
     otu <- otu_table
   }
-  otu_percent <- otu %>% convert_to_percentage(row_sum = TRUE)
+  if (relative_abundance) {
+    otu <- otu %>% convert_to_percentage(row_sum = TRUE)
+  }
   # Construct table for stacked bar plot
-  plot_tab <- otu_percent %>%
+  plot_tab <- otu %>%
     # First re-order taxonomy by total counts
     .[,order(colSums(.), decreasing = TRUE)] %>%
     # Then re-order sample by the most abundance taxonomy
@@ -119,8 +122,7 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   # Bar plot
   ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
     scale_fill_manual(values = distinctive_colors) +
-    geom_bar(mapping = aes(fill = level), position = "fill",
-             stat = "identity") +
+    geom_bar(mapping = aes(fill = level), stat = "identity") +
     theme_bw() +
     theme(panel.grid = element_blank(),
           axis.text.y = element_text(size = 12),
