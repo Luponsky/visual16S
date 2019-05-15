@@ -62,15 +62,23 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   }
   if (relative_abundance) {
     otu <- otu %>% convert_to_percentage(row_sum = TRUE)
+    # Construct table for stacked bar plot
+    plot_tab <- otu %>%
+      # First re-order taxonomy by total counts
+      .[,order(colSums(.), decreasing = TRUE)] %>%
+      # Then re-order sample by the most abundance taxonomy
+      .[order(.[,1], decreasing = TRUE),] %>%
+      # Turn SampleID to a column
+      rownames_to_column(var = "SampleID")
+  } else {
+    plot_tab <- otu %>%
+      # First re-order taxonomy by total counts
+      .[,order(colSums(.), decreasing = TRUE)] %>%
+      # Then re-order sample by total abundance
+      .[order(rowSums(.), decreasing = TRUE),] %>%
+      # Turn SampleID to a column
+      rownames_to_column(var = "SampleID")
   }
-  # Construct table for stacked bar plot
-  plot_tab <- otu %>%
-    # First re-order taxonomy by total counts
-    .[,order(colSums(.), decreasing = TRUE)] %>%
-    # Then re-order sample by the most abundance taxonomy
-    .[order(.[,1], decreasing = TRUE),] %>%
-    # Turn SampleID to a column
-    rownames_to_column(var = "SampleID")
   # Prepare levels for taxonomy levels
   levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
   # Extract metadata
@@ -80,16 +88,34 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
     sample_feature <- metadata %>% rownames_to_column("SampleID")
   }
   # Prepare levels for SampleID
-  if (is.null(order)) {
-    levels_SampleID <- plot_tab$SampleID
-  } else if (length(order) != length(plot_tab$SampleID)) {
-    stop("The length of order and SampleID does not match.")
-  } else if (all(order %in% plot_tab$SampleID)) {
-    if (all(plot_tab$SampleID %in% order)) {
-      levels_SampleID <- order
+  if (!is.na(feature)) {
+    if (is.null(order)) {
+      # Save origin colnames
+      original_colnames <- colnames(plot_tab)
+      # Add a new column that is rowsum
+      plot_tab$total <- plot_tab %>%
+        column_to_rownames("SampleID") %>%
+        rowSums()
+      plot_tab <- plot_tab %>%
+        # Join metadata
+        left_join(sample_feature) %>%
+        # Group by feature parameter
+        group_by_(feature) %>%
+        # Arrange order by total abundance and by group
+        arrange(desc(total), .by_group = TRUE) %>%
+        select(-total)
+      levels_SampleID <- plot_tab$SampleID
+    } else if (length(order) != length(plot_tab$SampleID)) {
+      stop("The length of order and SampleID does not match.")
+    } else if (all(order %in% plot_tab$SampleID)) {
+      if (all(plot_tab$SampleID %in% order)) {
+        levels_SampleID <- order
+      }
+    } else {
+      stop("Given order must contain all SampleID.")
     }
   } else {
-    stop("Given order must contain all SampleID.")
+    levels_SampleID <- plot_tab$SampleID
   }
   # Join metadata
   plot_tab <- left_join(plot_tab, sample_feature)
