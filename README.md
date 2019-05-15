@@ -2,10 +2,10 @@ visual16S package demo
 ================
 yeguanhua
 
-Dependencies
-============
+Install dependencies
+====================
 
-Before install the package, there are some packages that you need to manually install, because some packages are from Bioconductor, install.packages() can only install packages from CRAN.
+Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -89,19 +89,19 @@ track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE,
 
 ![](README_files/figure-markdown_github/track%20reads-1.png)
 
-Stacked bar plot of phylogenetic composition
-============================================
+Stacked barplot of phylogenetic composition
+===========================================
 
-Use plot\_stacked\_bar function to plot the Order level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
+Use plot\_stacked\_bar function to plot the Family level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
 Note:
 
 If the legend is too much to show, set legend\_position to "none".
 
-### Order level
+### Family level
 
 ``` r
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Order", 
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
                  feature = "diagnosis", legend_position = "top")
 ```
 
@@ -154,7 +154,7 @@ plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis",
 Beta diversity
 ==============
 
-Use plot\_beta\_diversity to plot beta diversity. Change 'method' to draw different beta diversity plot.
+Use plot\_beta\_diversity to plot beta diversity. Change 'method' to draw different beta diversity plot. You can locate specific sample in beta diversity plot by the table printed to the screen.
 
 ### Bray-Curtis
 
