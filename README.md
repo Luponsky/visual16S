@@ -102,15 +102,6 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family")
 
 ![](README_files/figure-markdown_github/Stacked%20barplot%201-1.png)
 
-### Plot in relative abundance
-
-``` r
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
-                 relative_abundance = TRUE)
-```
-
-![](README_files/figure-markdown_github/Stacked%20barplot%202-1.png)
-
 ### If legends are too many to show, set legend\_position to "none"
 
 ``` r
@@ -118,7 +109,7 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
                  legend_position = "none")
 ```
 
-![](README_files/figure-markdown_github/Stacked%20barplot%203-1.png)
+![](README_files/figure-markdown_github/Stacked%20barplot%202-1.png)
 
 ### If you want to show feature information in x-axis, set "feature" parameter
 
@@ -128,7 +119,7 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
                  feature = "diagnosis")
 ```
 
-![](README_files/figure-markdown_github/Stacked%20barplot%204-1.png)
+![](README_files/figure-markdown_github/Stacked%20barplot%203-1.png)
 
 ### If you want the sample in specific order, pass ordered sample names to "order" parameter
 
@@ -140,7 +131,26 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
                  order = sample_order)
 ```
 
+![](README_files/figure-markdown_github/Stacked%20barplot%204-1.png)
+
+### Plot in relative abundance
+
+``` r
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 relative_abundance = TRUE)
+```
+
 ![](README_files/figure-markdown_github/Stacked%20barplot%205-1.png)
+
+### Show feature information in x-axis
+
+``` r
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 relative_abundance = TRUE, 
+                 feature = "diagnosis")
+```
+
+![](README_files/figure-markdown_github/Stacked%20barplot%206-1.png)
 
 Alpha diversity
 ===============

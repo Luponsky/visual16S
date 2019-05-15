@@ -87,23 +87,16 @@ Use plot_stacked_bar function to plot the taxonomy level abundance in every samp
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family")
 ```
 
-### Plot in relative abundance
-
-```{r Stacked barplot 2, fig.height=10}
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
-                 relative_abundance = TRUE)
-```
-
 ### If legends are too many to show, set legend_position to "none"
 
-```{r Stacked barplot 3, fig.height=10}
+```{r Stacked barplot 2, fig.height=10}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
                  legend_position = "none")
 ```
 
 ### If you want to show feature information in x-axis, set "feature" parameter
 
-```{r Stacked barplot 4, fig.height=10}
+```{r Stacked barplot 3, fig.height=10}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
                  legend_position = "none", 
                  feature = "diagnosis")
@@ -111,12 +104,27 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
 
 ### If you want the sample in specific order, pass ordered sample names to "order" parameter
 
-```{r Stacked barplot 5, fig.height=10}
+```{r Stacked barplot 4, fig.height=10}
 sample_order <- sample_names(demo_phyloseq_object)
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
                  legend_position = "none", 
                  feature = "diagnosis", 
                  order = sample_order)
+```
+
+### Plot in relative abundance
+
+```{r Stacked barplot 5, fig.height=10}
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 relative_abundance = TRUE)
+```
+
+### Show feature information in x-axis
+
+```{r Stacked barplot 6, fig.height=10}
+plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 relative_abundance = TRUE, 
+                 feature = "diagnosis")
 ```
 
 # Alpha diversity
