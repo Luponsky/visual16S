@@ -32,11 +32,11 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
       geom_point() +
       geom_smooth(method = lm) +
       annotate(geom = 'text',
-               x = mean(cor_tab[[x]]),
+               x = max(cor_tab[[x]]) / 2,
                y = max(cor_tab[[y]]) * 1.1,
                label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
       annotate(geom = 'text',
-               x = mean(cor_tab[[x]]),
+               x = max(cor_tab[[x]]) / 2,
                y = max(cor_tab[[y]]) * 1.05,
                label = paste0('p-value < 2.2e-16')) +
       labs(x = as.character(x), y = as.character(y)) +
@@ -52,11 +52,11 @@ plot_cor <- function(cor_tab, x, y, method = "pearson") {
       geom_point() +
       geom_smooth(method = lm) +
       annotate(geom = 'text',
-               x = mean(cor_tab[[x]]),
+               x = max(cor_tab[[x]]) / 2,
                y = max(cor_tab[[y]]) * 1.1,
                label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
       annotate(geom = 'text',
-               x = mean(cor_tab[[x]]),
+               x = max(cor_tab[[x]]) / 2,
                y = max(cor_tab[[y]]) * 1.05,
                label = paste0('p-value = ', round(cor_res$p.value, 2))) +
       labs(x = as.character(x), y = as.character(y)) +
