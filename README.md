@@ -10,7 +10,7 @@ Before install the visual16S, there are some packages needed to be manually inst
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install(c("phyloseq", "DESeq2", "EnhancedVolcano"))
+BiocManager::install(c("dada2", "phyloseq", "DESeq2", "EnhancedVolcano"))
 ```
 
 Install and load package
