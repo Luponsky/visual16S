@@ -67,7 +67,7 @@ plot_alpha_diversity <- function (phyloseq, feature, feature2 = NA,
                    x = ((alpha_diversity$data[[feature]] %>% unique() %>%
                            length() + 1)/2),
                    y = (max(alpha_diversity$data$value) * 1.1),
-                   label = paste0(p_test, " p-value = ", round(p_value, 4)),
+                   label = paste0(p_test, " p-value = ", round(p_value, 3)),
                    size = 3) +
           theme_bw() +
           theme(panel.grid = element_blank(),
@@ -88,7 +88,7 @@ plot_alpha_diversity <- function (phyloseq, feature, feature2 = NA,
                    x = ((alpha_diversity$data[[feature]] %>% unique() %>%
                            length() + 1)/2),
                    y = (max(alpha_diversity$data$value) * 1.1),
-                   label = paste0(p_test, " p-value = ", round(p_value, 4)),
+                   label = paste0(p_test, " p-value = ", round(p_value, 3)),
                    size = 3) +
           scale_shape_manual(values = c(0:6)) +
           theme_bw() +
