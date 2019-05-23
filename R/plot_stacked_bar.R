@@ -87,11 +87,11 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   } else {
     sample_feature <- metadata %>% rownames_to_column("SampleID")
   }
-  # Save origin colnames
-  original_colnames <- colnames(plot_tab)
   # Prepare levels for SampleID
-  if (!is.na(feature)) {
-    if (is.null(order)) {
+  if (is.null(order)) {
+    if (!is.na(feature)) {
+      # Save origin colnames
+      original_colnames <- colnames(plot_tab)
       # Add a new column that is rowsum
       plot_tab$total <- plot_tab %>%
         column_to_rownames("SampleID") %>%
@@ -107,17 +107,17 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
         arrange(desc(total), .by_group = TRUE) %>%
         select(original_colnames)
       levels_SampleID <- plot_tab$SampleID
-    } else if (length(order) != length(plot_tab$SampleID)) {
-      stop("The length of order and SampleID does not match.")
-    } else if (all(order %in% plot_tab$SampleID)) {
-      if (all(plot_tab$SampleID %in% order)) {
-        levels_SampleID <- order
-      }
     } else {
-      stop("Given order must contain all SampleID.")
+      levels_SampleID <- plot_tab$SampleID
+    }
+  } else if (length(order) != length(plot_tab$SampleID)) {
+    stop("The length of order and SampleID does not match.")
+  } else if (all(order %in% plot_tab$SampleID)) {
+    if (all(plot_tab$SampleID %in% order)) {
+      levels_SampleID <- order
     }
   } else {
-    levels_SampleID <- plot_tab$SampleID
+    stop("Given order must contain all SampleID.")
   }
   # Join metadata
   plot_tab <- left_join(plot_tab, sample_feature)
@@ -142,7 +142,7 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   }
   # Turn plot_table to a long table for plotting
   plot_tab <- gather(plot_tab,
-                     original_colnames[2:length(original_colnames)],
+                     levels_level,
                      key = level,
                      value = "abundance")
   # Add levels to taxonomy levels
