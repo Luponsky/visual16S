@@ -87,11 +87,11 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   } else {
     sample_feature <- metadata %>% rownames_to_column("SampleID")
   }
+  # Save origin colnames
+  original_colnames <- colnames(plot_tab)
   # Prepare levels for SampleID
   if (!is.na(feature)) {
     if (is.null(order)) {
-      # Save origin colnames
-      original_colnames <- colnames(plot_tab)
       # Add a new column that is rowsum
       plot_tab$total <- plot_tab %>%
         column_to_rownames("SampleID") %>%
@@ -102,10 +102,10 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
         # Group by feature parameter
         # group_by_() can pass variable to group_by()
         group_by_(feature) %>%
-        # Arrange order by total abundance and by group
+        # Arrange rows by total abundance and by group
         # Set .by_group = TRUE to arrange by group
         arrange(desc(total), .by_group = TRUE) %>%
-        select(-total)
+        select(original_colnames)
       levels_SampleID <- plot_tab$SampleID
     } else if (length(order) != length(plot_tab$SampleID)) {
       stop("The length of order and SampleID does not match.")
@@ -142,7 +142,7 @@ plot_stacked_bar <- function(phyloseq = NULL, level = NA, feature = NA,
   }
   # Turn plot_table to a long table for plotting
   plot_tab <- gather(plot_tab,
-                     colnames(plot_tab)[2:(ncol(plot_tab)-1)],
+                     original_colnames[2:length(original_colnames)],
                      key = level,
                      value = "abundance")
   # Add levels to taxonomy levels
