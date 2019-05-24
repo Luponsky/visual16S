@@ -1,6 +1,6 @@
-#' plot_cor
+#' plot_correlation
 #'
-#' plot_cor can plot correlation using a input table.
+#' plot_correlation can plot correlation using a correlation table.
 #'
 #' @param cor_tab A data frame that contains at least two columns to calculate
 #' correlation.
@@ -10,7 +10,7 @@
 #' to be used. One of "pearson", "kendall", or "spearman", default is "pearson".
 #' @export
 
-plot_cor <- function(cor_tab, x, y, method = "pearson") {
+plot_correlation <- function (cor_tab, x, y, method = "pearson") {
   # Notice: Colnames of the input table can only be letters or numbers.
   if (any(str_detect(c(x, y), '\\W'))) {
     stop("Colnames of the input columns can only contain letters or numbers,

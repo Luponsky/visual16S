@@ -3,24 +3,25 @@
 #' This is a function for plotting beta diversity.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
-#'                 metadata and phylogenetic tree.
+#' metadata and phylogenetic tree.
 #' @param feature The column name of the feature you want to select from
-#'                metadata, e.g. "Phenotype".
+#' metadata, e.g. "Phenotype".
 #' @param feature2 The column name of another feature you want to select from
-#'                 metadata, which will show in different shape, e.g. "Gender".
-#'                 Default is NA.
+#' metadata, which will show in different shape, e.g. "Gender". Default is NA.
 #' @param method The method to calculate beta diversity. Method should be one
-#'               of "bray", "jaccard", "unifrac", "wunifrac".
+#' of "bray", "jaccard", "unifrac", "wunifrac". Default is "bray".
+#' PS: "unifrac" and "wunifrac" require a phylogenetic tree.
 #' @export
 #' @examples
-#' plot_beta_diversity(demo_phyloseq_object, feature = "diagnosis",
-#'                     method = "bray")
+#' plot_beta_diversity(demo_phyloseq_object, feature = "diagnosis")
 
-plot_beta_diversity <- function(phyloseq, feature, feature2 = NA, method){
+plot_beta_diversity <- function(phyloseq, feature, feature2 = NA,
+                                method = "bray"){
   set.seed(99)
   ## Step 1: Calculate beta diversity
   if (!method %in% c("bray", "jaccard", "unifrac", "wunifrac")) {
-    stop('beta diversity method should be one of "bray", "jaccard", "unifrac", "wunifrac".')
+    stop('Beta diversity method should be one of "bray", "jaccard", "unifrac",
+         "wunifrac".')
   } else if (method %in% c("unifrac", "wunifrac")) {
     # Requires phyloseq-class that contains both an otu_table and a
     # phylogenetic tree

@@ -4,7 +4,7 @@
 \alias{plot_beta_diversity}
 \title{plot_beta_diversity}
 \usage{
-plot_beta_diversity(phyloseq, feature, feature2 = NA, method)
+plot_beta_diversity(phyloseq, feature, feature2 = NA, method = "bray")
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
@@ -14,16 +14,15 @@ metadata and phylogenetic tree.}
 metadata, e.g. "Phenotype".}
 
 \item{feature2}{The column name of another feature you want to select from
-metadata, which will show in different shape, e.g. "Gender".
-Default is NA.}
+metadata, which will show in different shape, e.g. "Gender". Default is NA.}
 
 \item{method}{The method to calculate beta diversity. Method should be one
-of "bray", "jaccard", "unifrac", "wunifrac".}
+of "bray", "jaccard", "unifrac", "wunifrac". Default is "bray".
+PS: "unifrac" and "wunifrac" require a phylogenetic tree.}
 }
 \description{
 This is a function for plotting beta diversity.
 }
 \examples{
-plot_beta_diversity(demo_phyloseq_object, feature = "diagnosis",
-                    method = "bray")
+plot_beta_diversity(demo_phyloseq_object, feature = "diagnosis")
 }
