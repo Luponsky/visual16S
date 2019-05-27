@@ -6,8 +6,7 @@
 \usage{
 plot_stacked_bar(phyloseq = NULL, level = NA, feature = NA,
   otu_table = NULL, metadata = NULL, order = NULL,
-  relative_abundance = FALSE, x_size = 8, legend_position = "top",
-  legend_size = 10)
+  relative_abundance = FALSE, legend_position = "top")
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
@@ -33,12 +32,8 @@ abundance taxonomy in decreasing order.}
 \item{relative_abundance}{Turn plot into relative abundance or not. Default
 is FALSE.}
 
-\item{x_size}{The front size of x-axis text. Default is 8.}
-
 \item{legend_position}{Legend position. Default is "top". legend_position
 should be one of "none", "left", "right", "bottom", "top".}
-
-\item{legend_size}{Lengend size. Default is 10.}
 }
 \description{
 This is a function for stacked barplot.
