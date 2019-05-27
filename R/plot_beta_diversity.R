@@ -11,17 +11,20 @@
 #' @param method The method to calculate beta diversity. Method should be one
 #' of "bray", "jaccard", "unifrac", "wunifrac". Default is "bray".
 #' PS: "unifrac" and "wunifrac" require a phylogenetic tree.
+#' @param colors A color vector for the plot, the number of colors need to
+#' match the number of feature. Default is NULL, if NULL, plot_alpha_diversity
+#' will use ggsci::scale_color_jco for the plot.
 #' @export
 #' @examples
 #' plot_beta_diversity(demo_phyloseq_object, feature = "diagnosis")
 
 plot_beta_diversity <- function(phyloseq, feature, feature2 = NA,
-                                method = "bray"){
+                                method = "bray", colors = NULL){
   set.seed(99)
   ## Step 1: Calculate beta diversity
   if (!method %in% c("bray", "jaccard", "unifrac", "wunifrac")) {
-    stop('Beta diversity method should be one of "bray", "jaccard", "unifrac",
-         "wunifrac".')
+    stop(paste0('Beta diversity method should be one of c("bray", "jaccard", ',
+                '"unifrac", "wunifrac").'))
   } else if (method %in% c("unifrac", "wunifrac")) {
     # Requires phyloseq-class that contains both an otu_table and a
     # phylogenetic tree
@@ -41,7 +44,11 @@ plot_beta_diversity <- function(phyloseq, feature, feature2 = NA,
   # Join two tables
   beta_plot <- left_join(PC, metadata)
   # Print beta-diversity table
-  select(beta_plot, SampleID, !!feature, PC1, PC2) %>% print()
+  if (is.na(feature2)) {
+    select(beta_plot, SampleID, !!feature, PC1, PC2) %>% print()
+  } else {
+    select(beta_plot, SampleID, !!feature, !!feature2, PC1, PC2) %>% print()
+  }
   ## Step 3: Plot beta diversity
   # Make x-axis and y-axis names for aes_string
   x_name <- "PC1"
@@ -66,7 +73,6 @@ plot_beta_diversity <- function(phyloseq, feature, feature2 = NA,
             axis.text.x = element_text(size = 12),
             legend.text = element_text(size = 12),
             strip.text.x = element_text(size = 14))
-    p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
   } else {
     p <- ggplot(data = beta_plot,
                 # Use aes_string() to pass variables to ggplot
@@ -85,6 +91,13 @@ plot_beta_diversity <- function(phyloseq, feature, feature2 = NA,
             axis.text.x = element_text(size = 12),
             legend.text = element_text(size = 12),
             strip.text.x = element_text(size = 14))
+  }
+  if (is.null(colors)) {
     p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
+  } else if (length(colors) != length(unique(beta_plot[[feature]]))) {
+    stop(paste0("The number of colors and the number of ", feature,
+                " does not mtach."))
+  } else {
+    p + scale_color_manual(values = colors)
   }
 }

@@ -15,17 +15,16 @@ metadata and phylogenetic tree.}
 metadata.}
 
 \item{feature2}{The column name of another feature you want to select from
-metadata, e.g. "Gender", which will make the plots draw in
-different shapes. Default is NA.}
+metadata, e.g. "Gender", which will make the plots draw in different shapes.
+Default is NA.}
 
 \item{measures}{The measures to calculate alpha diversity. Default is NA. If
-NA, all available alpha diversity measures will be
-calculated and generate a table. If not NA, measures
-should be one of "Observed", "Chao1", "ACE", "Shannon",
-"Simpson", "InvSimpson", "Fisher".}
+NA, all available alpha diversity measures will be calculated and generate a
+table. If not NA, measures should be one of c("Observed", "Chao1", "ACE",
+"Shannon", "Simpson", "InvSimpson", "Fisher").}
 
 \item{p_test}{The p-value to test alpha diversity. p_test should be either
-"wilcox" or "kruskal".}
+"wilcox" or "kruskal". PS: "wilcox" can only work with two groups.}
 }
 \description{
 This is a function for plotting alpha diversity.

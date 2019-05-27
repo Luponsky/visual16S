@@ -11,8 +11,8 @@ extract_metadata_phyloseq(phyloseq, feature = NA)
 metadata and phylogenetic tree.}
 
 \item{feature}{The column name of the feature you want to select. Default is
-NA. If NA, will return the complete metadata, else will
-return subject id and feature column that's given.}
+NA. If NA, will return the complete metadata, else will return subject id
+and feature column that's given.}
 }
 \description{
 extract_metadata_phyloseq can extract metadata from a phyloseq object.

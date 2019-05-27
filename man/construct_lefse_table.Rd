@@ -14,11 +14,10 @@ metadata and phylogenetic tree.}
 table, feature will be the first row.}
 
 \item{level}{The coloumn name of the level wanted to select. Default is
-"all". If "all" then retain all taxonomy level, else retain the
-taxonomy from Kingdom to selected level, drop everything else.
-Level name should be one of "all", "Kingdom", "Phylum", "Class",
-"Order", "Family", "Genus", "Species". Taxonomy will be
-seperated by "|".}
+"all". If "all" then retain all taxonomy level, else retain the taxonomy
+from Kingdom to selected level, drop everything else. Level name should be
+one of c("all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus",
+"Species"). Taxonomy will be seperated by "|".}
 }
 \description{
 construct_lefse_table can construct a LEfSe-format OTU table.

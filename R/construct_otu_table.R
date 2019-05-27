@@ -3,12 +3,12 @@
 #' construct_otu_table can construct a OTU table with a phyloseq object.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
-#'                 metadata and phylogenetic tree.
+#' metadata and phylogenetic tree.
 #' @param level The coloumn name of the level wanted to select. Default is
-#'              "all". If "all" then retain all taxonomy level and seperate by
-#'              "; ", else ONLY retain the given taxonomy level, drop
-#'              everything else. Level name should be one of "all", "Kingdom",
-#'              "Phylum", "Class", "Order", "Family", "Genus", "Species".
+#' "all". If "all" then retain all taxonomy level and seperate by "; ", else
+#' ONLY retain the given taxonomy level, drop everything else. Level name
+#' should be one of "all", "Kingdom", "Phylum", "Class", "Order", "Family",
+#' "Genus", "Species".
 #' @export
 #' @examples
 #' construct_otu_table(demo_phyloseq_object, level = "Genus") %>% .[,1:5]
@@ -19,8 +19,8 @@ construct_otu_table <- function(phyloseq, level = "all") {
   # Check if input 'level' is correct
   if (!level %in% c("all", "Kingdom", "Phylum", "Class", "Order", "Family",
                     "Genus", "Species")) {
-    stop('level should be one of "all", "Kingdom", "Phylum", "Class", "Order",
-         "Family", "Genus", "Species".')}
+    stop(paste0('Argument "level" should be one of c("all", "Kingdom", ',
+                '"Phylum" "Class", "Order", "Family", "Genus", "Species").'))}
   # Read in sequence table and taxonomy table from phyloseq
   otu <- otu_table(phyloseq) %>% as.data.frame() %>% t() %>%
     as.data.frame() %>% rownames_to_column(var = "OTU_ID")

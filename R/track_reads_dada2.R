@@ -8,17 +8,16 @@
 #' stage in dada2 workflow, Y-axis will be the reads counts.
 #'
 #' @param reads_track The reads track data frame from Xbiome 16S pipeline dada2
-#'                    workflow result.
+#' workflow result.
 #' @param single_end Default is FALSE. If single_end == TRUE, means the
-#'                   sequence files are single end, the x-axis will contain
-#'                   'input', 'filtered', 'dereplicated', 'nonchim'. If
-#'                   single_end == FALSE, means the sequence files are paired
-#'                   end, the x-axis will contain 'input', 'filtered',
-#'                   'denoisedF', 'denoisedR', 'merged', 'nonchim'.
+#' sequence files are single end, the x-axis will contain 'input', 'filtered',
+#' 'dereplicated', 'nonchim'. If single_end == FALSE, means the sequence files
+#' are paired end, the x-axis will contain 'input', 'filtered', 'denoisedF',
+#' 'denoisedR', 'merged', 'nonchim'.
 #' @param relative_abundance Default is FALSE. If TRUE, will turn values to
-#'                           relative abundance.
+#' relative abundance.
 #' @param legend_position Legend position. Default is top. One of "none",
-#'                        "left", "right", "bottom", "top".
+#' "left", "right", "bottom", "top".
 #' @export
 #' @examples
 #' track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE)

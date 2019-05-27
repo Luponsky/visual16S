@@ -4,7 +4,8 @@
 \alias{plot_beta_diversity}
 \title{plot_beta_diversity}
 \usage{
-plot_beta_diversity(phyloseq, feature, feature2 = NA, method = "bray")
+plot_beta_diversity(phyloseq, feature, feature2 = NA, method = "bray",
+  colors = NULL)
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
@@ -19,6 +20,10 @@ metadata, which will show in different shape, e.g. "Gender". Default is NA.}
 \item{method}{The method to calculate beta diversity. Method should be one
 of "bray", "jaccard", "unifrac", "wunifrac". Default is "bray".
 PS: "unifrac" and "wunifrac" require a phylogenetic tree.}
+
+\item{colors}{A color vector for the plot, the number of colors need to
+match the number of feature. Default is NULL, if NULL, plot_alpha_diversity
+will use ggsci::scale_color_jco for the plot.}
 }
 \description{
 This is a function for plotting beta diversity.

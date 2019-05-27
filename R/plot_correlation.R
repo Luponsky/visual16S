@@ -13,8 +13,8 @@
 plot_correlation <- function (cor_tab, x, y, method = "pearson") {
   # Notice: Colnames of the input table can only be letters or numbers.
   if (any(str_detect(c(x, y), '\\W'))) {
-    stop("Colnames of the input columns can only contain letters or numbers,
-         or it can't be recognized when plotting.")
+    stop(paste0("Colnames of the input columns can only contain letters or',
+                ' numbers, or it can't be recognized when plotting."))
   }
   if (method == "pearson") {
     unit <- "Pearson's r"

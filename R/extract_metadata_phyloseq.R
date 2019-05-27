@@ -8,10 +8,10 @@
 #' column.
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
-#'                 metadata and phylogenetic tree.
+#' metadata and phylogenetic tree.
 #' @param feature The column name of the feature you want to select. Default is
-#'                NA. If NA, will return the complete metadata, else will
-#'                return subject id and feature column that's given.
+#' NA. If NA, will return the complete metadata, else will return subject id
+#' and feature column that's given.
 #' @export
 #' @examples
 #' extract_metadata_phyloseq(demo_phyloseq_object)

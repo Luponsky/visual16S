@@ -4,10 +4,9 @@
 #'
 #' @param df a input data frame.
 #' @param row_sum Default is TRUE. If row_sum == TRUE, then will take every
-#'                value of a row and divide by the summary of this row, and
-#'                apply this to every row. If row_sum == FALSE, then will take
-#'                every value of a column and divide by the summary of this
-#'                column, and apply this to every column.
+#' value of a row and divide by the summary of this row, and apply this to
+#' every row. If row_sum == FALSE, then will take every value of a column and
+#' divide by the summary of this column, and apply this to every column.
 #' @export
 #' @examples
 #' convert_to_percentage(demo_dada2_result$seq_tab, row_sum = TRUE) %>% .[,1:5]
