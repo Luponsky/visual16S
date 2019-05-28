@@ -243,9 +243,9 @@ log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", p_value = 0.05)
     ## 4 OTU164       21.85581 5.133843e-05
     ## 5 OTU312       20.74025 1.658810e-04
     ## 8 OTU228       19.48117 4.637397e-04
-    ## 6 OTU331      -18.93621 1.699453e-04
+    ## 6 OTU331      -18.93621 1.699443e-04
     ## 7 OTU282      -20.06961 2.784319e-04
-    ## 3 OTU109      -22.19975 1.731358e-06
+    ## 3 OTU109      -22.19975 1.731359e-06
     ## 2 OTU152      -25.34458 1.312528e-08
 
 ![](README_files/figure-markdown_github/log2fc%201-1.png)
@@ -269,6 +269,6 @@ log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA,
     ## 10  OTU32      -13.83664 4.581684e-03
     ## 4  OTU355      -22.15072 1.691639e-05
     ## 3  OTU131      -23.65191 3.727929e-06
-    ## 2   OTU36      -27.48653 1.053818e-08
+    ## 2   OTU36      -27.48653 1.053817e-08
 
 ![](README_files/figure-markdown_github/log2fc%202-1.png)

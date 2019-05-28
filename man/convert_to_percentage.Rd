@@ -7,7 +7,7 @@
 convert_to_percentage(df, row_sum = TRUE)
 }
 \arguments{
-\item{df}{a input data frame.}
+\item{df}{A data frame.}
 
 \item{row_sum}{Default is TRUE. If row_sum == TRUE, then will take every
 value of a row and divide by the summary of this row, and apply this to

@@ -15,7 +15,8 @@ correlation.}
 \item{y}{Colname of cor_tab. x and y must have the same length.}
 
 \item{method}{A character string indicating which correlation coefficient is
-to be used. One of "pearson", "kendall", or "spearman", default is "pearson".}
+to be used. One of c("pearson", "kendall", or "spearman"), default is
+"pearson".}
 }
 \description{
 plot_correlation can plot correlation using a correlation table.

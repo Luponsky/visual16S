@@ -6,7 +6,7 @@
 \usage{
 plot_stacked_bar(phyloseq = NULL, level = NA, feature = NA,
   otu_table = NULL, metadata = NULL, order = NULL,
-  relative_abundance = FALSE, legend_position = "top")
+  relative_abundance = FALSE, legend_position = "top", colors = NULL)
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
@@ -34,6 +34,10 @@ is FALSE.}
 
 \item{legend_position}{Legend position. Default is "top". legend_position
 should be one of "none", "left", "right", "bottom", "top".}
+
+\item{colors}{A vector of colors. The number of colors should be larger than
+the number of level. Default is NULL, if NULL, plot_stacked_bar will use
+distinctive_colors for the plot.}
 }
 \description{
 This is a function for stacked barplot.

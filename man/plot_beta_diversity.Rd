@@ -18,12 +18,12 @@ metadata, e.g. "Phenotype".}
 metadata, which will show in different shape, e.g. "Gender". Default is NA.}
 
 \item{method}{The method to calculate beta diversity. Method should be one
-of "bray", "jaccard", "unifrac", "wunifrac". Default is "bray".
-PS: "unifrac" and "wunifrac" require a phylogenetic tree.}
+of c("bray", "jaccard", "unifrac", "wunifrac"). Default is "bray". PS:
+"unifrac" and "wunifrac" require a phylogenetic tree.}
 
-\item{colors}{A color vector for the plot, the number of colors need to
-match the number of feature. Default is NULL, if NULL, plot_alpha_diversity
-will use ggsci::scale_color_jco for the plot.}
+\item{colors}{A vector of colors. The number of colors should be larger than
+the number of feature. Default is NULL, if NULL, plot_beta_diversity will
+use ggsci::scale_color_jco for the plot.}
 }
 \description{
 This is a function for plotting beta diversity.

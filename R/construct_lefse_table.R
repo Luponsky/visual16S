@@ -6,14 +6,18 @@
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
 #' metadata and phylogenetic tree.
+#'
 #' @param feature The column name of the feature you want to select. In final
 #' table, feature will be the first row.
+#'
 #' @param level The coloumn name of the level wanted to select. Default is
 #' "all". If "all" then retain all taxonomy level, else retain the taxonomy
 #' from Kingdom to selected level, drop everything else. Level name should be
 #' one of c("all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus",
 #' "Species"). Taxonomy will be seperated by "|".
+#'
 #' @export
+#'
 #' @examples
 #' construct_lefse_table(demo_phyloseq_object, feature = "diagnosis",
 #'                       level = "all") %>% .[1:20,1:5]

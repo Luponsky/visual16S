@@ -4,24 +4,40 @@
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
 #' metadata and phylogenetic tree.
+#'
 #' @param feature The column name of the feature you want to select from
 #' metadata.
+#'
 #' @param feature2 The column name of another feature you want to select from
 #' metadata, e.g. "Gender", which will make the plots draw in different shapes.
 #' Default is NA.
+#'
 #' @param measures The measures to calculate alpha diversity. Default is NA. If
 #' NA, all available alpha diversity measures will be calculated and generate a
 #' table. If not NA, measures should be one of c("Observed", "Chao1", "ACE",
 #' "Shannon", "Simpson", "InvSimpson", "Fisher").
+#'
 #' @param p_test The p-value to test alpha diversity. p_test should be either
 #' "wilcox" or "kruskal". PS: "wilcox" can only work with two groups.
+#'
+#' @param colors A vector of colors. The number of colors should be larger than
+#' the number of feature. Default is NULL, if NULL, plot_alpha_diversity will
+#' use ggsci::scale_color_jco for the plot.
+#'
 #' @export
+#'
 #' @examples
 #' plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis",
 #'                      feature2 = NA, measures = "Chao1", p_test = "kruskal")
 
-plot_alpha_diversity <- function (phyloseq, feature, feature2 = NA,
-                                  measures = NA, p_test = "kruskal") {
+plot_alpha_diversity <- function(
+  phyloseq,
+  feature,
+  feature2 = NA,
+  measures = NA,
+  p_test = "kruskal",
+  colors = NULL
+  ) {
   set.seed(99)
   if (!is.na(measures)) {
     if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson",
@@ -69,13 +85,7 @@ plot_alpha_diversity <- function (phyloseq, feature, feature2 = NA,
                    label = paste0(p_test, " p-value = ", round(p_value, 3)),
                    size = 3) +
           theme_bw() +
-          theme(panel.grid = element_blank(),
-                axis.text.y = element_text(size = 12),
-                axis.title = element_text(size = 14),
-                axis.text.x = element_text(size = 12),
-                legend.text = element_text(size = 12),
-                strip.text.x = element_text(size = 14))
-        p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
+          theme(panel.grid = element_blank())
       } else {
         p <- ggplot(data = alpha_diversity$data,
                     # Use aes_string() to pass variables to ggplot
@@ -91,13 +101,17 @@ plot_alpha_diversity <- function (phyloseq, feature, feature2 = NA,
                    size = 3) +
           scale_shape_manual(values = c(0:6)) +
           theme_bw() +
-          theme(panel.grid = element_blank(),
-                axis.text.y = element_text(size = 12),
-                axis.title = element_text(size = 14),
-                axis.text.x = element_text(size = 12),
-                legend.text = element_text(size = 12),
-                strip.text.x = element_text(size = 14))
+          theme(panel.grid = element_blank())
+      }
+      if (is.null(colors)) {
         p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
+      } else if (
+        length(colors) < length(unique(alpha_diversity$data[[feature]]))
+        ) {
+        stop(paste0("The number of colors is smaller than the number of ",
+                    feature, "."))
+      } else {
+        p + scale_color_manual(values = colors)
       }
     }
   } else {

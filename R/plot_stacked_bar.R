@@ -28,6 +28,10 @@
 #' @param relative_abundance Turn plot into relative abundance or not. Default
 #' is FALSE.
 #'
+#' @param colors A vector of colors. The number of colors should be larger than
+#' the number of level. Default is NULL, if NULL, plot_stacked_bar will use
+#' distinctive_colors for the plot.
+#'
 #' @export
 #'
 #' @examples
@@ -41,7 +45,8 @@ plot_stacked_bar <- function (
   metadata = NULL,
   order = NULL,
   relative_abundance = FALSE,
-  legend_position = "top"
+  legend_position = "top",
+  colors = NULL
 ) {
   # Detact variables
   if (is.null(phyloseq)) {
@@ -164,8 +169,8 @@ plot_stacked_bar <- function (
   # Add levels to taxonomy levels
   plot_tab$level <- factor(plot_tab$level, levels = levels_level)
   # Bar plot
-  ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
-    scale_fill_manual(values = distinctive_colors) +
+  p <- ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
+    #scale_fill_manual(values = distinctive_colors) +
     geom_bar(mapping = aes(fill = level),
              #width = .1,
              stat = "identity") +
@@ -180,4 +185,14 @@ plot_stacked_bar <- function (
       legend.title = element_blank()
     ) +
     ylab(y_label)
+  if (is.null(colors)) {
+    p + scale_fill_manual(values = distinctive_colors)
+  } else if (
+    length(colors) < length(levels_level)
+  ) {
+    stop(paste0("The number of colors is smaller than the number of ",
+                level, "."))
+  } else {
+    p + scale_fill_manual(values = colors)
+  }
 }
