@@ -50,6 +50,10 @@ plot_sparsity <- function(otu_table, binwidth = NA) {
       xlab('Prevalence of each OTU') +
       ylab('Count') +
       theme_bw() +
-      theme(panel.grid = element_blank())
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 8),
+            axis.text.x = element_text(size = 8),
+            axis.title = element_text(size = 12),
+            legend.text = element_text(size = 8))
   }
 }

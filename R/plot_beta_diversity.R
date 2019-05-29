@@ -78,7 +78,11 @@ plot_beta_diversity <- function(
       ylab(paste("PC2:", round(100*as.numeric(beta$eig[2]/sum(beta$eig)), 2),
                  "%", sep = " ")) +
       theme_bw() +
-      theme(panel.grid = element_blank())
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 8),
+            axis.text.x = element_text(size = 8),
+            axis.title = element_text(size = 12),
+            legend.text = element_text(size = 8))
   } else {
     p <- ggplot(data = beta_plot,
                 # Use aes_string() to pass variables to ggplot
@@ -91,7 +95,11 @@ plot_beta_diversity <- function(
                  "%", sep = " ")) +
       scale_shape_manual(values = c(0:6)) +
       theme_bw() +
-      theme(panel.grid = element_blank())
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 8),
+            axis.text.x = element_text(size = 8),
+            axis.title = element_text(size = 12),
+            legend.text = element_text(size = 8))
   }
   if (is.null(colors)) {
     p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()

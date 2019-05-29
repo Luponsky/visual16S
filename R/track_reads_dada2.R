@@ -56,5 +56,9 @@ track_reads_dada2 <- function(
       geom_line(aes(group = SampleID)) +
       theme_bw() +
       theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 8),
+            axis.text.x = element_text(size = 8),
+            axis.title = element_text(size = 12),
+            legend.text = element_text(size = 8),
             legend.position = legend_position)
 }

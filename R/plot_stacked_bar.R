@@ -174,13 +174,17 @@ plot_stacked_bar <- function (
     geom_bar(mapping = aes(fill = level),
              #width = .1,
              stat = "identity") +
-    theme_minimal() +
+    theme_bw() +
     theme(
       #panel.grid = element_blank(), # Remove grid line under the plot
-      panel.border = element_blank(), # Remove border
+      #panel.border = element_blank(), # Remove border
       axis.text.x = element_text(angle = 90,
                                  # 'color' can only work with factor
-                                 color = levels_feature),
+                                 color = levels_feature,
+                                 size = 8),
+      axis.text.y = element_text(size = 8),
+      axis.title = element_text(size = 12),
+      legend.text = element_text(size = 8),
       legend.position = legend_position,
       legend.title = element_blank()
     ) +

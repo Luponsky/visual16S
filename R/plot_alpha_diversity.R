@@ -85,7 +85,11 @@ plot_alpha_diversity <- function(
                    label = paste0(p_test, " p-value = ", round(p_value, 3)),
                    size = 3) +
           theme_bw() +
-          theme(panel.grid = element_blank())
+          theme(panel.grid = element_blank(),
+                axis.text.y = element_text(size = 8),
+                axis.text.x = element_text(size = 8),
+                axis.title = element_text(size = 12),
+                legend.text = element_text(size = 8))
       } else {
         p <- ggplot(data = alpha_diversity$data,
                     # Use aes_string() to pass variables to ggplot
@@ -101,7 +105,11 @@ plot_alpha_diversity <- function(
                    size = 3) +
           scale_shape_manual(values = c(0:6)) +
           theme_bw() +
-          theme(panel.grid = element_blank())
+          theme(panel.grid = element_blank(),
+                axis.text.y = element_text(size = 8),
+                axis.text.x = element_text(size = 8),
+                axis.title = element_text(size = 12),
+                legend.text = element_text(size = 8))
       }
       if (is.null(colors)) {
         p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
