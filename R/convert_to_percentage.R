@@ -15,7 +15,7 @@
 #' convert_to_percentage(demo_dada2_result$seq_tab, row_sum = TRUE) %>% .[,1:5]
 
 convert_to_percentage <- function(df, row_sum = TRUE) {
-  # df must be data frame only contain numeric
+  # df must be data frame only contain numeric-----------------------------------------------------------
   if (row_sum) {
     # 将df中每一行求和，然后用每一行中的每一个数字除以行和
     df <- sweep(df, 1, rowSums(df), '/')
