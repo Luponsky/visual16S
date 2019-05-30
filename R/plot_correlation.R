@@ -30,38 +30,30 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
   # Calculate correlation
   cor_res <- cor.test(cor_tab[[x]], cor_tab[[y]], method = method)
   if (cor_res$p.value < 2.2e-16) {
-    ggplot(data = cor_tab, aes_string(x = x, y = y)) +
-      geom_point() +
-      geom_smooth(method = lm) +
-      annotate(geom = 'text',
-               x = max(cor_tab[[x]]) / 2,
-               y = max(cor_tab[[y]]) * 1.1,
-               label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
-      annotate(geom = 'text',
-               x = max(cor_tab[[x]]) / 2,
-               y = max(cor_tab[[y]]) * 1.05,
-               label = paste0('p-value < 2.2e-16')) +
-      labs(x = as.character(x), y = as.character(y)) +
-      theme_bw() +
-      theme(panel.grid = element_blank())
+    p_value <- "p-value < 2.2e-16"
   } else {
-    ggplot(data = cor_tab, aes_string(x = x, y = y)) +
-      geom_point() +
-      geom_smooth(method = lm) +
-      annotate(geom = 'text',
-               x = max(cor_tab[[x]]) / 2,
-               y = max(cor_tab[[y]]) * 1.1,
-               label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
-      annotate(geom = 'text',
-               x = max(cor_tab[[x]]) / 2,
-               y = max(cor_tab[[y]]) * 1.05,
-               label = paste0('p-value = ', round(cor_res$p.value, 3))) +
-      labs(x = as.character(x), y = as.character(y)) +
-      theme_bw() +
-      theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 8),
-            axis.text.x = element_text(size = 8),
-            axis.title = element_text(size = 12),
-            legend.text = element_text(size = 8))
+    if (cor_res$p.value < 0.001) {
+      p_value <- paste0("p-value = ", formatC(cor_res$p.value, format = "e", digits = 3))
+    } else {
+      p_value <- paste0('p-value = ', round(cor_res$p.value, 3))
+    }
   }
+  ggplot(data = cor_tab, aes_string(x = x, y = y)) +
+    geom_point() +
+    geom_smooth(method = lm) +
+    annotate(geom = 'text',
+             x = max(cor_tab[[x]]) / 2,
+             y = max(cor_tab[[y]]) * 1.1,
+             label = paste0(unit, " = ", round(cor_res$estimate, 2))) +
+    annotate(geom = 'text',
+             x = max(cor_tab[[x]]) / 2,
+             y = max(cor_tab[[y]]) * 1.05,
+             label = p_value) +
+    labs(x = as.character(x), y = as.character(y)) +
+    theme_bw() +
+    theme(panel.grid = element_blank(),
+          axis.text.y = element_text(size = 8),
+          axis.text.x = element_text(size = 8),
+          axis.title = element_text(size = 12),
+          legend.text = element_text(size = 8))
 }
