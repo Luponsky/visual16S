@@ -8,22 +8,19 @@ plot_beta_diversity(phyloseq, feature, feature2 = NA, method = "bray",
   colors = NULL)
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
-metadata and phylogenetic tree.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
+tree.}
 
-\item{feature}{The column name of the feature you want to select from
-metadata, e.g. "Phenotype".}
+\item{feature}{The column name of the feature you want to select from metadata, e.g. "Phenotype".}
 
-\item{feature2}{The column name of another feature you want to select from
-metadata, which will show in different shape, e.g. "Gender". Default is NA.}
+\item{feature2}{The column name of another feature you want to select from metadata, which will show
+in different shape, e.g. "Gender". Default is NA.}
 
-\item{method}{The method to calculate beta diversity. Method should be one
-of c("bray", "jaccard", "unifrac", "wunifrac"). Default is "bray". PS:
-"unifrac" and "wunifrac" require a phylogenetic tree.}
+\item{method}{The method to calculate beta diversity. Method should be one of c("bray", "jaccard",
+"unifrac", "wunifrac"). Default is "bray". PS: "unifrac" and "wunifrac" require a phylogenetic tree.}
 
-\item{colors}{A vector of colors. The number of colors should be larger than
-the number of feature. Default is NULL, if NULL, plot_beta_diversity will
-use ggsci::scale_color_jco for the plot.}
+\item{colors}{A vector of colors. The number of colors should be larger than the number of feature.
+Default is NULL, if NULL, plot_beta_diversity will use ggsci::scale_color_jco for the plot.}
 }
 \description{
 This is a function for plotting beta diversity.

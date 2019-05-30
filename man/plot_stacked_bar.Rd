@@ -9,35 +9,32 @@ plot_stacked_bar(phyloseq = NULL, level = NA, feature = NA,
   relative_abundance = FALSE, legend_position = "top", colors = NULL)
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
-metadata and phylogenetic tree. Set it to NULL if using an OTU table and
-metadata to draw the stacked barplot.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
+tree. Set it to NULL if using an OTU table and metadata to draw the stacked barplot.}
 
-\item{level}{A taxonomy level to plot stacked bar. Default is NA. Required
-when using phyloseq object.}
+\item{level}{A taxonomy level to plot stacked bar. Default is NA. Required when using phyloseq
+object.}
 
-\item{feature}{The feature that shows in x-axis text with different colors.
-Default is NA, x-axis will show in black.}
+\item{feature}{The feature that shows in x-axis text with different colors. Default is NA, x-axis
+will show in black.}
 
-\item{otu_table}{An OTU table. Taxa are colnames, SampleID are rownames
-(just like phyloseq). Set it to NULL if using phyloseq.}
+\item{otu_table}{An OTU table. Taxa are colnames, SampleID are rownames (just like phyloseq). Set it
+to NULL if using phyloseq.}
 
-\item{metadata}{A metadata for the OTU table. SampleID are rownames (just
-like phyloseq). Set it to NULL if using phyloseq.}
+\item{metadata}{A metadata for the OTU table. SampleID are rownames (just like phyloseq). Set it to
+NULL if using phyloseq.}
 
-\item{order}{A vector of arranged SampleID in wanted order. Default is NULL.
-If NULL, plot_stacked_bar will automatically arrange samples by the most
-abundance taxonomy in decreasing order.}
+\item{order}{A vector of arranged SampleID in wanted order. Default is NULL. If NULL,
+plot_stacked_bar will automatically arrange samples by the most abundance taxonomy in decreasing
+order.}
 
-\item{relative_abundance}{Turn plot into relative abundance or not. Default
-is FALSE.}
+\item{relative_abundance}{Turn plot into relative abundance or not. Default is FALSE.}
 
-\item{legend_position}{Legend position. Default is "top". legend_position
-should be one of "none", "left", "right", "bottom", "top".}
+\item{legend_position}{Legend position. Default is "top". legend_position should be one of "none",
+"left", "right", "bottom", "top".}
 
-\item{colors}{A vector of colors. The number of colors should be larger than
-the number of level. Default is NULL, if NULL, plot_stacked_bar will use
-distinctive_colors for the plot.}
+\item{colors}{A vector of colors. The number of colors should be larger than the number of level.
+Default is NULL, if NULL, plot_stacked_bar will use distinctive_colors for the plot.}
 }
 \description{
 This is a function for stacked barplot.

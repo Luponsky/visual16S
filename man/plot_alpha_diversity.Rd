@@ -8,32 +8,28 @@ plot_alpha_diversity(phyloseq, feature, feature2 = NA, measures = NA,
   p_test = "kruskal", colors = NULL)
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
-metadata and phylogenetic tree.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
+tree.}
 
-\item{feature}{The column name of the feature you want to select from
-metadata.}
+\item{feature}{The column name of the feature you want to select from metadata.}
 
-\item{feature2}{The column name of another feature you want to select from
-metadata, e.g. "Gender", which will make the plots draw in different shapes.
-Default is NA.}
+\item{feature2}{The column name of another feature you want to select from metadata, e.g. "Gender",
+which will make the plots draw in different shapes. Default is NA.}
 
-\item{measures}{The measures to calculate alpha diversity. Default is NA. If
-NA, all available alpha diversity measures will be calculated and generate a
-table. If not NA, measures should be one of c("Observed", "Chao1", "ACE",
-"Shannon", "Simpson", "InvSimpson", "Fisher").}
+\item{measures}{The measures to calculate alpha diversity. Default is NA. If NA, all available alpha
+diversity measures will be calculated and generate a table. If not NA, measures should be one of
+c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher").}
 
-\item{p_test}{The p-value to test alpha diversity. p_test should be either
-"wilcox" or "kruskal". PS: "wilcox" can only work with two groups.}
+\item{p_test}{The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".
+PS: "wilcox" can only work with two groups.}
 
-\item{colors}{A vector of colors. The number of colors should be larger than
-the number of feature. Default is NULL, if NULL, plot_alpha_diversity will
-use ggsci::scale_color_jco for the plot.}
+\item{colors}{A vector of colors. The number of colors should be larger than the number of feature.
+Default is NULL, if NULL, plot_alpha_diversity will use ggsci::scale_color_jco for the plot.}
 }
 \description{
 This is a function for plotting alpha diversity.
 }
 \examples{
-plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis",
-                     feature2 = NA, measures = "Chao1", p_test = "kruskal")
+plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis", feature2 = NA, measures = "Chao1",
+p_test = "kruskal")
 }

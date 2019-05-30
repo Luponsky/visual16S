@@ -2,23 +2,21 @@
 #'
 #' plot_correlation can plot correlation using a correlation table.
 #'
-#' @param cor_tab A data frame that contains at least two columns to calculate
-#' correlation.
+#' @param cor_tab A data frame that contains at least two columns to calculate correlation.
 #'
 #' @param x Colname of cor_tab. x and y must have the same length.
 #' @param y Colname of cor_tab. x and y must have the same length.
 #'
-#' @param method A character string indicating which correlation coefficient is
-#' to be used. One of c("pearson", "kendall", or "spearman"), default is
-#' "pearson".
+#' @param method A character string indicating which correlation coefficient is to be used. One of
+#' c("pearson", "kendall", or "spearman"), default is "pearson".
 #'
 #' @export
 
 plot_correlation <- function (cor_tab, x, y, method = "pearson") {
   # Notice: Colnames of the input table can only be letters or numbers.
   if (any(str_detect(c(x, y), '\\W'))) {
-    stop(paste0("Colnames of the input columns can only contain letters or",
-                " numbers, or it can't be recognized when plotting."))
+    stop(paste0("Colnames of the input columns can only contain letters or numbers, or it can't be ",
+                "recognized when plotting."))
   }
   if (method == "pearson") {
     unit <- "Pearson's r"

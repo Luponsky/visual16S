@@ -2,35 +2,32 @@
 #'
 #' This is a function for stacked barplot.
 #'
-#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
-#' metadata and phylogenetic tree. Set it to NULL if using an OTU table and
-#' metadata to draw the stacked barplot.
+#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
+#' tree. Set it to NULL if using an OTU table and metadata to draw the stacked barplot.
 #'
-#' @param feature The feature that shows in x-axis text with different colors.
-#' Default is NA, x-axis will show in black.
+#' @param feature The feature that shows in x-axis text with different colors. Default is NA, x-axis
+#' will show in black.
 #'
-#' @param level  A taxonomy level to plot stacked bar. Default is NA. Required
-#' when using phyloseq object.
+#' @param level  A taxonomy level to plot stacked bar. Default is NA. Required when using phyloseq
+#' object.
 #'
-#' @param legend_position Legend position. Default is "top". legend_position
-#' should be one of "none", "left", "right", "bottom", "top".
+#' @param legend_position Legend position. Default is "top". legend_position should be one of "none",
+#' "left", "right", "bottom", "top".
 #'
-#' @param order A vector of arranged SampleID in wanted order. Default is NULL.
-#' If NULL, plot_stacked_bar will automatically arrange samples by the most
-#' abundance taxonomy in decreasing order.
+#' @param order A vector of arranged SampleID in wanted order. Default is NULL. If NULL,
+#' plot_stacked_bar will automatically arrange samples by the most abundance taxonomy in decreasing
+#' order.
 #'
-#' @param otu_table An OTU table. Taxa are colnames, SampleID are rownames
-#' (just like phyloseq). Set it to NULL if using phyloseq.
+#' @param otu_table An OTU table. Taxa are colnames, SampleID are rownames (just like phyloseq). Set it
+#' to NULL if using phyloseq.
 #'
-#' @param metadata A metadata for the OTU table. SampleID are rownames (just
-#' like phyloseq). Set it to NULL if using phyloseq.
+#' @param metadata A metadata for the OTU table. SampleID are rownames (just like phyloseq). Set it to
+#' NULL if using phyloseq.
 #'
-#' @param relative_abundance Turn plot into relative abundance or not. Default
-#' is FALSE.
+#' @param relative_abundance Turn plot into relative abundance or not. Default is FALSE.
 #'
-#' @param colors A vector of colors. The number of colors should be larger than
-#' the number of level. Default is NULL, if NULL, plot_stacked_bar will use
-#' distinctive_colors for the plot.
+#' @param colors A vector of colors. The number of colors should be larger than the number of level.
+#' Default is NULL, if NULL, plot_stacked_bar will use distinctive_colors for the plot.
 #'
 #' @export
 #'
@@ -52,25 +49,22 @@ plot_stacked_bar <- function (
   if (is.null(phyloseq)) {
     if (is.null(otu_table)) {
       # If no phyloseq, require otu_table
-      stop(paste0("Argument 'phyloseq' and 'otu_table' are both missing, ",
-                  "please input a phyloseq object or an OTU table with ",
-                  "metadata."))
+      stop(paste0("Argument 'phyloseq' and 'otu_table' are both missing, please input a phyloseq ",
+                  "object or an OTU table with metadata."))
     } else {
       if (is.null(metadata)) {
         # If have otu_table, require metadata
-        stop(paste0("Argument 'metadata' is missing, please input a metadata",
-                    " for the OTU table."))
+        stop(paste0("Argument 'metadata' is missing, please input a metadata for the OTU table."))
       }
     }
   } else {
     if (!is.null(otu_table)) {
       # If have phyloseq, require no otu_table
-      stop(paste0("Argument 'phyloseq' and 'otu_table' are both detected, ",
-                  "please input one of them, not both."))
+      stop(paste0("Argument 'phyloseq' and 'otu_table' are both detected, please input one of them, ",
+                  "not both."))
     } else if (is.na(level)) {
       # If have phyloseq, require level
-      stop(paste0("Argument 'level' is missing. Plaese choose a taxonomy ",
-                  "level to plot stacked bar."))
+      stop(paste0("Argument 'level' is missing. Plaese choose a taxonomy level to plot stacked bar."))
     }
   }
   # First construct otu then convert to percentage
@@ -121,11 +115,9 @@ plot_stacked_bar <- function (
         # Join metadata
         left_join(sample_feature) %>%
         # Group by feature parameter
-        # group_by_() can pass variable to group_by()
-        group_by_(feature) %>%
+        group_by_(feature) %>% # group_by_() can pass variable to group_by()
         # Arrange rows by total abundance and by group
-        # Set .by_group = TRUE to arrange by group
-        arrange(desc(total), .by_group = TRUE) %>%
+        arrange(desc(total), .by_group = TRUE) %>% # Set .by_group = TRUE to arrange by group
         select(original_colnames)
       levels_SampleID <- plot_tab$SampleID
     } else {
@@ -153,8 +145,7 @@ plot_stacked_bar <- function (
       colnames(levels_feature) <- "Sort"
       levels_feature <- levels_feature %>%
         # Arrange feature order by 'order' variable
-        left_join(select(plot_tab, SampleID, !!feature),
-                  by = c("Sort" = "SampleID")) %>%
+        left_join(select(plot_tab, SampleID, !!feature), by = c("Sort" = "SampleID")) %>%
         # Drop levels
         .[[2]] %>% as.character() %>% as.factor()
     }
@@ -162,18 +153,13 @@ plot_stacked_bar <- function (
     levels_feature <- "black"
   }
   # Turn plot_table to a long table for plotting
-  plot_tab <- gather(plot_tab,
-                     levels_level,
-                     key = level,
-                     value = "abundance")
+  plot_tab <- gather(plot_tab, levels_level, key = level, value = "abundance")
   # Add levels to taxonomy levels
   plot_tab$level <- factor(plot_tab$level, levels = levels_level)
   # Bar plot
   p <- ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
     #scale_fill_manual(values = distinctive_colors) +
-    geom_bar(mapping = aes(fill = level),
-             #width = .1,
-             stat = "identity") +
+    geom_bar(mapping = aes(fill = level), stat = "identity") +
     theme_bw() +
     theme(
       #panel.grid = element_blank(), # Remove grid line under the plot
@@ -191,11 +177,8 @@ plot_stacked_bar <- function (
     ylab(y_label)
   if (is.null(colors)) {
     p + scale_fill_manual(values = distinctive_colors)
-  } else if (
-    length(colors) < length(levels_level)
-  ) {
-    stop(paste0("The number of colors is smaller than the number of ",
-                level, "."))
+  } else if (length(colors) < length(levels_level)) {
+    stop(paste0("The number of colors is smaller than the number of ", level, "."))
   } else {
     p + scale_fill_manual(values = colors)
   }

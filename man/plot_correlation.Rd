@@ -7,16 +7,14 @@
 plot_correlation(cor_tab, x, y, method = "pearson")
 }
 \arguments{
-\item{cor_tab}{A data frame that contains at least two columns to calculate
-correlation.}
+\item{cor_tab}{A data frame that contains at least two columns to calculate correlation.}
 
 \item{x}{Colname of cor_tab. x and y must have the same length.}
 
 \item{y}{Colname of cor_tab. x and y must have the same length.}
 
-\item{method}{A character string indicating which correlation coefficient is
-to be used. One of c("pearson", "kendall", or "spearman"), default is
-"pearson".}
+\item{method}{A character string indicating which correlation coefficient is to be used. One of
+c("pearson", "kendall", or "spearman"), default is "pearson".}
 }
 \description{
 plot_correlation can plot correlation using a correlation table.

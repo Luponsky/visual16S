@@ -7,24 +7,21 @@
 construct_lefse_table(phyloseq, feature, level = "all")
 }
 \arguments{
-\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample
-metadata and phylogenetic tree.}
+\item{phyloseq}{A phyloseq object contain otu table, taxonomy table, samplemetadata and phylogenetic
+tree.}
 
-\item{feature}{The column name of the feature you want to select. In final
-table, feature will be the first row.}
+\item{feature}{The column name of the feature you want to select. In final table, feature will be the
+first row.}
 
-\item{level}{The coloumn name of the level wanted to select. Default is
-"all". If "all" then retain all taxonomy level, else retain the taxonomy
-from Kingdom to selected level, drop everything else. Level name should be
-one of c("all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus",
+\item{level}{The coloumn name of the level wanted to select. Default is "all". If "all" then retain
+all taxonomy level, else retain the taxonomy from Kingdom to selected level, drop everything else.
+Level name should be one of c("all", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus",
 "Species"). Taxonomy will be seperated by "|".}
 }
 \description{
 construct_lefse_table can construct a LEfSe-format OTU table.
-See http://huttenhower.sph.harvard.edu/galaxy/ -> LEfSe ->
-Format Data for LEfSe for more details.
+See http://huttenhower.sph.harvard.edu/galaxy/ -> LEfSe -> Format Data for LEfSe for more details.
 }
 \examples{
-construct_lefse_table(demo_phyloseq_object, feature = "diagnosis",
-                      level = "all") \%>\% .[1:20,1:5]
+construct_lefse_table(demo_phyloseq_object, feature = "diagnosis", level = "all") \%>\% .[1:20,1:5]
 }

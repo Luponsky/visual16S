@@ -2,33 +2,29 @@
 #'
 #' This is a function for plotting alpha diversity.
 #'
-#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample
-#' metadata and phylogenetic tree.
+#' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
+#' tree.
 #'
-#' @param feature The column name of the feature you want to select from
-#' metadata.
+#' @param feature The column name of the feature you want to select from metadata.
 #'
-#' @param feature2 The column name of another feature you want to select from
-#' metadata, e.g. "Gender", which will make the plots draw in different shapes.
-#' Default is NA.
+#' @param feature2 The column name of another feature you want to select from metadata, e.g. "Gender",
+#' which will make the plots draw in different shapes. Default is NA.
 #'
-#' @param measures The measures to calculate alpha diversity. Default is NA. If
-#' NA, all available alpha diversity measures will be calculated and generate a
-#' table. If not NA, measures should be one of c("Observed", "Chao1", "ACE",
-#' "Shannon", "Simpson", "InvSimpson", "Fisher").
+#' @param measures The measures to calculate alpha diversity. Default is NA. If NA, all available alpha
+#' diversity measures will be calculated and generate a table. If not NA, measures should be one of
+#' c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher").
 #'
-#' @param p_test The p-value to test alpha diversity. p_test should be either
-#' "wilcox" or "kruskal". PS: "wilcox" can only work with two groups.
+#' @param p_test The p-value to test alpha diversity. p_test should be either "wilcox" or "kruskal".
+#' PS: "wilcox" can only work with two groups.
 #'
-#' @param colors A vector of colors. The number of colors should be larger than
-#' the number of feature. Default is NULL, if NULL, plot_alpha_diversity will
-#' use ggsci::scale_color_jco for the plot.
+#' @param colors A vector of colors. The number of colors should be larger than the number of feature.
+#' Default is NULL, if NULL, plot_alpha_diversity will use ggsci::scale_color_jco for the plot.
 #'
 #' @export
 #'
 #' @examples
-#' plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis",
-#'                      feature2 = NA, measures = "Chao1", p_test = "kruskal")
+#' plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis", feature2 = NA, measures = "Chao1",
+#' p_test = "kruskal")
 
 plot_alpha_diversity <- function(
   phyloseq,
@@ -40,14 +36,12 @@ plot_alpha_diversity <- function(
   ) {
   set.seed(99)
   if (!is.na(measures)) {
-    if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson",
-                         "InvSimpson", "Fisher")) {
-      stop(paste0('Argument "measures" should be one of c("Observed", "Chao1"',
-                  ', "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher").'))
+    if (!measures %in% c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")) {
+      stop(paste0('Argument "measures" should be one of c("Observed", "Chao1", "ACE", "Shannon", ',
+                  '"Simpson", "InvSimpson", "Fisher").'))
     } else {
       ## Step 1: Use plot_richness function to calculate alpha diversity
-      alpha_diversity <- plot_richness(phyloseq, x = feature,
-                                       measures = measures)
+      alpha_diversity <- plot_richness(phyloseq, x = feature, measures = measures)
       ## Step 2: Calculate p-value
       if (p_test == "wilcox") {
         # Prepare feature table for calculating Mann-Whitney U test
@@ -57,15 +51,15 @@ plot_alpha_diversity <- function(
         feature_1 <- feature_tab_4_MWtest[[feature]] %>% unique() %>% .[2]
         replace_feature <- c(as.character(feature_0), as.character(feature_1))
         # Revalue feature levels as 0 and 1
-        feature_tab_4_MWtest[[feature]] <-
-          plyr::mapvalues(feature_tab_4_MWtest[[feature]], to = c(0, 1),
-                          from = replace_feature)
-        p_value <- wilcox.test(alpha_diversity$data$value ~
-                                 feature_tab_4_MWtest[[feature]])$p.value
+        feature_tab_4_MWtest[[feature]] <- plyr::mapvalues(
+          feature_tab_4_MWtest[[feature]], to = c(0, 1), from = replace_feature
+          )
+        p_value <- wilcox.test(alpha_diversity$data$value ~ feature_tab_4_MWtest[[feature]]) %>%
+          .$p.value
       } else if (p_test == "kruskal") {
         # Kruskal test
-        p_value <- kruskal.test(alpha_diversity$data$value,
-                                factor(alpha_diversity$data[,feature]))$p.value
+        p_value <- kruskal.test(alpha_diversity$data$value, factor(alpha_diversity$data[,feature])) %>%
+          .$p.value
       } else {
         stop("The input p_test is not supported.")
       }
@@ -79,8 +73,7 @@ plot_alpha_diversity <- function(
           geom_jitter(size = 3) +
           ylab(paste0(measures, " Diversity")) +
           annotate("text",
-                   x = ((alpha_diversity$data[[feature]] %>% unique() %>%
-                           length() + 1)/2),
+                   x = ((alpha_diversity$data[[feature]] %>% unique() %>% length() + 1)/2),
                    y = (max(alpha_diversity$data$value) * 1.1),
                    label = paste0(p_test, " p-value = ", round(p_value, 3)),
                    size = 3) +
@@ -98,8 +91,7 @@ plot_alpha_diversity <- function(
           geom_jitter(size = 3, aes_string(shape = feature2)) +
           ylab(paste0(measures, " Diversity")) +
           annotate("text",
-                   x = ((alpha_diversity$data[[feature]] %>% unique() %>%
-                           length() + 1)/2),
+                   x = ((alpha_diversity$data[[feature]] %>% unique() %>% length() + 1)/2),
                    y = (max(alpha_diversity$data$value) * 1.1),
                    label = paste0(p_test, " p-value = ", round(p_value, 3)),
                    size = 3) +
@@ -113,11 +105,8 @@ plot_alpha_diversity <- function(
       }
       if (is.null(colors)) {
         p + ggsci::scale_color_jco() + ggsci::scale_fill_jco()
-      } else if (
-        length(colors) < length(unique(alpha_diversity$data[[feature]]))
-        ) {
-        stop(paste0("The number of colors is smaller than the number of ",
-                    feature, "."))
+      } else if (length(colors) < length(unique(alpha_diversity$data[[feature]]))) {
+        stop(paste0("The number of colors is smaller than the number of ", feature, "."))
       } else {
         p + scale_color_manual(values = colors)
       }

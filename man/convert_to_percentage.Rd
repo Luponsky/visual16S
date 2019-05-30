@@ -9,10 +9,9 @@ convert_to_percentage(df, row_sum = TRUE)
 \arguments{
 \item{df}{A data frame.}
 
-\item{row_sum}{Default is TRUE. If row_sum == TRUE, then will take every
-value of a row and divide by the summary of this row, and apply this to
-every row. If row_sum == FALSE, then will take every value of a column and
-divide by the summary of this column, and apply this to every column.}
+\item{row_sum}{Default is TRUE. If row_sum == TRUE, then will take every value of a row and divide by
+the summary of this row, and apply this to every row. If row_sum == FALSE, then will take every value
+of a column and divide by the summary of this column, and apply this to every column.}
 }
 \description{
 convert_to_percentage can convert a data frame to percentage.
