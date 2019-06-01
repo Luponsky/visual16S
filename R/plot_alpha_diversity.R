@@ -1,9 +1,10 @@
 #' plot_alpha_diversity
 #'
-#' This is a function for plotting alpha diversity.
+#' This is a function for plotting alpha diversity. Alpha diversity can only accept intergers (counts)
+#' OTU table!
 #'
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
-#' tree.
+#' tree. OTU table of the phyloseq can only contain intergers (counts) !
 #'
 #' @param feature The column name of the feature you want to select from metadata.
 #'
