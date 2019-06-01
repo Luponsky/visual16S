@@ -1,11 +1,11 @@
-visual16S package demo
+xviz package demo
 ================
 yeguanhua
 
 Install dependencies
 ====================
 
-Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
+Before install the xviz, there are some packages needed to be manually install from Bioconductor.
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -18,21 +18,21 @@ Install and load package
 
 Note:
 
-You need to run install from the parent working directory that contains the visual16S folder.
+You need to run install from the parent working directory that contains the xviz folder.
 
 ``` r
-devtools::install('visual16S')
+devtools::install('xviz')
 ```
 
-#### If you can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
+#### If you can't install package in R Console, try this: open xviz.Rproj first, then use RStudio → Build → Install and Restart.
 
 Load package and demo data.
 ===========================
 
 ``` r
-library(visual16S)
-demo_phyloseq_object <- visual16S::demo_phyloseq_object
-demo_dada2_result <- visual16S::demo_dada2_result
+library(xviz)
+demo_phyloseq_object <- xviz::demo_phyloseq_object
+demo_dada2_result <- xviz::demo_dada2_result
 ```
 
 Data status
@@ -133,24 +133,18 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
 
 ![](README_files/figure-markdown_github/Stacked%20barplot%204-1.png)
 
-### Plot in relative abundance
+### You can also plot in relative abundance by setting "relative\_abundance" to "TRUE"
 
 ``` r
+sample_order <- sample_names(demo_phyloseq_object)
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none", 
+                 feature = "diagnosis", 
+                 order = sample_order, 
                  relative_abundance = TRUE)
 ```
 
 ![](README_files/figure-markdown_github/Stacked%20barplot%205-1.png)
-
-### Show feature information in x-axis
-
-``` r
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
-                 relative_abundance = TRUE, 
-                 feature = "diagnosis")
-```
-
-![](README_files/figure-markdown_github/Stacked%20barplot%206-1.png)
 
 Alpha diversity
 ===============

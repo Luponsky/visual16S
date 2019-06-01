@@ -1,5 +1,5 @@
 ---
-title: "visual16S package demo"
+title: "xviz package demo"
 author: "yeguanhua"
 output: github_document
 ---
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
 
 # Install dependencies
 
-Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
+Before install the xviz, there are some packages needed to be manually install from Bioconductor.
 
 ```{r dependancy, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -24,20 +24,20 @@ BiocManager::install(c("dada2", "phyloseq", "DESeq2", "EnhancedVolcano"))
 
 Note: 
 
-You need to run install from the parent working directory that contains the visual16S folder.
+You need to run install from the parent working directory that contains the xviz folder.
 
 ```{r install, eval=FALSE}
-devtools::install('visual16S')
+devtools::install('xviz')
 ```
 
-#### If you can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
+#### If you can't install package in R Console, try this: open xviz.Rproj first, then use RStudio → Build → Install and Restart.
 
 # Load package and demo data.
 
 ```{r load}
-library(visual16S)
-demo_phyloseq_object <- visual16S::demo_phyloseq_object
-demo_dada2_result <- visual16S::demo_dada2_result
+library(xviz)
+demo_phyloseq_object <- xviz::demo_phyloseq_object
+demo_dada2_result <- xviz::demo_dada2_result
 ```
 
 # Data status
@@ -112,19 +112,15 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
                  order = sample_order)
 ```
 
-### Plot in relative abundance
+### You can also plot in relative abundance by setting "relative_abundance" to "TRUE"
 
 ```{r Stacked barplot 5, fig.height=10}
+sample_order <- sample_names(demo_phyloseq_object)
 plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+                 legend_position = "none", 
+                 feature = "diagnosis", 
+                 order = sample_order, 
                  relative_abundance = TRUE)
-```
-
-### Show feature information in x-axis
-
-```{r Stacked barplot 6, fig.height=10}
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
-                 relative_abundance = TRUE, 
-                 feature = "diagnosis")
 ```
 
 # Alpha diversity
