@@ -94,7 +94,7 @@ plot_stacked_bar <- function (
       rownames_to_column(var = "SampleID")
     y_label <- "Raw Count"
   }
-  # Prepare levels for taxonomy levels
+  # Prepare levels for taxonomy levels (order within each bar)
   levels_level <- colnames(plot_tab)[2:ncol(plot_tab)]
   # Extract metadata
   if (is.null(otu_table)) {
@@ -102,27 +102,27 @@ plot_stacked_bar <- function (
   } else {
     sample_feature <- metadata %>% rownames_to_column("SampleID")
   }
-  # Prepare levels for SampleID
+  # Prepare levels for SampleID (order of x.axis)
   if (is.null(order)) {
-    if (!is.na(feature)) {
-      # Save origin colnames
-      original_colnames <- colnames(plot_tab)
-      # Add a new column that is rowsum
-      plot_tab$total <- plot_tab %>%
-        column_to_rownames("SampleID") %>%
-        rowSums()
-      plot_tab <- plot_tab %>%
-        # Join metadata
-        left_join(sample_feature) %>%
-        # Group by feature parameter
-        group_by_(feature) %>% # group_by_() can pass variable to group_by()
-        # Arrange rows by total abundance and by group
-        arrange(desc(total), .by_group = TRUE) %>% # Set .by_group = TRUE to arrange by group
-        select(original_colnames)
+    #if (!is.na(feature)) {
+    #  # Save origin colnames
+    #  original_colnames <- colnames(plot_tab)
+    #  # Add a new column that is rowsum
+    #  plot_tab$total <- plot_tab %>%
+    #    column_to_rownames("SampleID") %>%
+    #    rowSums()
+    #  plot_tab <- plot_tab %>%
+    #    # Join metadata
+    #    left_join(sample_feature) %>%
+    #    # Group by feature parameter
+    #    group_by_(feature) %>% # group_by_() can pass variable to group_by()
+    #    # Arrange rows by total abundance and by group
+    #    arrange(desc(total), .by_group = TRUE) %>% # Set .by_group = TRUE to arrange by group
+    #    select(original_colnames)
+    #  levels_SampleID <- plot_tab$SampleID
+    #} else {
       levels_SampleID <- plot_tab$SampleID
-    } else {
-      levels_SampleID <- plot_tab$SampleID
-    }
+    #}
   } else if (length(order) != length(plot_tab$SampleID)) {
     stop("The length of order and SampleID does not match.")
   } else if (all(order %in% plot_tab$SampleID)) {
@@ -136,39 +136,35 @@ plot_stacked_bar <- function (
   plot_tab <- left_join(plot_tab, sample_feature)
   # Add levels to SampleID
   plot_tab$SampleID <- factor(plot_tab$SampleID, levels = levels_SampleID)
-  # Prepare levels for feature (colors in x-axis)
-  if (!is.na(feature)) {
-    if (is.null(order)) {
-      levels_feature <- plot_tab[[feature]] %>% as.factor()
-    } else {
-      levels_feature <- as.data.frame(order)
-      colnames(levels_feature) <- "Sort"
-      levels_feature <- levels_feature %>%
-        # Arrange feature order by 'order' variable
-        left_join(select(plot_tab, SampleID, !!feature), by = c("Sort" = "SampleID")) %>%
-        # Drop levels
-        .[[2]] %>% as.character() %>% as.factor()
-    }
-  } else {
-    levels_feature <- "black"
-  }
+  ## Prepare levels for feature (colors of x.axis)
+  ## Add "theme(axis.text.x = element_text(color = levels_feature))" to ggplot
+  ## "color" parameter can only work with factor
+  #if (!is.na(feature)) {
+  #  if (is.null(order)) {
+  #    levels_feature <- plot_tab[[feature]] %>% as.factor()
+  #  } else {
+  #    levels_feature <- as.data.frame(order)
+  #    colnames(levels_feature) <- "Sort"
+  #    levels_feature <- levels_feature %>%
+  #      # Arrange feature order by 'order' variable
+  #      left_join(select(plot_tab, SampleID, !!feature), by = c("Sort" = "SampleID")) %>%
+  #      # Drop levels
+  #      .[[2]] %>% as.character() %>% as.factor()
+  #  }
+  #} else {
+  #  levels_feature <- "black"
+  #}
   # Turn plot_table to a long table for plotting
   plot_tab <- gather(plot_tab, levels_level, key = level, value = "abundance")
   # Add levels to taxonomy levels
   plot_tab$level <- factor(plot_tab$level, levels = levels_level)
   # Bar plot
-  p <- ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
-    #scale_fill_manual(values = distinctive_colors) +
+  p1 <- ggplot(plot_tab, aes(x = SampleID, y = abundance)) +
     geom_bar(mapping = aes(fill = level), stat = "identity") +
     theme_bw() +
     theme(
-      #panel.grid = element_blank(), # Remove grid line under the plot
-      #panel.border = element_blank(), # Remove border
-      axis.text.x = element_text(angle = 90,
-                                 # 'color' can only work with factor
-                                 color = levels_feature,
-                                 size = 8),
-      axis.text.y = element_text(size = 8),
+      axis.text.x = element_text(size = 8, angle = 90),
+      axis.text.y = element_text(size = 10),
       axis.title = element_text(size = 12),
       legend.text = element_text(size = 8),
       legend.position = legend_position,
@@ -176,10 +172,48 @@ plot_stacked_bar <- function (
     ) +
     ylab(y_label)
   if (is.null(colors)) {
-    p + scale_fill_manual(values = distinctive_colors)
+    p1 <- p1 + scale_fill_manual(values = distinctive_colors)
   } else if (length(colors) < length(levels_level)) {
     stop(paste0("The number of colors is smaller than the number of ", level, "."))
   } else {
-    p + scale_fill_manual(values = colors)
+    p1 <- p1 + scale_fill_manual(values = colors)
+  }
+  if (is.na(feature)) {
+    p1
+  } else {
+    # If feature is given, make abundance plot (p1) & feature colorbar (p2) and align them
+    p1 <- p1 +
+      theme(
+        #panel.grid = element_blank(), # Remove grid line under the plot
+        #panel.border = element_blank(), # Remove border
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(size = 10),
+        axis.title = element_text(size = 12),
+        legend.text = element_text(size = 8),
+        legend.position = legend_position,
+        legend.title = element_blank()
+      )
+    x = "SampleID"
+    y = 1
+    fill = feature
+    p2 <- ggplot(data = plot_tab, aes_string(x = x, y = y, fill = fill)) +
+      geom_tile() +
+      theme_minimal() +
+      theme(
+        panel.grid = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(),
+        #axis.text.x = element_blank(),
+        axis.text.x = element_text(size = 8, angle = 90),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        legend.text = element_text(size = 10),
+        legend.position = "bottom"
+      ) +
+      scale_fill_manual(values = distinctive_colors[4:length(distinctive_colors)])
+    ggpubr::ggarrange(p1, p2, nrow = 2, heights = c(8, 1.5), align = "v")
   }
 }
