@@ -9,7 +9,7 @@ plot_alpha_diversity(phyloseq, feature, feature2 = NA, measures = NA,
 }
 \arguments{
 \item{phyloseq}{A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
-tree.}
+tree. OTU table of the phyloseq can only contain intergers (counts) !}
 
 \item{feature}{The column name of the feature you want to select from metadata.}
 
@@ -27,7 +27,8 @@ PS: "wilcox" can only work with two groups.}
 Default is NULL, if NULL, plot_alpha_diversity will use ggsci::scale_color_jco for the plot.}
 }
 \description{
-This is a function for plotting alpha diversity.
+This is a function for plotting alpha diversity. Alpha diversity can only accept intergers (counts)
+OTU table!
 }
 \examples{
 plot_alpha_diversity(demo_phyloseq_object, feature = "diagnosis", feature2 = NA, measures = "Chao1",
