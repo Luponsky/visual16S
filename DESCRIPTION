@@ -21,7 +21,8 @@ Depends:
     dplyr,
     tibble,
     stringr, 
-    vegan
+    vegan, 
+    ggpubr
 Import: 
     readxl,
     dada2,
@@ -37,7 +38,8 @@ Import:
     dplyr,
     tibble,
     stringr, 
-    vegan
+    vegan, 
+    ggpubr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
