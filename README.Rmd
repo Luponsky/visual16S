@@ -1,5 +1,5 @@
 ---
-title: "xviz package demo"
+title: "visual16S package demo"
 author: "yeguanhua"
 output: github_document
 ---
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
 
 # Install dependencies
 
-Before install the xviz, there are some packages needed to be manually install from Bioconductor.
+Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
 
 ```{r dependancy, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -24,20 +24,20 @@ BiocManager::install(c("dada2", "phyloseq", "DESeq2", "EnhancedVolcano"))
 
 Note: 
 
-You need to run install from the parent working directory that contains the xviz folder.
+You need to run install from the parent working directory that contains the visual16S folder.
 
 ```{r install, eval=FALSE}
-devtools::install('xviz')
+devtools::install('visual16S')
 ```
 
-#### If you can't install package in R Console, try this: open xviz.Rproj first, then use RStudio → Build → Install and Restart.
+#### If you can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
 
 # Load package and demo data.
 
 ```{r load}
-library(xviz)
-demo_phyloseq_object <- xviz::demo_phyloseq_object
-demo_dada2_result <- xviz::demo_dada2_result
+library(visual16S)
+demo_phyloseq_object <- visual16S::demo_phyloseq_object
+demo_dada2_result <- visual16S::demo_dada2_result
 ```
 
 # Data status

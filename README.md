@@ -1,11 +1,11 @@
-xviz package demo
+visual16S package demo
 ================
 yeguanhua
 
 Install dependencies
 ====================
 
-Before install the xviz, there are some packages needed to be manually install from Bioconductor.
+Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -18,21 +18,21 @@ Install and load package
 
 Note:
 
-You need to run install from the parent working directory that contains the xviz folder.
+You need to run install from the parent working directory that contains the visual16S folder.
 
 ``` r
-devtools::install('xviz')
+devtools::install('visual16S')
 ```
 
-#### If you can't install package in R Console, try this: open xviz.Rproj first, then use RStudio → Build → Install and Restart.
+#### If you can't install package in R Console, try this: open visual16S.Rproj first, then use RStudio → Build → Install and Restart.
 
 Load package and demo data.
 ===========================
 
 ``` r
-library(xviz)
-demo_phyloseq_object <- xviz::demo_phyloseq_object
-demo_dada2_result <- xviz::demo_dada2_result
+library(visual16S)
+demo_phyloseq_object <- visual16S::demo_phyloseq_object
+demo_dada2_result <- visual16S::demo_dada2_result
 ```
 
 Data status
