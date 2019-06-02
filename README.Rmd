@@ -5,8 +5,7 @@ output: github_document
 ---
 
 ```{r setup, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
-                      fig.width=10, fig.height=6)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width=10, fig.height=6)
 ```
 
 # Install dependencies
@@ -14,8 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
 Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
 
 ```{r dependancy, eval=FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager") #------------------
 BiocManager::install(c("dada2", "phyloseq", "DESeq2", "EnhancedVolcano"))
 ```
 
@@ -57,9 +55,7 @@ silva_nr_v132
 Metadata: 
 
 ```{r matadata, echo=FALSE}
-extract_metadata_phyloseq(demo_phyloseq_object) %>% 
-  arrange(diagnosis) %>% 
-  knitr::kable()
+extract_metadata_phyloseq(demo_phyloseq_object) %>% arrange(diagnosis) %>% knitr::kable()
 ```
 
 # DADA2 workflow reads track
@@ -73,8 +69,10 @@ You can plot reads track in either absolute abundance or relative abundance.
 If the sample size is too large to show on legend, set legend_position to "none".
 
 ```{r track reads, fig.height=8, fig.width=10}
-track_reads_dada2(demo_dada2_result$reads_track, single_end = FALSE, 
-                  relative_abundance = TRUE, legend_position = "top")
+track_reads_dada2(demo_dada2_result$reads_track, 
+                  single_end = FALSE, 
+                  relative_abundance = TRUE, 
+                  legend_position = "top")
 ```
 
 # Stacked barplot of phylogenetic composition
@@ -84,20 +82,23 @@ Use plot_stacked_bar function to plot the taxonomy level abundance in every samp
 ### Minimum usage
 
 ```{r Stacked barplot 1, fig.height=10}
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family")
+plot_stacked_bar(phyloseq = demo_phyloseq_object, 
+                 level = "Family")
 ```
 
 ### If legends are too many to show, set legend_position to "none"
 
 ```{r Stacked barplot 2, fig.height=10}
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+plot_stacked_bar(phyloseq = demo_phyloseq_object, 
+                 level = "Family", 
                  legend_position = "none")
 ```
 
 ### If you want to show feature information in x-axis, set "feature" parameter
 
 ```{r Stacked barplot 3, fig.height=10}
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+plot_stacked_bar(phyloseq = demo_phyloseq_object, 
+                 level = "Family", 
                  legend_position = "none", 
                  feature = "diagnosis")
 ```
@@ -106,7 +107,8 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
 
 ```{r Stacked barplot 4, fig.height=10}
 sample_order <- sample_names(demo_phyloseq_object)
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+plot_stacked_bar(phyloseq = demo_phyloseq_object, 
+                 level = "Family", 
                  legend_position = "none", 
                  feature = "diagnosis", 
                  order = sample_order)
@@ -116,7 +118,8 @@ plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family",
 
 ```{r Stacked barplot 5, fig.height=10}
 sample_order <- sample_names(demo_phyloseq_object)
-plot_stacked_bar(phyloseq = demo_phyloseq_object, level = "Family", 
+plot_stacked_bar(phyloseq = demo_phyloseq_object, 
+                 level = "Family", 
                  legend_position = "none", 
                  feature = "diagnosis", 
                  order = sample_order, 
@@ -141,8 +144,10 @@ Or you can change 'measures' argument to use different measurement.
 ### Chao1
 
 ```{r Chao1}
-plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", 
-                     measures = "Chao1", p_test = "kruskal")
+plot_alpha_diversity(phyloseq = demo_phyloseq_object, 
+                     feature = "diagnosis", 
+                     measures = "Chao1", 
+                     p_test = "kruskal")
 ```
 
 # Beta diversity
@@ -152,7 +157,8 @@ Use plot_beta_diversity to plot beta diversity. Change 'method' to draw differen
 ### Bray-Curtis
 
 ```{r Bray-Curtis}
-plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis", 
+plot_beta_diversity(phyloseq = demo_phyloseq_object, 
+                    feature = "diagnosis", 
                     method = "bray")
 ```
 
@@ -161,12 +167,17 @@ plot_beta_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis",
 Use log2fc function to show differential analysis result.
 
 ```{r log2fc 1}
-log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", p_value = 0.05)
+log2fc(phyloseq = demo_phyloseq_object, 
+       feature = "diagnosis", 
+       p_value = 0.05)
 ```
 
 Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.
 
 ```{r log2fc 2}
-log2fc(phyloseq = demo_phyloseq_object, feature = "diagnosis", level = NA, 
-       p_value = 0.05, reference = 'healthy', treatment = 'liver cancer')
+log2fc(phyloseq = demo_phyloseq_object, 
+       feature = "diagnosis", 
+       p_value = 0.05, 
+       reference = 'healthy', 
+       treatment = 'liver cancer')
 ```
