@@ -9,7 +9,7 @@ manually install from
 Bioconductor.
 
 ``` r
-if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager") #-----------------
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager") #----------------
 BiocManager::install(c("dada2", "phyloseq", "DESeq2", "EnhancedVolcano"))
 ```
 

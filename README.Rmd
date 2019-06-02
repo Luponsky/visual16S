@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width=1
 Before install the visual16S, there are some packages needed to be manually install from Bioconductor.
 
 ```{r dependancy, eval=FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager") #-----------------
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager") #----------------
 BiocManager::install(c("dada2", "phyloseq", "DESeq2", "EnhancedVolcano"))
 ```
 
