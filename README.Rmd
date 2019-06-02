@@ -133,8 +133,7 @@ Use plot_alpha_diversity to plot alpha diversity.
 ### All alpha diversity
 
 ```{r All alpha}
-plot_alpha_diversity(phyloseq = demo_phyloseq_object, 
-                     feature = "diagnosis") %>% 
+plot_alpha_diversity(phyloseq = demo_phyloseq_object, feature = "diagnosis") %>% 
   # Show result in a table in markdown
   knitr::kable()
 ```
@@ -180,4 +179,15 @@ log2fc(phyloseq = demo_phyloseq_object,
        p_value = 0.05, 
        reference = 'healthy', 
        treatment = 'liver cancer')
+```
+
+Choose a taxonomy level to calculate log2fc.
+
+```{r log2fc 3}
+log2fc(phyloseq = demo_phyloseq_object, 
+       feature = "diagnosis", 
+       p_value = 0.05, 
+       reference = 'healthy', 
+       treatment = 'liver cancer', 
+       level = "Genus")
 ```
