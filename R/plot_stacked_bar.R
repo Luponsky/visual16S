@@ -5,8 +5,7 @@
 #' @param phyloseq A phyloseq object contain otu table, taxonomy table, sample metadata and phylogenetic
 #' tree. Set it to NULL if using an OTU table and metadata to draw the stacked barplot.
 #'
-#' @param feature The feature that shows in x-axis text with different colors. Default is NA, x-axis
-#' will show in black.
+#' @param feature The feature that will shows as a colorbar under x axis. Default is NA.
 #'
 #' @param level  A taxonomy level to plot stacked bar. Default is NA. Required when using phyloseq
 #' object.
