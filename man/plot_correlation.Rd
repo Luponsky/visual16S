@@ -9,9 +9,10 @@ plot_correlation(cor_tab, x, y, method = "pearson")
 \arguments{
 \item{cor_tab}{A data frame that contains at least two columns to calculate correlation.}
 
-\item{x}{Colname of cor_tab. x and y must have the same length.}
+\item{x}{Colname of cor_tab. If x's length is more than 1, plot_correlation will calculate
+correlation respectively and facet the plot by x.}
 
-\item{y}{Colname of cor_tab. x and y must have the same length.}
+\item{y}{Colname of cor_tab.}
 
 \item{method}{A character string indicating which correlation coefficient is to be used. One of
 c("pearson", "kendall", or "spearman"), default is "pearson".}
