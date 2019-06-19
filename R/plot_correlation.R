@@ -14,10 +14,10 @@
 
 plot_correlation <- function (cor_tab, x, y, method = "pearson") {
   # Notice: Colnames of the input table can only be letters or numbers.
-  if (any(str_detect(c(x, y), '\\W'))) {
-    stop(paste0("Colnames of the input columns can only contain letters or numbers, or it can't be ",
-                "recognized when plotting."))
-  }
+  #if (any(str_detect(c(x, y), '\\W'))) {
+  #  stop(paste0("Colnames of the input columns can only contain letters or numbers, or it can't be ",
+  #              "recognized when plotting."))
+  #}
   if (method == "pearson") {
     unit <- "Pearson's r"
   } else if (method == "spearman") {
@@ -33,7 +33,7 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
     p_value <- "p-value < 2.2e-16"
   } else {
     if (cor_res$p.value < 0.001) {
-      p_value <- paste0("p-value = ", formatC(cor_res$p.value, format = "e", digits = 3))
+      p_value <- paste0("p-value = ", formatC(cor_res$p.value, format = "e", digits = 1))
     } else {
       p_value <- paste0('p-value = ', round(cor_res$p.value, 3))
     }
@@ -52,8 +52,8 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
     labs(x = as.character(x), y = as.character(y)) +
     theme_bw() +
     theme(panel.grid = element_blank(),
-          axis.text.y = element_text(size = 8),
-          axis.text.x = element_text(size = 8),
-          axis.title = element_text(size = 12),
-          legend.text = element_text(size = 8))
+          axis.text.y = element_text(size = 14),
+          axis.text.x = element_text(size = 14),
+          axis.title = element_text(size = 16),
+          legend.text = element_text(size = 12))
 }

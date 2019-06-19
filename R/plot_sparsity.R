@@ -39,10 +39,10 @@ plot_sparsity <- function(otu_table, binwidth = NA) {
       ylab('Count') +
       theme_bw() +
       theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 8),
-            axis.text.x = element_text(size = 8),
-            axis.title = element_text(size = 12),
-            legend.text = element_text(size = 8))
+            axis.text.y = element_text(size = 14),
+            axis.text.x = element_text(size = 14),
+            axis.title = element_text(size = 16),
+            legend.text = element_text(size = 12))
   } else {
     ggplot(otu_table, aes(prevalence)) +
       geom_histogram() +
@@ -50,9 +50,9 @@ plot_sparsity <- function(otu_table, binwidth = NA) {
       ylab('Count') +
       theme_bw() +
       theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 8),
-            axis.text.x = element_text(size = 8),
-            axis.title = element_text(size = 12),
-            legend.text = element_text(size = 8))
+            axis.text.y = element_text(size = 14),
+            axis.text.x = element_text(size = 14),
+            axis.title = element_text(size = 16),
+            legend.text = element_text(size = 12))
   }
 }

@@ -162,10 +162,10 @@ plot_stacked_bar <- function (
     geom_bar(mapping = aes(fill = level), stat = "identity") +
     theme_bw() +
     theme(
-      axis.text.x = element_text(size = 8, angle = 90),
-      axis.text.y = element_text(size = 10),
-      axis.title = element_text(size = 12),
-      legend.text = element_text(size = 8),
+      axis.text.x = element_text(size = 14, angle = 90),
+      axis.text.y = element_text(size = 14),
+      axis.title = element_text(size = 16),
+      legend.text = element_text(size = 12),
       legend.position = legend_position,
       legend.title = element_blank()
     ) +
@@ -188,9 +188,9 @@ plot_stacked_bar <- function (
         axis.title.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_text(size = 10),
-        axis.title = element_text(size = 12),
-        legend.text = element_text(size = 8),
+        axis.text.y = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 12),
         legend.position = legend_position,
         legend.title = element_blank()
       )
@@ -205,11 +205,11 @@ plot_stacked_bar <- function (
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank(),
         #axis.text.x = element_blank(),
-        axis.text.x = element_text(size = 8, angle = 90),
+        axis.text.x = element_text(size = 14, angle = 90),
         axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank(),
-        legend.text = element_text(size = 10),
+        legend.text = element_text(size = 12),
         legend.position = "bottom"
       ) +
       scale_fill_manual(values = distinctive_colors[4:length(distinctive_colors)])
