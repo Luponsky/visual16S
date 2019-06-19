@@ -15,7 +15,7 @@ tree. Set it to NULL if using an OTU table and metadata to draw the stacked barp
 \item{level}{A taxonomy level to plot stacked bar. Default is NA. Required when using phyloseq
 object.}
 
-\item{feature}{The feature that will shows as a colorbar under x axis. Default is NA.}
+\item{feature}{The feature that will show as a colorbar under x axis. Default is NA.}
 
 \item{otu_table}{An OTU table. Taxa are colnames, SampleID are rownames (just like phyloseq). Set it
 to NULL if using phyloseq.}
