@@ -68,65 +68,59 @@ You can plot reads track in either absolute abundance or relative abundance.
 
 If the sample size is too large to show on legend, set legend_position to "none".
 
-```{r track reads, fig.height=8, fig.width=10}
+```{r track reads}
 track_reads_dada2(demo_dada2_result$reads_track, 
                   single_end = FALSE, 
                   relative_abundance = TRUE, 
                   legend_position = "top")
 ```
 
-# Stacked barplot of phylogenetic composition
+# Plot sparsity - plot_sparsity()
+
+```{r sparsity}
+plot_sparsity(demo_dada2_result$seq_tab, binwidth = 10)
+```
+
+# Stacked barplot of phylogenetic composition - plot_stacked_bar()
 
 Use plot_stacked_bar function to plot the taxonomy level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
 ### Minimum usage
 
-```{r Stacked barplot 1, fig.height=10}
+```{r Stacked barplot 1, fig.height=12}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family")
+                 level = "Class")
 ```
 
-### If legends are too many to show, set legend_position to "none"
+### Plot in relative abundance
 
-```{r Stacked barplot 2, fig.height=10}
+```{r Stacked barplot 5, fig.height=12}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none")
+                 level = "Class", 
+                 relative_abundance = TRUE)
 ```
 
-### If you want to show feature information in x-axis, set "feature" parameter
+### Set "feature" parameter to show feature information
 
-```{r Stacked barplot 3, fig.height=10}
+```{r Stacked barplot 3, fig.height=12}
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none", 
+                 level = "Class", 
+                 relative_abundance = TRUE, 
                  feature = "diagnosis")
 ```
 
-### If you want the sample in specific order, pass ordered sample names to "order" parameter
+### Pass ordered sample names to "order" parameter to plot in specific order
 
-```{r Stacked barplot 4, fig.height=10}
-sample_order <- sample_names(demo_phyloseq_object)
+```{r Stacked barplot 4, fig.height=12}
+sample_order <- extract_metadata_phyloseq(demo_phyloseq_object) %>% arrange(diagnosis) %>% .$SampleID
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none", 
+                 level = "Class", 
+                 relative_abundance = TRUE, 
                  feature = "diagnosis", 
                  order = sample_order)
 ```
 
-### You can also plot in relative abundance by setting "relative_abundance" to "TRUE"
-
-```{r Stacked barplot 5, fig.height=10}
-sample_order <- sample_names(demo_phyloseq_object)
-plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none", 
-                 feature = "diagnosis", 
-                 order = sample_order, 
-                 relative_abundance = TRUE)
-```
-
-# Alpha diversity
+# Alpha diversity - plot_alpha_diversity()
 
 Use plot_alpha_diversity to plot alpha diversity. 
 
@@ -149,7 +143,7 @@ plot_alpha_diversity(phyloseq = demo_phyloseq_object,
                      p_test = "kruskal")
 ```
 
-# Beta diversity
+# Beta diversity - plot_beta_diversity()
 
 Use plot_beta_diversity to plot beta diversity. Change 'method' to draw different beta diversity plot. You can locate specific sample in beta diversity plot by the table printed to the screen.
 
@@ -161,9 +155,11 @@ plot_beta_diversity(phyloseq = demo_phyloseq_object,
                     method = "bray")
 ```
 
-# Log2 fold change
+# Log2 fold change - log2fc()
 
 Use log2fc function to show differential analysis result.
+
+### Minimum usage
 
 ```{r log2fc 1}
 log2fc(phyloseq = demo_phyloseq_object, 
@@ -171,23 +167,50 @@ log2fc(phyloseq = demo_phyloseq_object,
        p_value = 0.05)
 ```
 
-Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.
-
-```{r log2fc 2}
-log2fc(phyloseq = demo_phyloseq_object, 
-       feature = "diagnosis", 
-       p_value = 0.05, 
-       reference = 'healthy', 
-       treatment = 'liver cancer')
-```
-
-Choose a taxonomy level to calculate log2fc.
+### Choose a taxonomy level to calculate log2fc.
 
 ```{r log2fc 3}
 log2fc(phyloseq = demo_phyloseq_object, 
        feature = "diagnosis", 
        p_value = 0.05, 
-       reference = 'healthy', 
-       treatment = 'liver cancer', 
        level = "Genus")
 ```
+
+### Set "reference" and "treatment" parameters to change log2fc treatment vs reference. Both "reference" and "treatment" should be one of the levels in "feature".
+
+```{r log2fc 2}
+log2fc(phyloseq = demo_phyloseq_object, 
+       feature = "diagnosis", 
+       p_value = 0.05, 
+       level = "Genus", 
+       reference = 'healthy', 
+       treatment = 'liver cancer')
+```
+
+# Correlation - plot_correlation()
+
+```{r correlation table}
+# Construct correlation table
+cor_tab <- demo_dada2_result$seq_tab %>% t() %>% as.data.frame() %>% 
+  rownames_to_column("OTU") %>% 
+  mutate(Healthy = s17118657 + s17118661 + s17118667 + s17118714) %>% 
+  mutate(IntestinalCancer = s17118646 + s17118664 + s17118669 + s17118686) %>% 
+  mutate(LiverCancer = s17118647 + s17118684 + s17118715 + s17118730) %>% 
+  mutate(LungCancer = s17118650 + s17118680 + s17118691 + s17118703) %>% 
+  select(OTU, Healthy, IntestinalCancer, LiverCancer, LungCancer) %>% 
+  column_to_rownames("OTU")
+knitr::kable(cor_tab[1:10,])
+```
+
+### Minimum usage
+
+```{r correlation 1}
+plot_correlation(cor_tab, x = "IntestinalCancer", y = "Healthy")
+```
+
+### Multiple correlation in one plot
+
+```{r correlation 2}
+plot_correlation(cor_tab, x = c("IntestinalCancer", "LiverCancer", "LungCancer"), y = "Healthy")
+```
+

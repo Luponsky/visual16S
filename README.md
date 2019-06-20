@@ -90,8 +90,17 @@ track_reads_dada2(demo_dada2_result$reads_track,
 
 ![](README_files/figure-markdown_github/track%20reads-1.png)
 
-Stacked barplot of phylogenetic composition
-===========================================
+Plot sparsity - plot\_sparsity()
+================================
+
+``` r
+plot_sparsity(demo_dada2_result$seq_tab, binwidth = 10)
+```
+
+![](README_files/figure-markdown_github/sparsity-1.png)
+
+Stacked barplot of phylogenetic composition - plot\_stacked\_bar()
+==================================================================
 
 Use plot\_stacked\_bar function to plot the taxonomy level abundance in every sample. You can change the 'level' argument to plot abundance in different level, or change the 'feature' to choose different feature you want to show in x-axis.
 
@@ -99,61 +108,47 @@ Use plot\_stacked\_bar function to plot the taxonomy level abundance in every sa
 
 ``` r
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family")
+                 level = "Class")
 ```
 
 ![](README_files/figure-markdown_github/Stacked%20barplot%201-1.png)
 
-### If legends are too many to show, set legend\_position to "none"
+### Plot in relative abundance
 
 ``` r
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none")
+                 level = "Class", 
+                 relative_abundance = TRUE)
 ```
 
-![](README_files/figure-markdown_github/Stacked%20barplot%202-1.png)
+![](README_files/figure-markdown_github/Stacked%20barplot%205-1.png)
 
-### If you want to show feature information in x-axis, set "feature" parameter
+### Set "feature" parameter to show feature information
 
 ``` r
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none", 
+                 level = "Class", 
+                 relative_abundance = TRUE, 
                  feature = "diagnosis")
 ```
 
 ![](README_files/figure-markdown_github/Stacked%20barplot%203-1.png)
 
-### If you want the sample in specific order, pass ordered sample names to "order" parameter
+### Pass ordered sample names to "order" parameter to plot in specific order
 
 ``` r
-sample_order <- sample_names(demo_phyloseq_object)
+sample_order <- extract_metadata_phyloseq(demo_phyloseq_object) %>% arrange(diagnosis) %>% .$SampleID
 plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none", 
+                 level = "Class", 
+                 relative_abundance = TRUE, 
                  feature = "diagnosis", 
                  order = sample_order)
 ```
 
 ![](README_files/figure-markdown_github/Stacked%20barplot%204-1.png)
 
-### You can also plot in relative abundance by setting "relative\_abundance" to "TRUE"
-
-``` r
-sample_order <- sample_names(demo_phyloseq_object)
-plot_stacked_bar(phyloseq = demo_phyloseq_object, 
-                 level = "Family", 
-                 legend_position = "none", 
-                 feature = "diagnosis", 
-                 order = sample_order, 
-                 relative_abundance = TRUE)
-```
-
-![](README_files/figure-markdown_github/Stacked%20barplot%205-1.png)
-
-Alpha diversity
-===============
+Alpha diversity - plot\_alpha\_diversity()
+==========================================
 
 Use plot\_alpha\_diversity to plot alpha diversity.
 
@@ -197,8 +192,8 @@ plot_alpha_diversity(phyloseq = demo_phyloseq_object,
 
 ![](README_files/figure-markdown_github/Chao1-1.png)
 
-Beta diversity
-==============
+Beta diversity - plot\_beta\_diversity()
+========================================
 
 Use plot\_beta\_diversity to plot beta diversity. Change 'method' to draw different beta diversity plot. You can locate specific sample in beta diversity plot by the table printed to the screen.
 
@@ -230,10 +225,12 @@ plot_beta_diversity(phyloseq = demo_phyloseq_object,
 
 ![](README_files/figure-markdown_github/Bray-Curtis-1.png)
 
-Log2 fold change
-================
+Log2 fold change - log2fc()
+===========================
 
 Use log2fc function to show differential analysis result.
+
+### Minimum usage
 
 ``` r
 log2fc(phyloseq = demo_phyloseq_object, 
@@ -254,41 +251,31 @@ log2fc(phyloseq = demo_phyloseq_object,
 
 ![](README_files/figure-markdown_github/log2fc%201-1.png)
 
-Choose log2fc reference and treatment by 'reference' and 'treatment' parameters. Both should be one of the levels in 'feature'.
+### Choose a taxonomy level to calculate log2fc.
 
 ``` r
 log2fc(phyloseq = demo_phyloseq_object, 
        feature = "diagnosis", 
        p_value = 0.05, 
-       reference = 'healthy', 
-       treatment = 'liver cancer')
+       level = "Genus")
 ```
 
-    ## [1] "log2 fold change (MLE): diagnosis liver cancer vs healthy"
-    ##       OTU log2FoldChange         padj
-    ## 5  OTU228       22.02247 1.956392e-05
-    ## 6  OTU342       20.01652 1.949445e-04
-    ## 1  OTU154       19.98696 6.976726e-09
-    ## 7  OTU349       19.72481 2.352799e-04
-    ## 8  OTU312       19.59086 2.405934e-04
-    ## 9  OTU164       18.40405 8.190781e-04
-    ## 11 OTU138      -10.69069 1.397755e-02
-    ## 10  OTU32      -13.83664 4.581684e-03
-    ## 4  OTU355      -22.15072 1.691639e-05
-    ## 3  OTU131      -23.65191 3.727929e-06
-    ## 2   OTU36      -27.48653 1.053817e-08
+    ## [1] "log2 fold change (MLE): diagnosis lung.cancer vs healthy"
+    ##                     Genus log2FoldChange         padj
+    ## 1 Lachnospiraceae_UCG-003       9.587806 6.994975e-06
+    ## 2            Prevotella_9      -5.937157 1.247866e-04
 
-![](README_files/figure-markdown_github/log2fc%202-1.png)
+![](README_files/figure-markdown_github/log2fc%203-1.png)
 
-Choose a taxonomy level to calculate log2fc.
+### Set "reference" and "treatment" parameters to change log2fc treatment vs reference. Both "reference" and "treatment" should be one of the levels in "feature".
 
 ``` r
 log2fc(phyloseq = demo_phyloseq_object, 
        feature = "diagnosis", 
        p_value = 0.05, 
+       level = "Genus", 
        reference = 'healthy', 
-       treatment = 'liver cancer', 
-       level = "Genus")
+       treatment = 'liver cancer')
 ```
 
     ## [1] "log2 fold change (MLE): diagnosis liver cancer vs healthy"
@@ -298,4 +285,49 @@ log2fc(phyloseq = demo_phyloseq_object,
     ## 1               Alistipes       1.900839 0.01481186
     ## 4            Prevotella_9      -4.309028 0.02188510
 
-![](README_files/figure-markdown_github/log2fc%203-1.png)
+![](README_files/figure-markdown_github/log2fc%202-1.png)
+
+Correlation - plot\_correlation()
+=================================
+
+``` r
+# Construct correlation table
+cor_tab <- demo_dada2_result$seq_tab %>% t() %>% as.data.frame() %>% 
+  rownames_to_column("OTU") %>% 
+  mutate(Healthy = s17118657 + s17118661 + s17118667 + s17118714) %>% 
+  mutate(IntestinalCancer = s17118646 + s17118664 + s17118669 + s17118686) %>% 
+  mutate(LiverCancer = s17118647 + s17118684 + s17118715 + s17118730) %>% 
+  mutate(LungCancer = s17118650 + s17118680 + s17118691 + s17118703) %>% 
+  select(OTU, Healthy, IntestinalCancer, LiverCancer, LungCancer) %>% 
+  column_to_rownames("OTU")
+knitr::kable(cor_tab[1:10,])
+```
+
+|       |  Healthy|  IntestinalCancer|  LiverCancer|  LungCancer|
+|-------|--------:|-----------------:|------------:|-----------:|
+| OTU1  |     2208|              2500|         4848|       57706|
+| OTU2  |    28834|              6315|        21387|        7086|
+| OTU3  |    40520|              1274|         2504|           0|
+| OTU4  |     3649|              6534|         4784|       19393|
+| OTU5  |     6940|              1157|         1955|       21328|
+| OTU6  |     2163|             21543|         5482|        1346|
+| OTU7  |     5611|              8962|         6150|        7574|
+| OTU8  |     1768|             15421|         2522|        7851|
+| OTU9  |     8920|             14085|         1899|        1119|
+| OTU10 |     6002|              4026|         9287|        6433|
+
+### Minimum usage
+
+``` r
+plot_correlation(cor_tab, x = "IntestinalCancer", y = "Healthy")
+```
+
+![](README_files/figure-markdown_github/correlation%201-1.png)
+
+### Multiple correlation in one plot
+
+``` r
+plot_correlation(cor_tab, x = c("IntestinalCancer", "LiverCancer", "LungCancer"), y = "Healthy")
+```
+
+![](README_files/figure-markdown_github/correlation%202-1.png)
