@@ -84,8 +84,8 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
       xlab("") +
       theme_bw() +
       theme(panel.grid = element_blank(),
-            axis.text.y = element_text(size = 14),
-            axis.text.x = element_text(size = 14),
+            axis.text.y = element_text(size = 12),
+            axis.text.x = element_text(size = 12),
             axis.title = element_text(size = 16),
             legend.text = element_text(size = 12)) +
       geom_text(data = cor_res, mapping = aes(x = x, y = Inf, label = correlation),
