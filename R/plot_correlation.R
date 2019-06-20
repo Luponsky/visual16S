@@ -81,11 +81,17 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
       facet_wrap(vars(facet), scales = "free") +
       geom_point() +
       geom_smooth(method = lm) +
+      xlab("") +
+      theme_bw() +
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_text(size = 14),
+            axis.text.x = element_text(size = 14),
+            axis.title = element_text(size = 16),
+            legend.text = element_text(size = 12)) +
       geom_text(data = cor_res, mapping = aes(x = x, y = Inf, label = correlation),
                 vjust = 2) +
       geom_text(data = cor_res, mapping = aes(x = x, y = Inf, label = pvalue),
-                vjust = 4) +
-      xlab("")
+                vjust = 4)
   }
 
 }
