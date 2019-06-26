@@ -199,6 +199,8 @@ cor_tab <- demo_dada2_result$seq_tab %>% t() %>% as.data.frame() %>%
   mutate(LungCancer = s17118650 + s17118680 + s17118691 + s17118703) %>% 
   select(OTU, Healthy, IntestinalCancer, LiverCancer, LungCancer) %>% 
   column_to_rownames("OTU")
+# Normalization
+cor_tab <- (cor_tab + 1) %>% log10()
 knitr::kable(cor_tab[1:10,])
 ```
 
