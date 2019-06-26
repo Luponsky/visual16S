@@ -41,7 +41,7 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
         p_value <- paste0('p-value = ', round(cor_res$p.value, 3))
       }
     }
-    ggplot(data = cor_tab, aes_string(x = x, y = y)) +
+    g <- ggplot(data = cor_tab, aes_string(x = x, y = y)) +
       geom_point() +
       geom_smooth(method = lm) +
       annotate(geom = 'text',
@@ -59,6 +59,7 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
             axis.text.x = element_text(size = 14),
             axis.title = element_text(size = 16),
             legend.text = element_text(size = 12))
+    ggExtra::ggMarginal(g, type = "histogram", fill = "transparent")
   } else {
     cor_res <- data.frame(row.names = c("facet", "correlation", "pvalue", "x")) %>%
       t() %>% as.data.frame()
@@ -93,5 +94,4 @@ plot_correlation <- function (cor_tab, x, y, method = "pearson") {
       geom_text(data = cor_res, mapping = aes(x = x, y = Inf, label = pvalue),
                 vjust = 4)
   }
-
 }
