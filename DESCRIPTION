@@ -22,7 +22,8 @@ Depends:
     tibble,
     stringr, 
     vegan, 
-    ggpubr
+    ggpubr,
+    ggExtra
 Import: 
     readxl,
     dada2,
@@ -39,7 +40,8 @@ Import:
     tibble,
     stringr, 
     vegan, 
-    ggpubr
+    ggpubr,
+    ggExtra
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
