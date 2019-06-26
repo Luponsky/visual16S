@@ -190,6 +190,24 @@ plot_alpha_diversity(phyloseq = demo_phyloseq_object,
                      p_test = "kruskal")
 ```
 
+    ##      samples         diagnosis variable    value
+    ## 1  s17118657           healthy    Chao1 259.5000
+    ## 2  s17118661           healthy    Chao1 238.8125
+    ## 3  s17118667           healthy    Chao1 225.0000
+    ## 4  s17118714           healthy    Chao1 274.0000
+    ## 5  s17118646 intestinal cancer    Chao1 322.0000
+    ## 6  s17118664 intestinal cancer    Chao1 408.0000
+    ## 7  s17118669 intestinal cancer    Chao1 314.0000
+    ## 8  s17118686 intestinal cancer    Chao1 499.9091
+    ## 9  s17118647      liver cancer    Chao1 252.8750
+    ## 10 s17118684      liver cancer    Chao1 426.9091
+    ## 11 s17118715      liver cancer    Chao1 377.5000
+    ## 12 s17118730      liver cancer    Chao1 268.7500
+    ## 13 s17118650       lung cancer    Chao1 266.2727
+    ## 14 s17118680       lung cancer    Chao1 359.1111
+    ## 15 s17118691       lung cancer    Chao1 213.5000
+    ## 16 s17118703       lung cancer    Chao1 293.2000
+
 ![](README_files/figure-markdown_github/Chao1-1.png)
 
 Beta diversity - plot\_beta\_diversity()
@@ -206,22 +224,22 @@ plot_beta_diversity(phyloseq = demo_phyloseq_object,
 ```
 
     ##     SampleID         diagnosis          PC1          PC2
-    ## 1  s17118646 intestinal cancer  0.236062504 -0.027898721
-    ## 2  s17118647      liver cancer -0.026290448  0.190685061
-    ## 3  s17118650       lung cancer -0.136990056 -0.527612428
-    ## 4  s17118657           healthy -0.290927341  0.072252800
-    ## 5  s17118661           healthy -0.307596849 -0.036986534
+    ## 1  s17118657           healthy -0.290927341  0.072252800
+    ## 2  s17118661           healthy -0.307596849 -0.036986534
+    ## 3  s17118667           healthy -0.212996044  0.005072186
+    ## 4  s17118714           healthy  0.221843750  0.030950997
+    ## 5  s17118646 intestinal cancer  0.236062504 -0.027898721
     ## 6  s17118664 intestinal cancer -0.080723593  0.126565760
-    ## 7  s17118667           healthy -0.212996044  0.005072186
-    ## 8  s17118669 intestinal cancer  0.283441638 -0.026430612
-    ## 9  s17118680       lung cancer  0.004727498  0.113546285
+    ## 7  s17118669 intestinal cancer  0.283441638 -0.026430612
+    ## 8  s17118686 intestinal cancer -0.147153213  0.094026537
+    ## 9  s17118647      liver cancer -0.026290448  0.190685061
     ## 10 s17118684      liver cancer -0.134091098  0.129184659
-    ## 11 s17118686 intestinal cancer -0.147153213  0.094026537
-    ## 12 s17118691       lung cancer  0.236329177 -0.076007805
-    ## 13 s17118703       lung cancer  0.169754263  0.094608425
-    ## 14 s17118714           healthy  0.221843750  0.030950997
-    ## 15 s17118715      liver cancer  0.118559730  0.078255342
-    ## 16 s17118730      liver cancer  0.066050081 -0.240211951
+    ## 11 s17118715      liver cancer  0.118559730  0.078255342
+    ## 12 s17118730      liver cancer  0.066050081 -0.240211951
+    ## 13 s17118650       lung cancer -0.136990056 -0.527612428
+    ## 14 s17118680       lung cancer  0.004727498  0.113546285
+    ## 15 s17118691       lung cancer  0.236329177 -0.076007805
+    ## 16 s17118703       lung cancer  0.169754263  0.094608425
 
 ![](README_files/figure-markdown_github/Bray-Curtis-1.png)
 
