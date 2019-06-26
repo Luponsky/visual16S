@@ -49,9 +49,9 @@ plot_beta_diversity <- function(
   beta_plot <- left_join(PC, metadata)
   # Print beta-diversity table
   if (is.na(feature2)) {
-    select(beta_plot, SampleID, !!feature, PC1, PC2) %>% print()
+    select(beta_plot, SampleID, !!feature, PC1, PC2) %>% arrange_(feature) %>% print()
   } else {
-    select(beta_plot, SampleID, !!feature, !!feature2, PC1, PC2) %>% print()
+    select(beta_plot, SampleID, !!feature, !!feature2, PC1, PC2) %>% arrange_(feature) %>% print()
   }
   ## Step 3: Plot beta diversity
   # Make x-axis and y-axis names for aes_string

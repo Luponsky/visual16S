@@ -65,6 +65,9 @@ plot_alpha_diversity <- function(
         stop("The input p_test is not supported.")
       }
       ## Step 3: Plot alpha diversity
+      # Print alpha-diversity table
+      select(alpha_diversity$data, samples, !!feature, variable, value) %>%
+        arrange_(feature) %>% print()
       y <- "value"
       if (is.na(feature2)) {
         p <- ggplot(data = alpha_diversity$data,
