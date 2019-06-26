@@ -136,8 +136,9 @@ plot_stacked_bar <- function (
   # Add levels to SampleID
   plot_tab$SampleID <- factor(plot_tab$SampleID, levels = levels_SampleID)
   ## Prepare levels for feature (colors of x.axis)
-  ## Add "theme(axis.text.x = element_text(color = levels_feature))" to ggplot
-  ## "color" parameter can only work with factor
+  ## 要想X轴或Y轴显示颜色，必须添加一组颜色的vector，顺序和X轴或Y轴顺序一致，vector内容是不同的level
+  ## Add "theme(axis.text.x = element_text(color = levels_feature))" to ggplot.
+  ## "color" parameter can only work with factor.
   #if (!is.na(feature)) {
   #  if (is.null(order)) {
   #    levels_feature <- plot_tab[[feature]] %>% as.factor()
